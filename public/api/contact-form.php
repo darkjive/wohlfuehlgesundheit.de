@@ -17,7 +17,7 @@ loadEnv();
 
 // Validate required environment variables
 try {
-    validateEnv(['WEB3FORMS_API_KEY', 'ADMIN_EMAIL', 'ALLOWED_ORIGINS', 'CSRF_SECRET']);
+    validateEnv(['ADMIN_EMAIL', 'FROM_EMAIL', 'ALLOWED_ORIGINS', 'CSRF_SECRET']);
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
@@ -77,7 +77,7 @@ foreach ($requiredFields as $field) {
 // Validate and sanitize inputs
 $name = validateText($_POST['name'], 100);
 $email = validateEmail($_POST['email']);
-$subject = !empty($_POST['subject']) ? validateText($_POST['subject'], 200) : '';
+$subject = !empty($_POST['subject']) ? validateText($_POST['subject'], 200) : 'Neue Nachricht von der Website';
 $message = validateText($_POST['message'], 5000);
 
 if ($name === false || $email === false || $message === false) {
@@ -88,60 +88,50 @@ if ($name === false || $email === false || $message === false) {
     exit();
 }
 
-// Prepare data for Web3Forms
-$web3formsData = [
-    'access_key' => env('WEB3FORMS_API_KEY'),
-    'name' => $name,
-    'email' => $email,
-    'subject' => $subject ?: 'Neue Nachricht von der Website',
-    'message' => $message,
-    'from_name' => 'Wohlfuehlgesundheit Website',
-    'replyto' => $email,
-    'redirect' => 'https://xn--wohlfhlgesundheit-62b.de/danke'
+// Prepare email
+$adminEmail = env('ADMIN_EMAIL');
+$fromEmail = env('FROM_EMAIL');
+$fromName = env('FROM_NAME', 'Wohlfühlgesundheit');
+
+$emailSubject = 'Kontaktformular: ' . $subject;
+
+// HTML Email body
+$emailBody = "
+Neue Nachricht vom Kontaktformular
+===================================
+
+Von: {$name}
+E-Mail: {$email}
+Betreff: {$subject}
+
+Nachricht:
+{$message}
+
+---
+Gesendet: " . date('d.m.Y H:i:s') . "
+IP: " . $_SERVER['REMOTE_ADDR'] . "
+";
+
+// Email headers
+$headers = [
+    'From: ' . $fromName . ' <' . $fromEmail . '>',
+    'Reply-To: ' . $email,
+    'X-Mailer: PHP/' . phpversion(),
+    'Content-Type: text/plain; charset=UTF-8'
 ];
 
-// Send to Web3Forms API
-$ch = curl_init();
-curl_setopt_array($ch, [
-    CURLOPT_URL => 'https://api.web3forms.com/submit',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST => true,
-    CURLOPT_POSTFIELDS => http_build_query($web3formsData),
-    CURLOPT_HTTPHEADER => [
-        'Content-Type: application/x-www-form-urlencoded'
-    ],
-    CURLOPT_TIMEOUT => 30
-]);
+// Send email
+$mailSent = mail($adminEmail, $emailSubject, $emailBody, implode("\r\n", $headers));
 
-$response = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-if (curl_errno($ch)) {
-    $error = curl_error($ch);
-    curl_close($ch);
-    error_log('Web3Forms API Error: ' . $error);
-
-    echo json_encode([
-        'success' => false,
-        'message' => 'Verbindungsfehler. Bitte versuche es später erneut.'
-    ], JSON_UNESCAPED_UNICODE);
-    exit();
-}
-
-curl_close($ch);
-
-// Parse response
-$result = json_decode($response, true);
-
-if ($httpCode === 200 && isset($result['success']) && $result['success']) {
+if ($mailSent) {
     echo json_encode([
         'success' => true,
         'message' => 'Vielen Dank für deine Nachricht! Wir melden uns bald bei dir.'
     ], JSON_UNESCAPED_UNICODE);
 } else {
-    error_log('Web3Forms API Error: ' . $response);
+    error_log('Contact form mail() failed for: ' . $email);
     echo json_encode([
         'success' => false,
-        'message' => 'Fehler beim Senden. Bitte versuche es später erneut.'
+        'message' => 'Fehler beim Senden. Bitte versuche es später erneut oder kontaktiere uns direkt per E-Mail.'
     ], JSON_UNESCAPED_UNICODE);
 }
