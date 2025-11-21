@@ -13,8 +13,10 @@
  */
 
 // Load dependencies
+require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/env-loader.php';
 require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/phpmailer-helper.php';
 
 // Sicherheitscheck - nur von localhost oder mit secret parameter
 $allowedIPs = ['127.0.0.1', '::1'];
@@ -411,47 +413,45 @@ header('Content-Type: text/html; charset=utf-8');
     // ========================================================================
     ?>
     <div class="section">
-        <h2>8️⃣ E-Mail Konfiguration</h2>
+        <h2>8️⃣ E-Mail Konfiguration (PHPMailer SMTP)</h2>
         <?php
         if (env('ADMIN_EMAIL') && env('FROM_EMAIL')) {
             echo "<table>";
             echo "<tr><td>Admin E-Mail</td><td>" . htmlspecialchars(env('ADMIN_EMAIL')) . "</td></tr>";
             echo "<tr><td>From E-Mail</td><td>" . htmlspecialchars(env('FROM_EMAIL')) . "</td></tr>";
             echo "<tr><td>From Name</td><td>" . htmlspecialchars(env('FROM_NAME', 'nicht gesetzt')) . "</td></tr>";
+            echo "<tr><td>SMTP Host</td><td>" . htmlspecialchars(env('SMTP_HOST', 'nicht gesetzt')) . "</td></tr>";
+            echo "<tr><td>SMTP Port</td><td>" . htmlspecialchars(env('SMTP_PORT', 'nicht gesetzt')) . "</td></tr>";
+            echo "<tr><td>SMTP Encryption</td><td>" . htmlspecialchars(env('SMTP_ENCRYPTION', 'nicht gesetzt')) . "</td></tr>";
+            echo "<tr><td>SMTP Username</td><td>" . htmlspecialchars(env('SMTP_USERNAME', 'nicht gesetzt')) . "</td></tr>";
             echo "</table>";
 
             if (isset($_GET['sendtest']) && $_GET['sendtest'] === '1') {
-                echo "<p class='info'>Sende Test-E-Mail...</p>";
+                echo "<p class='info'>Sende Test-E-Mail via PHPMailer SMTP...</p>";
 
                 $to = env('ADMIN_EMAIL');
-                $subject = 'Test-E-Mail vom Debug-Script';
+                $subject = 'Test-E-Mail vom Debug-Script (PHPMailer)';
                 $message = "Dies ist eine Test-E-Mail vom Debug-Script.\n\n";
                 $message .= "Zeitstempel: " . date('Y-m-d H:i:s') . "\n";
                 $message .= "Server: " . $_SERVER['SERVER_NAME'] . "\n";
+                $message .= "Versand-Methode: PHPMailer mit SMTP\n";
+                $message .= "SMTP Host: " . env('SMTP_HOST') . "\n";
 
-                $fromEmail = env('FROM_EMAIL');
-                $headers = [
-                    'From: ' . env('FROM_NAME') . ' <' . $fromEmail . '>',
-                    'Reply-To: ' . $fromEmail,
-                    'X-Mailer: PHP/' . phpversion(),
-                    'MIME-Version: 1.0',
-                    'Content-Type: text/plain; charset=UTF-8'
-                ];
+                try {
+                    $result = sendTextEmail($to, $subject, $message);
 
-                // WICHTIG für IONOS: -f Parameter (envelope sender)
-                $additionalParameters = '-f' . $fromEmail;
-                $result = mail($to, $subject, $message, implode("\r\n", $headers), $additionalParameters);
-
-                if ($result) {
-                    echo "<p class='success'>✓ mail() Funktion gab TRUE zurück</p>";
-                    echo "<p class='warning'>⚠️ Das bedeutet NICHT, dass die E-Mail angekommen ist!</p>";
-                    echo "<p class='info'>Prüfe dein E-Mail-Postfach (auch Spam): {$to}</p>";
-                } else {
-                    echo "<p class='error'>❌ mail() Funktion gab FALSE zurück</p>";
-                    echo "<p class='warning'>⚠️ PHP Mail-Konfiguration überprüfen!</p>";
+                    if ($result) {
+                        echo "<p class='success'>✓ E-Mail erfolgreich via SMTP gesendet!</p>";
+                        echo "<p class='info'>Prüfe dein E-Mail-Postfach (auch Spam): {$to}</p>";
+                    } else {
+                        echo "<p class='error'>❌ E-Mail konnte nicht gesendet werden</p>";
+                        echo "<p class='warning'>⚠️ SMTP-Konfiguration überprüfen! (Benutzername, Passwort, Host, Port)</p>";
+                    }
+                } catch (Exception $e) {
+                    echo "<p class='error'>❌ PHPMailer Fehler: " . htmlspecialchars($e->getMessage()) . "</p>";
                 }
             } else {
-                echo "<p class='info'><a href='?secret={$secret}&sendtest=1' style='color: #00aaff;'>→ Klicke hier um Test-E-Mail zu senden</a></p>";
+                echo "<p class='info'><a href='?secret={$secret}&sendtest=1' style='color: #00aaff;'>→ Klicke hier um Test-E-Mail zu senden (PHPMailer SMTP)</a></p>";
             }
         } else {
             echo "<p class='error'>❌ E-Mail-Adressen nicht konfiguriert</p>";

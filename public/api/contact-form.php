@@ -9,15 +9,26 @@
  * @version 1.0
  */
 
+require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/env-loader.php';
 require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/phpmailer-helper.php';
 
 // Load environment variables (auto-detects path)
 loadEnv();
 
 // Validate required environment variables
 try {
-    validateEnv(['ADMIN_EMAIL', 'FROM_EMAIL', 'ALLOWED_ORIGINS', 'CSRF_SECRET']);
+    validateEnv([
+        'ADMIN_EMAIL',
+        'FROM_EMAIL',
+        'ALLOWED_ORIGINS',
+        'CSRF_SECRET',
+        'SMTP_HOST',
+        'SMTP_PORT',
+        'SMTP_USERNAME',
+        'SMTP_PASSWORD'
+    ]);
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
@@ -90,12 +101,9 @@ if ($name === false || $email === false || $message === false) {
 
 // Prepare email
 $adminEmail = env('ADMIN_EMAIL');
-$fromEmail = env('FROM_EMAIL');
-$fromName = env('FROM_NAME', 'Wohlfühlgesundheit');
-
 $emailSubject = 'Kontaktformular: ' . $subject;
 
-// HTML Email body
+// Email body
 $emailBody = "
 Neue Nachricht vom Kontaktformular
 ===================================
@@ -112,18 +120,8 @@ Gesendet: " . date('d.m.Y H:i:s') . "
 IP: " . $_SERVER['REMOTE_ADDR'] . "
 ";
 
-// Email headers
-$headers = [
-    'From: ' . $fromName . ' <' . $fromEmail . '>',
-    'Reply-To: ' . $email,
-    'X-Mailer: PHP/' . phpversion(),
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8'
-];
-
-// Send email with envelope sender (required for IONOS)
-$additionalParameters = '-f' . $fromEmail;
-$mailSent = mail($adminEmail, $emailSubject, $emailBody, implode("\r\n", $headers), $additionalParameters);
+// Send email via PHPMailer (IONOS SMTP)
+$mailSent = sendTextEmail($adminEmail, $emailSubject, $emailBody, $email);
 
 if ($mailSent) {
     echo json_encode([

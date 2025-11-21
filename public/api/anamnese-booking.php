@@ -12,8 +12,10 @@
 // LOAD DEPENDENCIES
 // ============================================================================
 
+require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/env-loader.php';
 require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/phpmailer-helper.php';
 
 // ============================================================================
 // LOAD ENVIRONMENT VARIABLES
@@ -38,7 +40,11 @@ try {
         'ADMIN_EMAIL',
         'FROM_EMAIL',
         'ALLOWED_ORIGINS',
-        'CSRF_SECRET'
+        'CSRF_SECRET',
+        'SMTP_HOST',
+        'SMTP_PORT',
+        'SMTP_USERNAME',
+        'SMTP_PASSWORD'
     ]);
 } catch (Exception $e) {
     error_log('Environment validation failed: ' . $e->getMessage());
@@ -533,18 +539,8 @@ function sendUserConfirmationEmail($formData, $meetingData) {
     </html>
     ";
 
-    // Email headers
-    $headers = [
-        'MIME-Version: 1.0',
-        'Content-type: text/html; charset=UTF-8',
-        'From: ' . $fromName . ' <' . $fromEmail . '>',
-        'Reply-To: ' . $adminEmail,
-        'X-Mailer: PHP/' . phpversion()
-    ];
-
-    // Send email with envelope sender (required for IONOS)
-    $additionalParameters = '-f' . $fromEmail;
-    $success = mail($to, $subject, $message, implode("\r\n", $headers), $additionalParameters);
+    // Send email via PHPMailer (IONOS SMTP)
+    $success = sendHtmlEmail($to, $subject, $message, null, $adminEmail);
 
     if (!$success) {
         error_log('Failed to send user confirmation email to: ' . $to);
@@ -674,18 +670,8 @@ Meeting-Link für Teilnehmer:
 Automatische Benachrichtigung vom Anamnese-System
     ";
 
-    // Email headers
-    $headers = [
-        'MIME-Version: 1.0',
-        'Content-type: text/plain; charset=UTF-8',
-        'From: ' . $fromName . ' <' . $fromEmail . '>',
-        'Reply-To: ' . $formData['email'],
-        'X-Mailer: PHP/' . phpversion()
-    ];
-
-    // Send email with envelope sender (required for IONOS)
-    $additionalParameters = '-f' . $fromEmail;
-    $success = mail($adminEmail, $subject, $message, implode("\r\n", $headers), $additionalParameters);
+    // Send email via PHPMailer (IONOS SMTP)
+    $success = sendTextEmail($adminEmail, $subject, $message, $formData['email']);
 
     if (!$success) {
         error_log('Failed to send admin notification email');
