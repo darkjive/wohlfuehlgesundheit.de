@@ -12,11 +12,15 @@
 // LOAD DEPENDENCIES
 // ============================================================================
 
-// Load Composer autoloader (try multiple paths)
+// Load Composer autoloader (try multiple paths for IONOS compatibility)
 $autoloadPaths = [
-    __DIR__ . '/../../vendor/autoload.php',  // Project root
-    __DIR__ . '/../vendor/autoload.php',     // public/vendor
-    __DIR__ . '/vendor/autoload.php',        // api/vendor
+    __DIR__ . '/../../vendor/autoload.php',              // /htdocs/public/api -> /htdocs/vendor
+    __DIR__ . '/../vendor/autoload.php',                 // /htdocs/api -> /htdocs/vendor
+    __DIR__ . '/vendor/autoload.php',                    // /htdocs/api/vendor
+    $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php',  // Document root
+    $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php', // Parent of document root
+    dirname(dirname(__DIR__)) . '/vendor/autoload.php',  // 2 levels up
+    dirname(__DIR__) . '/vendor/autoload.php',            // 1 level up
 ];
 
 $autoloadLoaded = false;
@@ -31,6 +35,8 @@ foreach ($autoloadPaths as $autoloadPath) {
 if (!$autoloadLoaded) {
     http_response_code(500);
     error_log('Composer autoload not found. Paths tried: ' . implode(', ', $autoloadPaths));
+    error_log('__DIR__ = ' . __DIR__);
+    error_log('DOCUMENT_ROOT = ' . ($_SERVER['DOCUMENT_ROOT'] ?? 'not set'));
     echo json_encode([
         'success' => false,
         'message' => 'Server-Konfigurationsfehler: Composer autoload nicht gefunden.'

@@ -12,14 +12,19 @@
  * WICHTIG: Nach dem Debugging LÖSCHEN oder umbenennen!
  */
 
-// Load Composer autoloader (try multiple paths)
+// Load Composer autoloader (try multiple paths for IONOS compatibility)
 $autoloadPaths = [
-    __DIR__ . '/../../vendor/autoload.php',  // Project root
-    __DIR__ . '/../vendor/autoload.php',     // public/vendor
-    __DIR__ . '/vendor/autoload.php',        // api/vendor
+    __DIR__ . '/../../vendor/autoload.php',              // /htdocs/public/api -> /htdocs/vendor
+    __DIR__ . '/../vendor/autoload.php',                 // /htdocs/api -> /htdocs/vendor
+    __DIR__ . '/vendor/autoload.php',                    // /htdocs/api/vendor
+    $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php',  // Document root
+    $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php', // Parent of document root
+    dirname(dirname(__DIR__)) . '/vendor/autoload.php',  // 2 levels up
+    dirname(__DIR__) . '/vendor/autoload.php',            // 1 level up
 ];
 
 $autoloadLoaded = false;
+$autoloadUsedPath = null;
 foreach ($autoloadPaths as $autoloadPath) {
     if (file_exists($autoloadPath)) {
         require_once $autoloadPath;
