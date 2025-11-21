@@ -19,8 +19,8 @@ require_once __DIR__ . '/security.php';
 // LOAD ENVIRONMENT VARIABLES
 // ============================================================================
 
-// Load .env file
-if (!loadEnv(__DIR__ . '/../.env')) {
+// Load .env file (auto-detects path)
+if (!loadEnv()) {
     http_response_code(500);
     echo json_encode([
         'success' => false,

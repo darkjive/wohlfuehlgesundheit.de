@@ -12,8 +12,8 @@
 require_once __DIR__ . '/env-loader.php';
 require_once __DIR__ . '/security.php';
 
-// Load environment variables
-loadEnv(__DIR__ . '/../.env');
+// Load environment variables (auto-detects path)
+loadEnv();
 
 // Validate required environment variables
 try {
