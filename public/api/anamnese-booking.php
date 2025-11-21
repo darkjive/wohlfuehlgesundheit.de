@@ -12,7 +12,32 @@
 // LOAD DEPENDENCIES
 // ============================================================================
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+// Load Composer autoloader (try multiple paths)
+$autoloadPaths = [
+    __DIR__ . '/../../vendor/autoload.php',  // Project root
+    __DIR__ . '/../vendor/autoload.php',     // public/vendor
+    __DIR__ . '/vendor/autoload.php',        // api/vendor
+];
+
+$autoloadLoaded = false;
+foreach ($autoloadPaths as $autoloadPath) {
+    if (file_exists($autoloadPath)) {
+        require_once $autoloadPath;
+        $autoloadLoaded = true;
+        break;
+    }
+}
+
+if (!$autoloadLoaded) {
+    http_response_code(500);
+    error_log('Composer autoload not found. Paths tried: ' . implode(', ', $autoloadPaths));
+    echo json_encode([
+        'success' => false,
+        'message' => 'Server-Konfigurationsfehler: Composer autoload nicht gefunden.'
+    ], JSON_UNESCAPED_UNICODE);
+    exit();
+}
+
 require_once __DIR__ . '/env-loader.php';
 require_once __DIR__ . '/security.php';
 require_once __DIR__ . '/phpmailer-helper.php';

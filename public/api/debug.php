@@ -12,11 +12,31 @@
  * WICHTIG: Nach dem Debugging LÖSCHEN oder umbenennen!
  */
 
-// Load dependencies
-require_once __DIR__ . '/../../vendor/autoload.php';
+// Load Composer autoloader (try multiple paths)
+$autoloadPaths = [
+    __DIR__ . '/../../vendor/autoload.php',  // Project root
+    __DIR__ . '/../vendor/autoload.php',     // public/vendor
+    __DIR__ . '/vendor/autoload.php',        // api/vendor
+];
+
+$autoloadLoaded = false;
+foreach ($autoloadPaths as $autoloadPath) {
+    if (file_exists($autoloadPath)) {
+        require_once $autoloadPath;
+        $autoloadLoaded = true;
+        $autoloadUsedPath = $autoloadPath;
+        break;
+    }
+}
+
+// Load other dependencies
 require_once __DIR__ . '/env-loader.php';
 require_once __DIR__ . '/security.php';
-require_once __DIR__ . '/phpmailer-helper.php';
+
+// Only load phpmailer-helper if autoload was successful
+if ($autoloadLoaded) {
+    require_once __DIR__ . '/phpmailer-helper.php';
+}
 
 // Sicherheitscheck - nur von localhost oder mit secret parameter
 $allowedIPs = ['127.0.0.1', '::1'];
@@ -83,11 +103,38 @@ header('Content-Type: text/html; charset=utf-8');
 
     <?php
     // ========================================================================
-    // 2. .ENV-DATEI SUCHEN
+    // 2. COMPOSER AUTOLOADER
     // ========================================================================
     ?>
     <div class="section">
-        <h2>2️⃣ .env-Datei Suche</h2>
+        <h2>2️⃣ Composer Autoloader (PHPMailer)</h2>
+        <?php
+        if ($autoloadLoaded) {
+            echo "<p class='success'>✓ Composer autoload erfolgreich geladen!</p>";
+            echo "<p class='info'>Pfad: " . htmlspecialchars($autoloadUsedPath) . "</p>";
+            echo "<p class='success'>✓ PHPMailer verfügbar</p>";
+        } else {
+            echo "<p class='error'>❌ Composer autoload NICHT gefunden!</p>";
+            echo "<p class='warning'>Versuchte Pfade:</p>";
+            echo "<ul>";
+            foreach ($autoloadPaths as $path) {
+                $exists = file_exists($path) ? '✓' : '✗';
+                echo "<li>{$exists} " . htmlspecialchars($path) . "</li>";
+            }
+            echo "</ul>";
+            echo "<p class='error'>⚠️ PHPMailer kann nicht verwendet werden!</p>";
+            echo "<p class='info'>Lösung: Stelle sicher, dass vendor/ Ordner auf dem Server existiert</p>";
+        }
+        ?>
+    </div>
+
+    <?php
+    // ========================================================================
+    // 3. .ENV-DATEI SUCHEN
+    // ========================================================================
+    ?>
+    <div class="section">
+        <h2>3️⃣ .env-Datei Suche</h2>
         <?php
         $envPaths = [
             __DIR__ . '/.env',              // /public/api/.env
