@@ -9,15 +9,57 @@
  * @version 1.0
  */
 
+// Load Composer autoloader (try multiple paths for IONOS compatibility)
+$autoloadPaths = [
+    __DIR__ . '/../../vendor/autoload.php',              // /htdocs/public/api -> /htdocs/vendor
+    __DIR__ . '/../vendor/autoload.php',                 // /htdocs/api -> /htdocs/vendor
+    __DIR__ . '/vendor/autoload.php',                    // /htdocs/api/vendor
+    $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php',  // Document root
+    $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php', // Parent of document root
+    dirname(dirname(__DIR__)) . '/vendor/autoload.php',  // 2 levels up
+    dirname(__DIR__) . '/vendor/autoload.php',            // 1 level up
+];
+
+$autoloadLoaded = false;
+foreach ($autoloadPaths as $autoloadPath) {
+    if (file_exists($autoloadPath)) {
+        require_once $autoloadPath;
+        $autoloadLoaded = true;
+        break;
+    }
+}
+
+if (!$autoloadLoaded) {
+    http_response_code(500);
+    error_log('Composer autoload not found. Paths tried: ' . implode(', ', $autoloadPaths));
+    error_log('__DIR__ = ' . __DIR__);
+    error_log('DOCUMENT_ROOT = ' . ($_SERVER['DOCUMENT_ROOT'] ?? 'not set'));
+    echo json_encode([
+        'success' => false,
+        'message' => 'Server-Konfigurationsfehler: Composer autoload nicht gefunden.'
+    ], JSON_UNESCAPED_UNICODE);
+    exit();
+}
+
 require_once __DIR__ . '/env-loader.php';
 require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/phpmailer-helper.php';
 
-// Load environment variables
-loadEnv(__DIR__ . '/../.env');
+// Load environment variables (auto-detects path)
+loadEnv();
 
 // Validate required environment variables
 try {
-    validateEnv(['WEB3FORMS_API_KEY', 'ADMIN_EMAIL', 'ALLOWED_ORIGINS', 'CSRF_SECRET']);
+    validateEnv([
+        'ADMIN_EMAIL',
+        'FROM_EMAIL',
+        'ALLOWED_ORIGINS',
+        'CSRF_SECRET',
+        'SMTP_HOST',
+        'SMTP_PORT',
+        'SMTP_USERNAME',
+        'SMTP_PASSWORD'
+    ]);
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
@@ -77,7 +119,7 @@ foreach ($requiredFields as $field) {
 // Validate and sanitize inputs
 $name = validateText($_POST['name'], 100);
 $email = validateEmail($_POST['email']);
-$subject = !empty($_POST['subject']) ? validateText($_POST['subject'], 200) : '';
+$subject = !empty($_POST['subject']) ? validateText($_POST['subject'], 200) : 'Neue Nachricht von der Website';
 $message = validateText($_POST['message'], 5000);
 
 if ($name === false || $email === false || $message === false) {
@@ -88,60 +130,39 @@ if ($name === false || $email === false || $message === false) {
     exit();
 }
 
-// Prepare data for Web3Forms
-$web3formsData = [
-    'access_key' => env('WEB3FORMS_API_KEY'),
-    'name' => $name,
-    'email' => $email,
-    'subject' => $subject ?: 'Neue Nachricht von der Website',
-    'message' => $message,
-    'from_name' => 'Wohlfuehlgesundheit Website',
-    'replyto' => $email,
-    'redirect' => 'https://wohlfuehlgesundheit.de/danke'
-];
+// Prepare email
+$adminEmail = env('ADMIN_EMAIL');
+$emailSubject = 'Kontaktformular: ' . $subject;
 
-// Send to Web3Forms API
-$ch = curl_init();
-curl_setopt_array($ch, [
-    CURLOPT_URL => 'https://api.web3forms.com/submit',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_POST => true,
-    CURLOPT_POSTFIELDS => http_build_query($web3formsData),
-    CURLOPT_HTTPHEADER => [
-        'Content-Type: application/x-www-form-urlencoded'
-    ],
-    CURLOPT_TIMEOUT => 30
-]);
+// Email body
+$emailBody = "
+Neue Nachricht vom Kontaktformular
+===================================
 
-$response = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+Von: {$name}
+E-Mail: {$email}
+Betreff: {$subject}
 
-if (curl_errno($ch)) {
-    $error = curl_error($ch);
-    curl_close($ch);
-    error_log('Web3Forms API Error: ' . $error);
+Nachricht:
+{$message}
 
-    echo json_encode([
-        'success' => false,
-        'message' => 'Verbindungsfehler. Bitte versuche es später erneut.'
-    ], JSON_UNESCAPED_UNICODE);
-    exit();
-}
+---
+Gesendet: " . date('d.m.Y H:i:s') . "
+IP: " . $_SERVER['REMOTE_ADDR'] . "
+";
 
-curl_close($ch);
+// Send email via PHPMailer (IONOS SMTP)
+$mailSent = sendTextEmail($adminEmail, $emailSubject, $emailBody, $email);
 
-// Parse response
-$result = json_decode($response, true);
-
-if ($httpCode === 200 && isset($result['success']) && $result['success']) {
+if ($mailSent) {
     echo json_encode([
         'success' => true,
         'message' => 'Vielen Dank für deine Nachricht! Wir melden uns bald bei dir.'
     ], JSON_UNESCAPED_UNICODE);
 } else {
-    error_log('Web3Forms API Error: ' . $response);
+    error_log('Contact form mail() failed for: ' . $email);
     echo json_encode([
         'success' => false,
-        'message' => 'Fehler beim Senden. Bitte versuche es später erneut.'
+        'message' => 'Fehler beim Senden. Bitte versuche es später erneut oder kontaktiere uns direkt per E-Mail.'
     ], JSON_UNESCAPED_UNICODE);
 }

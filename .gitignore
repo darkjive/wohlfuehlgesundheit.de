@@ -17,6 +17,8 @@ pnpm-debug.log*
 .env.production
 .env.local
 .env.*.local
+api/.env.example
+api/.env
 
 # macOS-specific files
 .DS_Store
@@ -36,3 +38,4 @@ public/_sec/.htpasswd
 
 # rate limiting data (file-based)
 public/_rate_limit/
+/vendor/

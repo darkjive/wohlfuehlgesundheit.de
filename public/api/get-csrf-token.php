@@ -11,8 +11,8 @@
 require_once __DIR__ . '/env-loader.php';
 require_once __DIR__ . '/security.php';
 
-// Load environment variables
-loadEnv(__DIR__ . '/../.env');
+// Load environment variables (auto-detects path)
+loadEnv();
 
 // Set JSON content type
 header('Content-Type: application/json; charset=utf-8');

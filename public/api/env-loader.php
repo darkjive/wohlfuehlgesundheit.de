@@ -11,11 +11,48 @@
 
 /**
  * Load environment variables from .env file
+ * Tries multiple paths automatically if no specific path is provided
+ *
+ * @param string|null $path Path to .env file (optional)
+ * @return bool Success status
+ */
+function loadEnv($path = null) {
+    // If specific path provided, use it
+    if ($path !== null) {
+        if (!file_exists($path)) {
+            error_log('.env file not found at: ' . $path);
+            return false;
+        }
+        return loadEnvFromFile($path);
+    }
+
+    // Try multiple common paths
+    $possiblePaths = [
+        __DIR__ . '/.env',              // /public/api/.env (same directory)
+        __DIR__ . '/../.env',           // /public/.env (one level up)
+        __DIR__ . '/../../.env',        // / (project root, two levels up)
+        $_SERVER['DOCUMENT_ROOT'] . '/.env',          // Document root
+        $_SERVER['DOCUMENT_ROOT'] . '/api/.env',      // Document root + /api/
+    ];
+
+    foreach ($possiblePaths as $tryPath) {
+        if (file_exists($tryPath)) {
+            error_log('Loading .env from: ' . $tryPath);
+            return loadEnvFromFile($tryPath);
+        }
+    }
+
+    error_log('.env file not found in any of the standard locations');
+    return false;
+}
+
+/**
+ * Actually load the .env file
  *
  * @param string $path Path to .env file
  * @return bool Success status
  */
-function loadEnv($path = __DIR__ . '/../.env') {
+function loadEnvFromFile($path) {
     // Check if .env file exists
     if (!file_exists($path)) {
         error_log('.env file not found at: ' . $path);
