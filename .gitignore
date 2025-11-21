@@ -38,3 +38,4 @@ public/_sec/.htpasswd
 
 # rate limiting data (file-based)
 public/_rate_limit/
+/vendor/
