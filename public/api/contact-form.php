@@ -97,7 +97,7 @@ $web3formsData = [
     'message' => $message,
     'from_name' => 'Wohlfuehlgesundheit Website',
     'replyto' => $email,
-    'redirect' => 'https://wohlfuehlgesundheit.de/danke'
+    'redirect' => 'https://xn--wohlfhlgesundheit-62b.de/danke'
 ];
 
 // Send to Web3Forms API

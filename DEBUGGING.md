@@ -132,10 +132,16 @@ ZOOM_CLIENT_SECRET=dein_client_secret
 
 ```env
 # Nur diese Domains dürfen die API aufrufen
-ALLOWED_ORIGINS=https://wohlfuehlgesundheit.de,https://www.wohlfuehlgesundheit.de
+# WICHTIG: Domain mit Umlaut (IDN) - beide Varianten erlauben!
+# UTF-8 (Browser-Anzeige): wohlfühlgesundheit.de
+# Punycode (technisch):    xn--wohlfhlgesundheit-62b.de
+ALLOWED_ORIGINS=https://wohlfühlgesundheit.de,https://xn--wohlfhlgesundheit-62b.de,https://www.wohlfühlgesundheit.de,https://www.xn--wohlfhlgesundheit-62b.de
 ```
 
-⚠️ **Wichtig:** Keine Leerzeichen nach dem Komma!
+⚠️ **Wichtig:**
+- Keine Leerzeichen nach dem Komma!
+- Beide Domain-Varianten (UTF-8 + Punycode) angeben für maximale Kompatibilität
+- Siehe IDN-DOMAIN.md für Details
 
 ### CSRF Secret generieren
 

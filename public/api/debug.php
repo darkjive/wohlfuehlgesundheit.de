@@ -391,8 +391,26 @@ header('Content-Type: text/html; charset=utf-8');
     <div class="section">
         <h2>8️⃣ CORS & Security</h2>
         <?php
+        $allowedOrigins = env('ALLOWED_ORIGINS', 'nicht gesetzt');
+        $hasUTF8 = strpos($allowedOrigins, 'wohlfühlgesundheit.de') !== false;
+        $hasPunycode = strpos($allowedOrigins, 'xn--wohlfhlgesundheit-62b.de') !== false;
+
         echo "<table>";
-        echo "<tr><td>ALLOWED_ORIGINS</td><td>" . htmlspecialchars(env('ALLOWED_ORIGINS', 'nicht gesetzt')) . "</td></tr>";
+        echo "<tr><td>ALLOWED_ORIGINS</td><td>" . htmlspecialchars($allowedOrigins) . "</td></tr>";
+
+        // IDN-Check
+        echo "<tr><td>IDN-Domain Check</td><td>";
+        if ($hasUTF8 && $hasPunycode) {
+            echo "<span class='success'>✓ Beide Varianten vorhanden (UTF-8 + Punycode)</span>";
+        } elseif ($hasUTF8 || $hasPunycode) {
+            echo "<span class='warning'>⚠️ Nur eine Variante vorhanden!</span><br>";
+            echo "<small>Empfehlung: Beide angeben für maximale Kompatibilität:<br>";
+            echo "wohlfühlgesundheit.de UND xn--wohlfhlgesundheit-62b.de</small>";
+        } else {
+            echo "<span class='info'>ℹ️ Keine IDN-Domain erkannt</span>";
+        }
+        echo "</td></tr>";
+
         echo "<tr><td>CSRF_SECRET</td><td>" . (env('CSRF_SECRET') ? '<span class="success">✓ Gesetzt</span>' : '<span class="error">✗ Nicht gesetzt</span>') . "</td></tr>";
         echo "<tr><td>Rate Limit Verzeichnis</td>";
 
@@ -407,6 +425,18 @@ header('Content-Type: text/html; charset=utf-8');
         }
         echo "</tr>";
         echo "</table>";
+
+        // IDN-Hinweis
+        if (!($hasUTF8 && $hasPunycode)) {
+            echo "<div style='background: #2a2a2a; padding: 10px; margin-top: 10px; border-left: 4px solid #ffaa00;'>";
+            echo "<p class='warning'><strong>💡 WICHTIG:</strong> Diese Domain nutzt Umlaute (IDN)!</p>";
+            echo "<p class='info'>Für optimale CORS-Kompatibilität beide Varianten in ALLOWED_ORIGINS eintragen:</p>";
+            echo "<pre style='background: #000; padding: 5px;'>";
+            echo "ALLOWED_ORIGINS=https://wohlfühlgesundheit.de,https://xn--wohlfhlgesundheit-62b.de";
+            echo "</pre>";
+            echo "<p class='info'>→ Siehe IDN-DOMAIN.md für Details</p>";
+            echo "</div>";
+        }
         ?>
     </div>
 
