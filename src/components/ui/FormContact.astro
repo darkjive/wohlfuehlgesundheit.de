@@ -1,0 +1,239 @@
+---
+import type { Form as Props } from '~/types';
+import Button from '~/components/ui/Button.astro';
+const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = Astro.props;
+---
+
+<!-- Success Message -->
+<div id="contact-success-message" class="mb-6 hidden rounded-lg bg-green-50 p-6 shadow-md">
+  <div class="flex items-start">
+    <svg class="mt-0.5 h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <div class="ml-3">
+      <h3 class="text-lg font-semibold text-green-800">Erfolgreich gesendet!</h3>
+      <p class="mt-2 text-green-700" id="contact-success-text"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Error Message -->
+<div id="contact-error-message" class="mb-6 hidden rounded-lg bg-red-50 p-6 shadow-md">
+  <div class="flex items-start">
+    <svg class="mt-0.5 h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <div class="ml-3">
+      <h3 class="text-lg font-semibold text-red-800">Fehler beim Senden</h3>
+      <p class="mt-2 text-red-700" id="contact-error-text"></p>
+    </div>
+  </div>
+</div>
+
+<form id="contact-form" method="POST">
+  <!-- Required: SPAM Protection -->
+  <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+  {
+    inputs &&
+      inputs.map(
+        ({ type = 'text', name, label = '', autocomplete = 'on', placeholder = '' }) =>
+          name && (
+            <div class="mb-6">
+              {label && (
+                <label for={name} class="mb-3 block text-base font-medium">
+                  {label}
+                </label>
+              )}
+              <input
+                type={type}
+                name={name}
+                id={name}
+                autocomplete={autocomplete}
+                placeholder={placeholder}
+                class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+                required={type === 'email' ? true : undefined}
+              />
+            </div>
+          )
+      )
+  }
+
+  {
+    textarea && (
+      <div>
+        <label for="textarea" class="mb-3 block text-base font-medium">
+          {textarea.label}
+        </label>
+        <textarea
+          id="textarea"
+          name={textarea.name ? textarea.name : 'message'}
+          rows={textarea.rows ? textarea.rows : 4}
+          placeholder={textarea.placeholder}
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+          required
+        />
+      </div>
+    )
+  }
+
+  {
+    disclaimer && (
+      <div class="mt-3 flex items-start">
+        <div class="mt-0.5 flex">
+          <input
+            id="disclaimer"
+            name="disclaimer"
+            type="checkbox"
+            class="mt-1 block cursor-pointer rounded-lg border border-gray-200 bg-white p-8 text-2xl dark:border-none dark:bg-slate-900"
+            required
+          />
+        </div>
+        <div class="ml-3">
+          <label for="disclaimer" class="text-md cursor-pointer select-none text-gray-600 dark:text-white">
+            {disclaimer.label}
+          </label>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    button && (
+      <div class="mt-10 grid">
+        <Button variant="primary" type="submit" id="contact-submit-button">
+          <span id="contact-button-text">{button}</span>
+          <span id="contact-button-spinner" class="hidden">
+            <svg class="inline h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Wird gesendet...
+          </span>
+        </Button>
+      </div>
+    )
+  }
+
+  {
+    description && (
+      <div class="mt-3 text-center">
+        <p class="text-base text-gray-600 dark:text-white">{description}</p>
+      </div>
+    )
+  }
+</form>
+
+<script>
+  // Contact Form Handler with CSRF Protection
+  const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+  const submitButton = document.getElementById('contact-submit-button') as HTMLButtonElement;
+  const buttonText = document.getElementById('contact-button-text') as HTMLSpanElement;
+  const buttonSpinner = document.getElementById('contact-button-spinner') as HTMLSpanElement;
+  const successMessage = document.getElementById('contact-success-message') as HTMLDivElement;
+  const errorMessage = document.getElementById('contact-error-message') as HTMLDivElement;
+  const successText = document.getElementById('contact-success-text') as HTMLParagraphElement;
+  const errorText = document.getElementById('contact-error-text') as HTMLParagraphElement;
+
+  // Load CSRF token
+  let csrfToken = '';
+
+  async function loadCSRFToken() {
+    try {
+      const response = await fetch('/api/get-csrf-token.php');
+      const data = await response.json();
+      if (data.success && data.token) {
+        csrfToken = data.token;
+      }
+    } catch (error) {
+      console.error('Error loading CSRF token:', error);
+    }
+  }
+
+  // Load token when page loads
+  loadCSRFToken();
+
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Hide previous messages
+    successMessage.classList.add('hidden');
+    errorMessage.classList.add('hidden');
+
+    // Disable button and show spinner
+    submitButton.disabled = true;
+    buttonText.classList.add('hidden');
+    buttonSpinner.classList.remove('hidden');
+
+    // Collect form data
+    const formData = new FormData(contactForm);
+
+    // Add CSRF token
+    if (csrfToken) {
+      formData.append('csrf_token', csrfToken);
+    } else {
+      await loadCSRFToken();
+      if (csrfToken) {
+        formData.append('csrf_token', csrfToken);
+      }
+    }
+
+    try {
+      const response = await fetch('/api/contact-form.php', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Show success message
+        successText.textContent = result.message || 'Vielen Dank für deine Nachricht!';
+        successMessage.classList.remove('hidden');
+
+        // Reset form
+        contactForm.reset();
+
+        // Reload CSRF token
+        loadCSRFToken();
+
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // Show error message
+        errorText.textContent = result.message || 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
+        errorMessage.classList.remove('hidden');
+
+        // Reload CSRF token
+        loadCSRFToken();
+
+        // Scroll to error message
+        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } catch (error) {
+      // Show error message
+      errorText.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
+      errorMessage.classList.remove('hidden');
+      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      console.error('Form submission error:', error);
+    } finally {
+      // Re-enable button and hide spinner
+      submitButton.disabled = false;
+      buttonText.classList.remove('hidden');
+      buttonSpinner.classList.add('hidden');
+    }
+  });
+</script>

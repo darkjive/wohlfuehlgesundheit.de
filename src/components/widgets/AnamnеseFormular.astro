@@ -1,0 +1,228 @@
+---
+// AnamnеseFormular.astro - Umfassender Anamnesebogen mit Zoom-Buchung
+// Komponente für Stefanie Leidel - Holistische Darmtherapie
+// Modular aufgebaut mit wiederverwendbaren Komponenten
+
+import Headline from '~/components/ui/Headline.astro';
+import PersonalData from './anamnese-form/PersonalData.astro';
+import PersonalInfo from './anamnese-form/PersonalInfo.astro';
+import HealthQuestions from './anamnese-form/HealthQuestions.astro';
+import MedicalHistory from './anamnese-form/MedicalHistory.astro';
+import NutritionLifestyle from './anamnese-form/NutritionLifestyle.astro';
+import Digestion from './anamnese-form/Digestion.astro';
+import Readiness from './anamnese-form/Readiness.astro';
+import Expectations from './anamnese-form/Expectations.astro';
+import ZoomBooking from './anamnese-form/ZoomBooking.astro';
+import Consent from './anamnese-form/Consent.astro';
+---
+
+<section class="dark:bg-page csm:py-20 bg-white py-12">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6">
+    <!-- Header -->
+    <Headline
+      title="Anamnesebogen für Holistische Darmtherapie"
+      subtitle="Fülle den Anamnesebogen sorgfältig aus, damit ich mir ein umfassendes Bild von Deiner gesundheitlichen Situation machen kann."
+      classes={{ container: 'mb-10' }}
+    />
+
+    <!-- Success Message -->
+    <div id="success-message" class="mb-6 hidden rounded-lg bg-green-50 p-6 shadow-md">
+      <div class="flex items-start">
+        <svg class="mt-0.5 h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div class="ml-3">
+          <h3 class="text-lg font-semibold text-green-800">Erfolgreich gesendet!</h3>
+          <p class="mt-2 text-green-700" id="success-text"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error-message" class="mb-6 hidden rounded-lg bg-red-50 p-6 shadow-md">
+      <div class="flex items-start">
+        <svg class="mt-0.5 h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div class="ml-3">
+          <h3 class="text-lg font-semibold text-red-800">Fehler beim Senden</h3>
+          <p class="mt-2 text-red-700" id="error-text"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="anamnese-form" class="space-y-8 rounded-2xl bg-white p-6 shadow-xl dark:bg-primary sm:p-10">
+      <!-- Persönliche Daten -->
+      <PersonalData />
+
+      <!-- Persönliche Informationen -->
+      <PersonalInfo />
+
+      <!-- Gesundheitsfragen -->
+      <HealthQuestions />
+
+      <!-- Medizinische Vorgeschichte -->
+      <MedicalHistory />
+
+      <!-- Ernährung & Lebensstil -->
+      <NutritionLifestyle />
+
+      <!-- Verdauung & Stuhlgang -->
+      <Digestion />
+
+      <!-- Bereitschaft -->
+      <Readiness />
+
+      <!-- Erwartungen und Herkunft -->
+      <Expectations />
+
+      <!-- Zoom-Terminbuchung -->
+      <ZoomBooking />
+
+      <!-- Einwilligungserklärung -->
+      <Consent />
+
+      <!-- Submit Button -->
+      <div class="pt-4">
+        <button type="submit" id="submit-button" class="btn-primary dark:btn-secondary w-full sm:mb-0">
+          <span id="button-text">Anamnesebogen absenden</span>
+          <span id="button-spinner" class="hidden">
+            <svg class="inline h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Wird gesendet...
+          </span>
+        </button>
+        <p class="mt-3 text-center text-base text-gray-500">
+          <span class="text-xl text-red-500">*</span> Pflichtfelder
+        </p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  // Set minimum date to tomorrow
+  const datumInput = document.getElementById('datum') as HTMLInputElement;
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const minDate = tomorrow.toISOString().split('T')[0];
+  datumInput.setAttribute('min', minDate);
+
+  // Form submission handler
+  const form = document.getElementById('anamnese-form') as HTMLFormElement;
+  const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+  const buttonText = document.getElementById('button-text') as HTMLSpanElement;
+  const buttonSpinner = document.getElementById('button-spinner') as HTMLSpanElement;
+  const successMessage = document.getElementById('success-message') as HTMLDivElement;
+  const errorMessage = document.getElementById('error-message') as HTMLDivElement;
+  const successText = document.getElementById('success-text') as HTMLParagraphElement;
+  const errorText = document.getElementById('error-text') as HTMLParagraphElement;
+
+  // Load CSRF token on page load
+  let csrfToken = '';
+
+  async function loadCSRFToken() {
+    try {
+      const response = await fetch('/api/get-csrf-token.php');
+      const data = await response.json();
+      if (data.success && data.token) {
+        csrfToken = data.token;
+      } else {
+        console.error('Failed to load CSRF token');
+      }
+    } catch (error) {
+      console.error('Error loading CSRF token:', error);
+    }
+  }
+
+  // Load token when page loads
+  loadCSRFToken();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Hide previous messages
+    successMessage.classList.add('hidden');
+    errorMessage.classList.add('hidden');
+
+    // Disable button and show spinner
+    submitButton.disabled = true;
+    buttonText.classList.add('hidden');
+    buttonSpinner.classList.remove('hidden');
+
+    // Collect form data
+    const formData = new FormData(form);
+
+    // Add CSRF token
+    if (csrfToken) {
+      formData.append('csrf_token', csrfToken);
+    } else {
+      // Try to reload token if not available
+      await loadCSRFToken();
+      if (csrfToken) {
+        formData.append('csrf_token', csrfToken);
+      }
+    }
+
+    try {
+      const response = await fetch('/api/anamnese-booking.php', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Show success message
+        successText.textContent = result.message || 'Vielen Dank! Dein Anamnesebogen wurde erfolgreich übermittelt.';
+        successMessage.classList.remove('hidden');
+
+        // Reset form
+        form.reset();
+
+        // Reload CSRF token for next submission
+        loadCSRFToken();
+
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // Show error message
+        errorText.textContent = result.message || 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
+        errorMessage.classList.remove('hidden');
+
+        // Reload CSRF token
+        loadCSRFToken();
+
+        // Scroll to error message
+        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } catch (error) {
+      // Show error message
+      errorText.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
+      errorMessage.classList.remove('hidden');
+      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      console.error('Form submission error:', error);
+    } finally {
+      // Re-enable button and hide spinner
+      submitButton.disabled = false;
+      buttonText.classList.remove('hidden');
+      buttonSpinner.classList.add('hidden');
+    }
+  });
+</script>

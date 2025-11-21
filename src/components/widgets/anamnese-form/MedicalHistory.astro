@@ -1,0 +1,212 @@
+---
+// MedicalHistory.astro - Vorerkrankungen & Medikamente
+// Abschnitt für Zahnsituation, Medikamente, Operationen und weitere Vorerkrankungen
+import CollapsibleSection from '~/components/ui/CollapsibleSection.astro';
+---
+
+<!-- Deine Zahnsituation -->
+<CollapsibleSection title="Deine Zahnsituation" isOptional={true}>
+  <div class="space-y-6">
+    <div>
+      <label for="zahnfleischprobleme" class="mb-3 block text-base font-medium"> Hast Du Zahnfleischprobleme? </label>
+      <select
+        id="zahnfleischprobleme"
+        name="zahnfleischprobleme"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      >
+        <option value="">Bitte wählen</option>
+        <option value="nein">Nein</option>
+        <option value="ja">Ja</option>
+      </select>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div>
+        <label for="amalgamfuellungen" class="mb-3 block text-base font-medium">
+          Wie viele Amalgamfüllungen hast Du?
+        </label>
+        <input
+          type="text"
+          id="amalgamfuellungen"
+          name="amalgamfuellungen"
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        />
+      </div>
+
+      <div>
+        <label for="amalgam_entfernt" class="mb-3 block text-base font-medium">
+          Wurden bereits Füllungen entfernt? Wenn ja, wie viele und wann?
+        </label>
+        <input
+          type="text"
+          id="amalgam_entfernt"
+          name="amalgam_entfernt"
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label for="ausleitung" class="mb-3 block text-base font-medium">
+        Wurde bei Dir mal eine Ausleitung durchgeführt? Wenn ja, wann und in welcher Form?
+      </label>
+      <textarea
+        id="ausleitung"
+        name="ausleitung"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="wurzelbehandelte_zaehne" class="mb-3 block text-base font-medium">
+        Hast Du wurzelbehandelte Zähne? Wenn ja, wie viele?
+      </label>
+      <input
+        type="text"
+        id="wurzelbehandelte_zaehne"
+        name="wurzelbehandelte_zaehne"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+  </div>
+</CollapsibleSection>
+
+<!-- Weitere Fragen zu Deinem gesundheitlichen Zustand -->
+<CollapsibleSection title="Weitere Fragen zu Deinem gesundheitlichen Zustand" isOptional={true}>
+  <div class="space-y-6">
+    <div>
+      <label for="stress_aengste" class="mb-3 block text-base font-medium">
+        Leidest Du unter Stress, Ängsten oder Depressionen? Wenn ja, seit wann?
+      </label>
+      <textarea
+        id="stress_aengste"
+        name="stress_aengste"
+        rows="3"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="pflegeprodukte" class="mb-3 block text-base font-medium">
+        Welche Gesichts- und Körperpflegeprodukte verwendest Du?
+      </label>
+      <textarea
+        id="pflegeprodukte"
+        name="pflegeprodukte"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="medikamente" class="mb-3 block text-base font-medium">
+        Nimmst Du derzeit Medikamente ein? Wenn ja, welche, wofür und seit wann?
+      </label>
+      <textarea
+        id="medikamente"
+        name="medikamente"
+        rows="3"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="hormone" class="mb-3 block text-base font-medium">
+        Nimmst Du derzeit Hormone ein? (z. B. Pille, Hormontinktur, Hormonpflaster)
+      </label>
+      <textarea
+        id="hormone"
+        name="hormone"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="aerztliche_behandlung" class="mb-3 block text-base font-medium">
+        Bist Du aktuell in ärztlicher Behandlung? Wenn ja, mit welcher Erkrankung?
+      </label>
+      <textarea
+        id="aerztliche_behandlung"
+        name="aerztliche_behandlung"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="naturheilkundliche_behandlung" class="mb-3 block text-base font-medium">
+        Warst Du schon einmal in naturheilkundlicher Behandlung? Wenn ja, mit welcher Erkrankung?
+      </label>
+      <textarea
+        id="naturheilkundliche_behandlung"
+        name="naturheilkundliche_behandlung"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="nahrungsergaenzung" class="mb-3 block text-base font-medium">
+        Nimmst Du Nahrungsergänzungsmittel ein? Wenn ja, welche?
+      </label>
+      <textarea
+        id="nahrungsergaenzung"
+        name="nahrungsergaenzung"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div>
+        <label for="rauchen" class="mb-3 block text-base font-medium">
+          Rauchst Du (Zigaretten, Zigarren, Pfeife)? Wenn ja, wie viel täglich?
+        </label>
+        <input
+          type="text"
+          id="rauchen"
+          name="rauchen"
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        />
+      </div>
+
+      <div>
+        <label for="alkohol" class="mb-3 block text-base font-medium">
+          Trinkst Du Alkohol? Wenn ja, wie oft und wie viel?
+        </label>
+        <input
+          type="text"
+          id="alkohol"
+          name="alkohol"
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label for="sport" class="mb-3 block text-base font-medium">
+        Treibst Du Sport? Wenn ja, welche Sportart und wie oft pro Woche?
+      </label>
+      <input
+        type="text"
+        id="sport"
+        name="sport"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="organe_entfernt" class="mb-3 block text-base font-medium">
+        Wurden Dir bereits Organe entfernt (z. B. Gallenblase, Blinddarm, Mandeln etc.)?
+      </label>
+      <textarea
+        id="organe_entfernt"
+        name="organe_entfernt"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+  </div>
+</CollapsibleSection>

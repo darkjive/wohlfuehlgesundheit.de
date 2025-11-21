@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-page {
+    background-color: var(--aw-color-bg-page);
+  }
+
+  .bg-dark {
+    background-color: var(--aw-color-bg-page-dark);
+  }
+
+  .bg-light {
+    background-color: var(--aw-color-bg-page);
+  }
+
+  .text-page {
+    color: var(--aw-color-text-page);
+  }
+
+  .text-muted {
+    color: var(--aw-color-text-muted);
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-full border bg-transparent px-6 py-3.5 text-center transition duration-200 ease-in focus:ring-2 focus:ring-offset-2 md:px-8;
+  }
+
+  .btn-primary {
+    @apply btn border-primary bg-primary font-semibold text-white hover:border-secondary hover:bg-secondary hover:text-[#2a700d] dark:border-[#2a700d] dark:bg-primary dark:hover:border-secondary dark:hover:bg-secondary;
+  }
+
+  .btn-secondary {
+    @apply btn border-secondary bg-secondary font-semibold text-[#2a700d] hover:border-primary hover:bg-primary hover:text-white dark:border-secondary dark:bg-secondary dark:hover:border-primary dark:hover:bg-primary;
+  }
+
+  .btn-tertiary {
+    @apply btn border-none text-muted shadow-none hover:text-gray-900 dark:text-gray-400 dark:hover:text-white;
+  }
+}
+
+#header.scroll > div:first-child {
+  @apply bg-page md:bg-white/90 md:backdrop-blur-md;
+  box-shadow: 0 0.375rem 1.5rem 0 rgb(140 152 164 / 13%);
+}
+
+.dark #header.scroll > div:first-child,
+#header.scroll.dark > div:first-child {
+  @apply bg-page border-b border-gray-500/20 md:bg-[#2a700dff];
+  box-shadow: none;
+}
+
+/* #header.scroll > div:last-child {
+  @apply py-3;
+} */
+
+#header.expanded nav {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 70px !important;
+  padding: 0 5px;
+}
+
+.dropdown:focus .dropdown-menu,
+.dropdown:focus-within .dropdown-menu,
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+[astro-icon].icon-light > * {
+  stroke-width: 0.5;
+}
+
+[astro-icon].icon-bold > * {
+  stroke-width: 2;
+}
+
+[data-aw-toggle-menu] path {
+  @apply transition;
+}
+
+[data-aw-toggle-menu].expanded g > path:first-child {
+  @apply translate-x-[-3px] translate-y-[15px] -rotate-45;
+}
+
+[data-aw-toggle-menu].expanded g > path:last-child {
+  @apply translate-x-[14px] translate-y-[-8px] rotate-45;
+}
+
+/* Anamnese Form - Dark Mode Support */
+#anamnese-form label {
+  @apply dark:text-gray-300;
+}
+
+#anamnese-form input,
+#anamnese-form select,
+#anamnese-form textarea {
+  @apply dark:bg-dark dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400;
+}
+
+#anamnese-form input:focus,
+#anamnese-form select:focus,
+#anamnese-form textarea:focus {
+  @apply dark:border-gray-100 dark:ring-gray-200;
+}
+
+/* Navigation */
+@media (max-width: 767px) {
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* To deprecated */
+
+.dd *:first-child {
+  margin-top: 0;
+}

@@ -1,0 +1,110 @@
+---
+// PersonalData.astro - Persönliche Daten Sektion
+---
+
+<!-- Deine Angaben -->
+<div class="border-b border-gray-200 pb-8 dark:border-gray-700">
+  <h3 class="mb-6 flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100">
+    <svg class="text-primary-600 mr-2 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+    </svg>
+    Deine Angaben
+  </h3>
+
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div>
+      <label for="vorname" class="mb-3 block text-base font-medium">
+        Vorname <span class="text-xl text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="vorname"
+        name="vorname"
+        required
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="nachname" class="mb-3 block text-base font-medium">
+        Nachname <span class="text-xl text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="nachname"
+        name="nachname"
+        required
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div class="sm:col-span-2">
+      <label for="adresse" class="mb-3 block text-base font-medium">
+        Adresse <span class="text-xl text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="adresse"
+        name="adresse"
+        required
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="plz" class="mb-3 block text-base font-medium">
+        PLZ <span class="text-xl text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="plz"
+        name="plz"
+        required
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="ort" class="mb-3 block text-base font-medium">
+        Ort <span class="text-xl text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="ort"
+        name="ort"
+        required
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="telefon" class="mb-3 block text-base font-medium">
+        Telefon <span class="text-xl text-red-500">*</span>
+      </label>
+      <input
+        type="tel"
+        id="telefon"
+        name="telefon"
+        required
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="email" class="mb-3 block text-base font-medium">
+        E-Mail-Adresse <span class="text-xl text-red-500">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+  </div>
+</div>

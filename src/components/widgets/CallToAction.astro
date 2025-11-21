@@ -1,0 +1,61 @@
+---
+import WidgetWrapper from '../ui/WidgetWrapper.astro';
+import type { CallToAction, Widget } from '~/types';
+import Headline from '~/components/ui/Headline.astro';
+import Button from '~/components/ui/Button.astro';
+
+interface Props extends Widget {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  callToAction?: CallToAction;
+  actions?: string | CallToAction[];
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline = await Astro.slots.render('tagline'),
+  actions = await Astro.slots.render('actions'),
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
+  <div
+    data-aos="fade-up"
+    data-aos-delay="150"
+    class="dark:bg-dark mx-auto max-w-3xl rounded-md bg-white p-6 text-center shadow-xl dark:border dark:border-slate-600"
+  >
+    <Headline
+      title={title}
+      subtitle={subtitle}
+      tagline={tagline}
+      classes={{
+        container: 'mb-0 md:mb-0',
+        title: 'text-3xl dark:text-white md:text-4xl text-black font-bold tracking-tighter mb-4 font-heading',
+        subtitle: 'text-xl dark:text-white text-muted text-black',
+      }}
+    />
+    {
+      actions && (
+        <div class="m-auto mt-6 flex max-w-xs flex-col flex-nowrap gap-4 sm:max-w-md sm:flex-row sm:justify-center">
+          {Array.isArray(actions) ? (
+            actions.map((action) => (
+              <div class="flex w-full sm:w-auto">
+                <Button {...(action || {})} class="w-full sm:mb-0" />
+              </div>
+            ))
+          ) : (
+            <Fragment set:html={actions} />
+          )}
+        </div>
+      )
+    }
+  </div>
+  <Fragment slot="bg" set:html={bg} />
+</WidgetWrapper>

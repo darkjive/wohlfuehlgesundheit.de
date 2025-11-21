@@ -1,0 +1,424 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Content from '~/components/ui/Content.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Quote from '~/components/widgets/Quote.astro';
+
+const metadata = {
+  title: 'Start',
+  // ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Mehr Erfahren',
+        href: '#features',
+        target: '',
+        icon: 'tabler:heart',
+      },
+      {
+        text: 'Kontakt',
+        href: '/kontakt',
+      },
+    ]}
+    image={{
+      src: 'https://plus.unsplash.com/premium_photo-1669243652395-595639c5cd34?q=80&w=892&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      alt: 'Darmgesundheit',
+    }}
+  >
+    <Fragment slot="title">
+      <span class="text-accent">Wohlfühl<span class="lg:hidden">-<br /></span>gesundheit</span>
+      <br />
+      <span class="sm:text-1xl font-sans text-[1.15rem] font-thin uppercase tracking-wide dark:text-white md:text-3xl">
+        Holistische Darmtherapie</span
+      >
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="sm:inline">
+        Dein Darm ist das Zentrum deines Wohlbefindens. Gemeinsam entdecken wir, wie du deine Verdauung optimieren
+        kannst, dein Wohlbefinden förderst und mehr Balance in dein Leben bringst.
+      </span>
+    </Fragment>
+    <Fragment slot="bg">
+      <div
+        class="dark:bg-page absolute inset-0 bg-green-100 bg-[url(~/assets/images/assets_task_01k5bmcw2beb2tnwgq1edcv91d_1758105932_img_0.webp)] bg-cover dark:bg-none"
+      >
+      </div>
+    </Fragment>
+  </Hero>
+
+  <!-- Beschwerden Section *************** -->
+  <section class="bg-white py-12 dark:bg-primary dark:bg-none md:py-16 lg:py-20">
+    <div class="mx-auto max-w-6xl px-4 md:px-6">
+      <div class="mb-8 text-center">
+        <h2 class="leading-tighter text-heading mb-4 font-heading text-3xl font-bold tracking-tighter md:text-5xl">
+          Plagst Du dich auch mit...?
+        </h2>
+        <p class="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-300">
+          All das können Anzeichen für ein Ungleichgewicht im Darm sein. Dies liegt oft an unserer ungesunden Ernährung,
+          den Umweltgiften und dem Stress, dem wir ausgesetzt sind.
+        </p>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Müdigkeit, Abgeschlagenheit</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">
+            Verdauungsbeschwerden wie Verstopfung, Durchfall, Blähbauch
+          </p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">
+            Hauterkrankungen wie Neurodermitis, Rosazea, Schuppenflechte
+          </p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Allergien</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">
+            Nahrungsmittelunverträglichkeiten (Laktose, Fruktose, Gluten, Histamin)
+          </p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Zöliakie</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Diabetes mellitus Typ 2</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Hashimoto Thyreoiditis</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Psychische Belastungen, Depressionen</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Reizdarmsyndrom</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">CED (Morbus Crohn, Colitis ulcerosa)</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">SIBO (Dünndarmfehlbesiedlung)</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Pilze und Parasiten</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Rheumatoide Arthritis</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Endometriose</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">PCOS</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">Geschwächtes Immunsystem</p>
+        </div>
+        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
+          <p class="text-base text-gray-700 dark:text-gray-300">ADHS</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Widget *************** -->
+
+  <!-- Quote Widget: Inspirierendes Zitat mit Hintergrundbild -->
+  <Quote
+    quote="Eure Nahrungsmittel sollen eure Heilmittel und eure Heilmittel eure Nahrungsmittel sein."
+    author="Hippokrates"
+  >
+    <Fragment slot="bg">
+      <div
+        class="absolute inset-0 bg-[url(~/assets/images/hippokrates.jpg)] bg-right bg-no-repeat dark:bg-transparent dark:bg-none md:bg-[url(~/assets/images/hippokrates-large.jpg)] md:bg-right md:bg-no-repeat"
+      >
+      </div>
+    </Fragment>
+
+    <Fragment slot="content">
+      <div class="text-right md:ml-auto md:max-w-2xl">
+        <p class="text-xl italic tracking-tight md:text-2xl">
+          Eure Nahrungsmittel sollen eure Heilmittel und eure Heilmittel eure Nahrungsmittel sein.
+        </p>
+        <p class="mt-2 text-gray-500">(Hippokrates)</p>
+      </div>
+    </Fragment>
+  </Quote>
+  <!-- Features Widget *************** -->
+  <Features
+    id="features"
+    tagline="Was ich für Dich tun kann"
+    title="Wohlbefinden und Gesundheit beginnen im Darm"
+    subtitle="Dein Darm ist der Schlüssel zu mehr Wohlbefinden. Ich begleite dich auf deinem Weg - mit Herz, Fachwissen & einem klaren Plan."
+    items={[
+      {
+        title: 'Anamnese & Vorgespräch',
+        description:
+          'Du erhältst vorab einen detaillierten Anamnesebogen. Im ersten Gespräch klären wir gemeinsam Deine Beschwerden, Ziele und Wünsche für Deine Darmgesundheit.',
+        icon: 'tabler:clipboard-check',
+      },
+      {
+        title: 'Auswertung & individueller Therapieplan',
+        description:
+          'Ich werte Deine Befunde gründlich aus und stelle Dir einen maßgeschneiderten, ganzheitlichen Therapieplan zusammen – abgestimmt auf Deine persönlichen Bedürfnisse.',
+        icon: 'tabler:microscope',
+      },
+      {
+        title: 'Nachgespräch & Anpassung',
+        description:
+          'Nach ein paar Wochen besprechen wir Deine Fortschritte, beantworten offene Fragen und passen Deine Therapie bei Bedarf noch einmal optimal an.',
+        icon: 'tabler:refresh',
+      },
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-green-100 dark:bg-primary"></div>
+    </Fragment>
+  </Features>
+
+  <!-- Content Widget **************** -->
+  <Content
+    tagline="Warum Darmgesundheit?"
+    title="Dein Darm - Das Zentrum Deiner Gesundheit"
+    items={[
+      {
+        title: 'Wohlbefinden fördern',
+        description:
+          'Über 70% der Immunzellen sitzen im Darm. Ein ausgeglichenes Darmmikrobiom kann zu mehr Vitalität und allgemeinem Wohlbefinden beitragen.',
+      },
+      {
+        title: 'Mehr Energie & Vitalität',
+        description:
+          'Eine ausgeglichene Darmgesundheit kann die Nährstoffaufnahme unterstützen und zu mehr Energie im Alltag beitragen.',
+      },
+      {
+        title: 'Darm-Hirn-Achse',
+        description:
+          'Darm und Gehirn kommunizieren ständig miteinander. Eine ausgeglichene Darmflora kann sich positiv auf Stimmung und allgemeines Wohlbefinden auswirken.',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1505334559002-c2103a3e106b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      alt: 'Darmgesundheit Illustration',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="mb-2 text-lg font-medium tracking-tight dark:text-white">Warum ist Darmgesundheit so wichtig?</h3>
+      Dein Darm ist viel mehr als nur ein Verdauungsorgan. Er beherbergt 100 Billionen Bakterien, die Dein Immunsystem, Deine
+      Hormone und sogar Deine Stimmung beeinflussen. Als zertifizierte holistische Darmtherapeutin helfe ich Dir, dieses
+      komplexe System wieder ins Gleichgewicht zu bringen.
+    </Fragment>
+  </Content>
+
+  <!-- Content Widget **************** -->
+  <Content
+    isReversed
+    tagline="Mein Ansatz"
+    title="So arbeite ich mit Dir"
+    items={[
+      {
+        title: 'Anamnese & Vorgespräch',
+        description:
+          'Du erhältst vorab einen detaillierten Anamnesebogen. Im ersten Gespräch klären wir gemeinsam Deine Beschwerden, Gesundheitsgeschichte und Ziele für mehr Wohlbefinden.',
+      },
+      {
+        title: 'Auswertung & individueller Therapieplan',
+        description:
+          'Ich werte Deine Befunde und Laborergebnisse gründlich aus und stelle Dir einen maßgeschneiderten Therapieplan zusammen – persönlich, ganzheitlich und auf Dich abgestimmt.',
+      },
+      {
+        title: 'Nachgespräch & Anpassung',
+        description:
+          'Nach ein paar Wochen besprechen wir Deine Fortschritte, beantworten offene Fragen und passen Deine Therapie bei Bedarf noch einmal optimal an.',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      alt: 'Beratungsgespräch holistische Darmtherapie',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="mb-2 text-lg font-medium tracking-tight dark:text-white">Dein Weg zu mehr Darmgesundheit</h3>
+      Meine holistische Herangehensweise bedeutet: Ich schaue nicht nur auf Deine Symptome, sondern betrachte Dich als ganzen
+      Menschen. Gemeinsam entwickeln wir einen individuellen Plan, der Deine Darmgesundheit nachhaltig verbessert und Dein
+      Wohlbefinden steigert.
+    </Fragment>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-[#e8e7d9] dark:bg-primary"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Content Widget **************** -->
+  <Content
+    tagline="Meine Methoden"
+    title="Ganzheitliche Darmtherapie im Detail"
+    items={[
+      {
+        title: 'Stuhlbefund-Interpretation',
+        description:
+          'Detaillierte Analyse Deines Darmmikrobioms, Entzündungsmarker und Verdauungsleistung. Ich erkläre Dir verständlich, was die Werte bedeuten und wie wir sie verbessern können.',
+      },
+      {
+        title: 'Ernährungstherapie & Mikronährstoffe',
+        description:
+          'Individuelle Ernährungspläne basierend auf Deinen Bedürfnissen, gezielter Einsatz von Mikro- und Makronährstoffen für optimale Darmregeneration.',
+      },
+      {
+        title: 'Stressmanagement & Vagusnerv',
+        description:
+          'Aktivierung des Vagusnervs und Techniken zur Stressreduktion, denn chronischer Stress ist einer der größten Feinde einer gesunden Darmflora.',
+      },
+    ]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1486825586573-7131f7991bdd?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      alt: 'Holistische Therapiemethoden',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="mb-2 text-lg font-medium tracking-tight dark:text-white">Wissenschaftlich fundiert & natürlich</h3>
+      Alle meine Methoden basieren auf aktuellen wissenschaftlichen Erkenntnissen zur Darmgesundheit und meiner zertifizierten
+      Ausbildung zur holistischen Darmtherapeutin. Ich kombiniere bewährte naturheilkundliche Ansätze mit modernem Wissen
+      über das Darmmikrobiom und die Darm-Hirn-Achse.
+    </Fragment>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-[#fde4e6] dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+  <!-- Variante 4: Standard 16:9 Aspect Ratio statt 16:6 
+<div class="aspect-w-16 aspect-h-9 w-full max-w-3xl mx-auto my-12 rounded-lg overflow-hidden shadow-lg">
+  <YouTube id="bdhufTI8D3A" title="Das Verdauungssystem" />
+</div>  -->
+  <!-- FAQs Widget ******************* -->
+  <FAQs
+    id="faq"
+    title="Häufig gestellte Fragen"
+    subtitle="Hier findest Du Antworten auf die wichtigsten Fragen rund um meine holistische Darmtherapie und Ernährungsberatung."
+    tagline="FAQs"
+    classes={{ container: 'max-w-6xl' }}
+    bg={`<div class="absolute inset-0 bg-white dark:bg-primary dark:bg-none"></div>`}
+    items={[
+      {
+        title: 'Ersetzt die Beratung einen Arztbesuch?',
+        description:
+          'Nein. Meine Beratung basiert auf ernährungswissenschaftlichen Grundlagen und ersetzt keine medizinische Diagnose oder Heilbehandlung. Bei gesundheitlichen Beschwerden empfehle ich immer zusätzlich eine ärztliche Abklärung.',
+      },
+      {
+        title: 'Wie läuft das Erstgespräch ab?',
+        description:
+          'Du erhältst vorab einen Anamnesebogen zum Ausfüllen. Im Erstgespräch sprechen wir über Deine Gesundheitsgeschichte, aktuelle Beschwerden und Ziele. Gemeinsam finden wir heraus, wie ich Dich am besten unterstützen kann.',
+      },
+      {
+        title: 'Welche Methoden nutzt Du?',
+        description:
+          'Ich arbeite holistisch - das bedeutet, ich betrachte Dich als ganzen Menschen, nicht nur einzelne Symptome. Mein Fokus liegt auf der Darmgesundheit als Zentrum Deiner Gesundheit, individueller Ernährungstherapie, dem Darmmikrobiom, der wichtigen Darm-Hirn-Achse, Stressmanagement und Aktivierung des Vagusnervs. Alle Methoden basieren auf meiner zertifizierten Ausbildung zur holistischen Darmtherapeutin.',
+      },
+      {
+        title: 'Wie lange dauert es, bis ich erste Erfolge sehe?',
+        description:
+          'Das ist sehr individuell. Erste positive Veränderungen können bereits nach 2-4 Wochen spürbar werden. Für nachhaltige Verbesserungen der Darmgesundheit solltest Du jedoch 3-6 Monate einplanen.',
+      },
+      {
+        title: 'Kann ich die Beratung auch online machen?',
+        description:
+          'Ja, alle Beratungen biete ich bequem online via Zoom an. Alternativ komme ich auch zu Dir nach Hause, wenn Du in der Region Groß-Umstadt und Umgebung wohnst.',
+      },
+      {
+        title: 'Was ist der Unterschied zur klassischen Ernährungsberatung?',
+        description:
+          'Mein Ansatz ist ganzheitlich und fokussiert speziell auf die Darmgesundheit. Ich betrachte nicht nur die Ernährung, sondern auch das Darmmikrobiom, die Darm-Hirn-Achse, Stressmanagement und den Säure-Basen-Haushalt.',
+      },
+      {
+        title: 'Für wen ist eine Darmtherapie geeignet?',
+        description:
+          'Für alle, die ihre Darmgesundheit verbessern möchten - ob bei Verdauungsbeschwerden, Nahrungsmittelunverträglichkeiten, chronischen Entzündungen, oder einfach zur Prävention und Steigerung des Wohlbefindens.',
+      },
+      {
+        title: 'Was passiert nach den 3 Sitzungen?',
+        description:
+          'Nach dem 3-Sitzungen-Paket hast Du einen individuellen Therapieplan und kannst selbstständig weiterarbeiten. Gerne biete ich auch weiterführende Einzeltermine oder eine längerfristige Begleitung an.',
+      },
+      {
+        title: 'Was kostet die Beratung, Auswertung und Therapie?',
+        description: '3 Sitzungen Komplett-Paket: 259 € einmalig',
+      },
+      {
+        title: 'Welche Qualifikation hast Du?',
+        description:
+          'Ich bin zertifizierte holistische Darmtherapeutin und Ernährungsberaterin mit einer 12-monatigen Ausbildung am Institut für Naturheilkunde und Ayurveda. Meine Ausbildung umfasste über 500 Stunden Theorie und Praxis.',
+      },
+      {
+        title: 'Wie läuft die Stuhlbefund-Analyse ab?',
+        description:
+          'Du bekommst ein Stuhltest-Kit von einem zertifizierten Labor nach Hause geschickt. Nach der Probenentnahme sendest Du es zurück ans Labor. Die Ergebnisse liegen nach ca. 2-3 Wochen vor, die ich dann ausführlich mit Dir bespreche und interpretiere.',
+      },
+      {
+        title: 'Ist ein Stuhlbefund Pflicht?',
+        description:
+          'Nein, ein Stuhlbefund ist nicht verpflichtend. Für eine gezielte Darmtherapie ist er jedoch sehr empfehlenswert, da er objektive Daten über Dein Darmmikrobiom, Entzündungsmarker und Verdauungsleistung liefert.',
+      },
+      {
+        title: 'Kann ich Termine verschieben oder absagen?',
+        description:
+          'Ja, eine kostenfreie Stornierung oder Terminverschiebung ist bis 24 Stunden vor dem Termin möglich. Bei kurzfristigeren Absagen behalte ich mir vor, eine Ausfallgebühr zu berechnen.',
+      },
+      {
+        title: 'Was brauche ich für die Online-Beratung via Zoom?',
+        description:
+          'Du brauchst einen Computer, Tablet oder Smartphone mit Internetverbindung, Kamera und Mikrofon. Den Zoom-Link erhältst Du vor dem Termin per E-Mail. Die Zoom-App ist kostenlos und einfach zu nutzen.',
+      },
+      {
+        title: 'Sind Nahrungsergänzungsmittel im Paketpreis enthalten?',
+        description:
+          'Nein, eventuelle Nahrungsergänzungsmittel oder Probiotika sind nicht im Paketpreis enthalten. Ich empfehle Dir passende Produkte, die Du dann selbst bestellst. Die Kosten variieren je nach individuellem Bedarf.',
+      },
+      {
+        title: 'Was kostet ein Hausbesuch und welche Region wird abgedeckt?',
+        description:
+          'Hausbesuche biete ich in der Region Groß-Umstadt und Umgebung (ca. 20 km Umkreis) an. Die Kosten für Anfahrt besprechen wir individuell. Alternativ sind alle Sitzungen bequem online via Zoom möglich.',
+      },
+      {
+        title: 'Übernimmt die Krankenkasse die Kosten?',
+        description:
+          'Als holistische Darmtherapeutin bin ich keine Heilpraktikerin, daher werden meine Leistungen in der Regel nicht von gesetzlichen Krankenkassen übernommen. Einige private Zusatzversicherungen erstatten jedoch Präventions- und Gesundheitsberatungen. Frage am besten direkt bei Deiner Versicherung nach.',
+      },
+      {
+        title: 'Ist die Beratung auch für Kinder oder Schwangere geeignet?',
+        description:
+          'Die Beratung richtet sich primär an Erwachsene. Für Schwangere, Stillende oder Kinder empfehle ich vorab eine ärztliche Abklärung. Gerne können wir im Erstgespräch besprechen, ob eine Begleitung in Deiner speziellen Situation sinnvoll ist.',
+      },
+      {
+        title: 'Wie werden meine Gesundheitsdaten geschützt?',
+        description:
+          'Ich behandle alle Deine Gesundheitsinformationen streng vertraulich nach DSGVO. Deine Daten werden sicher gespeichert und nicht an Dritte weitergegeben. Du hast jederzeit das Recht auf Auskunft, Berichtigung oder Löschung Deiner Daten.',
+      },
+    ]}
+  />
+
+  <!-- Call To Action **************** -->
+  <CallToAction
+    title="Bereit für den ersten Schritt?"
+    subtitle="Starte jetzt deine Reise zu mehr Wohlbefinden mit einer holistischen Darmtherapie."
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Termin vereinbaren',
+        href: '/termin-buchen',
+      },
+    ]}
+    bg={`<div class="absolute inset-0 bg-green-100 dark:bg-transparent dark:bg-none bg-cover bg-[url(~/assets/images/assets_task_01k5bm31wxexkv3amsa0sya52y_1758105615_img_0.webp)]"></div>`}
+  />
+</Layout>

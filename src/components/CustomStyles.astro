@@ -1,0 +1,57 @@
+---
+import '@fontsource-variable/noto-serif-display';
+import '@fontsource-variable/quicksand';
+---
+
+<style is:inline>
+  :root {
+    --aw-font-sans: 'Quicksand Variable';
+    --aw-font-serif: 'Noto Serif Display Variable';
+    --aw-font-heading: 'Noto Serif Display Variable';
+
+    --aw-color-primary: rgb(42, 112, 13);
+    --aw-color-secondary: rgb(245, 245, 245);
+    --aw-color-accent: rgb(42, 112, 13);
+
+    --aw-color-text-heading: rgb(22, 22, 22);
+    --aw-color-text-default: rgb(22, 22, 22);
+    --aw-color-text-muted: rgb(22, 22, 22);
+    --aw-color-bg-page: rgb(255 255 255);
+
+    --aw-color-bg-page-dark: rgb(25, 66, 7);
+
+    ::selection {
+      background-color: rgb(42, 112, 13);
+      color: rgb(255, 255, 255);
+    }
+  }
+
+  .dark {
+    --aw-font-sans: 'Quicksand Variable';
+    --aw-font-serif: 'Noto Serif Display Variable';
+    --aw-font-heading: 'Noto Serif Display Variable';
+
+    --aw-color-primary: rgb(39, 100, 13);
+    --aw-color-secondary: rgb(230, 230, 230);
+    --aw-color-accent: rgb(255, 255, 255);
+
+    --aw-color-text-heading: rgb(126, 145, 129);
+    --aw-color-text-default: rgb(255, 255, 255);
+    --aw-color-text-muted: rgb(255, 255, 255);
+    --aw-color-bg-page: rgb(42, 112, 13);
+
+    ::selection {
+      background-color: black;
+      color: rgb(255, 255, 255);
+    }
+  }
+
+  /* Auto-hide Navigation für mobile Geräte */
+  #header[data-aw-sticky-header] {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  #header[data-aw-sticky-header].header-hidden {
+    transform: translateY(-100%);
+  }
+</style>

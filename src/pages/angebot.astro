@@ -1,0 +1,260 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import Prices from '~/components/widgets/Pricing.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+
+const metadata = {
+  title: 'Angebote',
+  description:
+    'Holistische Darmtherapie - 3 persönliche Sitzungen für 259€. Zertifizierte Beratung für Deine Darmgesundheit.',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- HeroText Widget ******************* -->
+
+  <HeroText
+    tagline="Angebote"
+    title="Dein Weg zu mehr Darmgesundheit"
+    subtitle="3 persönliche Sitzungen für nachhaltige Verbesserung Deiner Darmgesundheit. Als zertifizierte holistische Darmtherapeutin begleite ich Dich individuell und ganzheitlich."
+  />
+
+  <!-- Pricing Widget ******************* -->
+
+  <Prices
+    title="Holistische Darmtherapie"
+    subtitle="Alles was Du für einen erfolgreichen Start in Deine Darmgesundheit brauchst - in einem Paket"
+    prices={[
+      {
+        title: '3 Sitzungen Komplett-Paket',
+        subtitle: 'Dein Weg zu nachhaltiger Darmgesundheit',
+        price: 259,
+        period: 'einmalig',
+        items: [
+          {
+            description: 'Anamnese & ausführliches Vorgespräch (ca. 60 Min.)',
+          },
+          {
+            description: 'Stuhlbefund-Interpretation & Analyse',
+          },
+          {
+            description: 'Individueller Therapieplan - maßgeschneidert für Dich',
+          },
+          {
+            description: 'Ernährungsberatung & Mikronährstoff-Empfehlungen',
+          },
+          {
+            description: 'Stressmanagement & Vagusnerv-Aktivierung',
+          },
+          {
+            description: 'Nachgespräch mit Anpassung nach 4-6 Wochen',
+          },
+          {
+            description: 'Alle Sitzungen online via Zoom oder vor Ort',
+          },
+          {
+            description: 'Schriftlicher Therapieplan zum Mitnehmen',
+          },
+        ],
+        callToAction: {
+          target: '_blank',
+          text: 'Jetzt Termin buchen',
+          href: '/contact',
+        },
+        hasRibbon: true,
+        ribbonTitle: 'Empfohlen',
+      },
+    ]}
+  />
+  <!-- Features3 Widget ************** -->
+
+  <Features3
+    title="Was macht meine Darmtherapie besonders?"
+    subtitle="Fundiertes Wissen aus 12-monatiger Ausbildung kombiniert mit persönlicher Betreuung"
+    columns={3}
+    items={[
+      {
+        title: 'Zertifizierte Expertise',
+        description:
+          'Ausbildung zur holistischen Darmtherapeutin am Institut für Naturheilkunde und Ayurveda mit über 500 Stunden Theorie und Praxis.',
+        icon: 'tabler:certificate',
+      },
+      {
+        title: 'Ganzheitlicher Ansatz',
+        description:
+          'Ich betrachte nicht nur Deine Symptome, sondern Dich als ganzen Menschen - Darm, Psyche, Ernährung und Lebensstil im Fokus.',
+        icon: 'tabler:circles-relation',
+      },
+      {
+        title: 'Individuelle Betreuung',
+        description:
+          'Jeder Therapieplan wird speziell für Dich erstellt - basierend auf Deinen Befunden, Beschwerden und Zielen.',
+        icon: 'tabler:user-heart',
+      },
+      {
+        title: 'Stuhlbefund-Expertise',
+        description:
+          'Professionelle Interpretation Deiner Laborwerte mit verständlichen Erklärungen und konkreten Handlungsempfehlungen.',
+        icon: 'tabler:microscope',
+      },
+      {
+        title: 'Darm-Hirn-Achse',
+        description:
+          'Spezielles Wissen über die Verbindung zwischen Darm und Gehirn - für bessere Stimmung und weniger Stress.',
+        icon: 'tabler:brain',
+      },
+      {
+        title: 'Nachhaltige Begleitung',
+        description:
+          'Langfristige Veränderungen statt Quick-Fixes - mit Nachbetreuung und Anpassungen zur Unterstützung deines Wohlbefindens.',
+        icon: 'tabler:trending-up',
+      },
+    ]}
+    classes={{ container: 'max-w-6xl' }}
+  />
+
+  <!-- Features3 Widget - Zusätzliche Informationen ************** -->
+
+  <Features3
+    title="Das erwartet Dich in den 3 Sitzungen"
+    subtitle="Schritt für Schritt zu besserer Darmgesundheit"
+    columns={3}
+    items={[
+      {
+        title: 'Sitzung 1: Anamnese',
+        description:
+          'Ausführliches Gespräch über Deine Beschwerden, Gesundheitsgeschichte und Ziele. Du erhältst bereits erste wertvolle Tipps.',
+        icon: 'tabler:clipboard-check',
+      },
+      {
+        title: 'Sitzung 2: Dein Therapieplan',
+        description:
+          'Auswertung Deiner Befunde und Präsentation Deines individuellen Plans - mit konkreten Empfehlungen und Erklärungen.',
+        icon: 'tabler:file-text',
+      },
+      {
+        title: 'Sitzung 3: Erfolgskontrolle',
+        description: 'Nach 4-6 Wochen schauen wir gemeinsam auf Deine Fortschritte und passen den Plan bei Bedarf an.',
+        icon: 'tabler:check',
+      },
+      {
+        title: 'Flexible Termine',
+        description:
+          'Alle Sitzungen finden zu Deinen Wunschzeiten statt - online via Zoom oder bei Dir vor Ort (Region Groß-Umstadt).',
+        icon: 'tabler:calendar-time',
+      },
+      {
+        title: 'Wissenschaftlich fundiert',
+        description:
+          'Alle Empfehlungen basieren auf aktuellen Forschungsergebnissen zur Darmgesundheit und bewährten naturheilkundlichen Methoden.',
+        icon: 'tabler:book',
+      },
+      {
+        title: 'Persönliche Betreuung',
+        description: 'Du hast bei Fragen zwischen den Terminen die Möglichkeit, mich per E-Mail zu kontaktieren.',
+        icon: 'tabler:heart-handshake',
+      },
+    ]}
+    classes={{ container: 'max-w-6xl' }}
+  />
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Häufig gestellte Fragen zum Therapiepaket"
+    subtitle="Hier findest Du Antworten auf die wichtigsten Fragen zu meinem 3-Sitzungen-Paket."
+    columns={1}
+    items={[
+      {
+        title: 'Was kostet der Stuhlbefund zusätzlich?',
+        description:
+          'Der Stuhlbefund kostet je nach Umfang 80-150 € und wird direkt an das Labor gezahlt. Ich berate Dich gerne, welche Untersuchung für Dich sinnvoll ist.',
+      },
+      {
+        title: 'Wie kann ich das Therapiepaket bezahlen?',
+        description:
+          'Du kannst ganz bequem per PayPal oder klassischer Banküberweisung bezahlen. Die Rechnung erhältst Du nach der ersten Sitzung und kannst innerhalb von 14 Tagen bezahlen.',
+      },
+      {
+        title: 'Wie lange dauert eine Sitzung?',
+        description:
+          'Die erste Sitzung (Anamnese) dauert ca. 60 Minuten, die zweite Sitzung (Therapieplan) ca. 45 Minuten und das Nachgespräch ca. 30 Minuten.',
+      },
+      {
+        title: 'Was passiert zwischen den Terminen?',
+        description:
+          'Du setzt die ersten Empfehlungen um und kannst bei Fragen gerne per E-Mail Kontakt aufnehmen. So kann ich Dir bei Unklarheiten schnell helfen.',
+      },
+      {
+        title: 'Ersetzt das Paket einen Arztbesuch?',
+        description:
+          'Nein, meine Beratung ersetzt keine medizinische Behandlung. Bei ernsten Beschwerden empfehle ich immer zusätzlich eine ärztliche Abklärung.',
+      },
+      {
+        title: 'Was ist nach den 3 Sitzungen?',
+        description:
+          'Du hast einen vollständigen Therapieplan und kannst selbstständig weiterarbeiten. Gerne biete ich auch Folgeberatungen oder längerfristige Begleitung an.',
+      },
+      {
+        title: 'Für wen ist das Paket geeignet?',
+        description:
+          'Für alle, die ihre Darmgesundheit verbessern möchten - bei Verdauungsproblemen, Unverträglichkeiten, chronischen Beschwerden oder zur Prävention.',
+      },
+      {
+        title: 'Muss ich den Anamnesebogen vor dem Erstgespräch ausfüllen?',
+        description:
+          'Ja, Du erhältst den Anamnesebogen vorab per E-Mail oder kannst ihn direkt auf der Webseite ausfüllen. Dies hilft mir, mich optimal auf unser Erstgespräch vorzubereiten und Deine Zeit bestmöglich zu nutzen.',
+      },
+      {
+        title: 'Welches Labor führt den Stuhlbefund durch?',
+        description:
+          'Ich arbeite mit renommierten, zertifizierten Fachlaboren zusammen, die auf Darmdiagnostik spezialisiert sind. Die genauen Laborinformationen und Testoptionen besprechen wir im Erstgespräch basierend auf Deinen individuellen Bedürfnissen.',
+      },
+      {
+        title: 'Wo kaufe ich die empfohlenen Nahrungsergänzungsmittel?',
+        description:
+          'Ich empfehle Dir qualitativ hochwertige Produkte, die Du bei Apotheken, spezialisierten Online-Shops oder direkt beim Hersteller beziehen kannst. Du bist nicht verpflichtet, bestimmte Marken zu kaufen - ich berate Dich zu geeigneten Alternativen.',
+      },
+      {
+        title: 'Kann ich das Paket in Raten zahlen?',
+        description:
+          'In Ausnahmefällen ist eine Ratenzahlung möglich. Sprich mich einfach darauf an, und wir finden gemeinsam eine Lösung, die für Dich passt.',
+      },
+      {
+        title: 'Was passiert, wenn ich nach der 1. Sitzung abbrechen möchte?',
+        description:
+          'Du kannst das Paket jederzeit beenden. Bereits in Anspruch genommene Sitzungen werden anteilig berechnet. Mein Ziel ist es, dass Du Dich wohl fühlst - wenn die Chemie nicht stimmt oder Du andere Gründe hast, respektiere ich das vollständig.',
+      },
+      {
+        title: 'Wie lange habe ich Zeit, die 3 Sitzungen wahrzunehmen?',
+        description:
+          'Die 3 Sitzungen sollten idealerweise innerhalb von 3-4 Monaten stattfinden, damit eine kontinuierliche Begleitung gewährleistet ist. Bei besonderen Umständen können wir auch flexiblere Zeiträume vereinbaren.',
+      },
+      {
+        title: 'Bekomme ich schriftliche Unterlagen zu meinem Therapieplan?',
+        description:
+          'Ja, Du erhältst einen ausführlichen, schriftlichen Therapieplan zum Mitnehmen. Dieser enthält alle wichtigen Empfehlungen zu Ernährung, Supplementen, Stressmanagement und weiteren Maßnahmen - so hast Du alles Wichtige immer griffbereit.',
+      },
+      {
+        title: 'Gibt es eine Erfolgsgarantie?',
+        description:
+          'Jeder Körper ist individuell und reagiert unterschiedlich. Ich arbeite mit großer Sorgfalt und fundiertem Wissen, kann aber keine Heilversprechen geben. Die meisten Klientinnen und Klienten berichten jedoch von deutlichen Verbesserungen ihres Wohlbefindens innerhalb der ersten Wochen.',
+      },
+    ]}
+  />
+  <!-- CallToAction Widget *********** -->
+
+  <!-- <CallToAction
+    title="Ready to boost your projects?"
+    subtitle="Join our community of satisfied customers who have transformed their work with our templates."
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Get started now',
+        href: '/',
+      },
+    ]}
+  /> -->
+</Layout>
