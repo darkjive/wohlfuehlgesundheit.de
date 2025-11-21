@@ -542,8 +542,9 @@ function sendUserConfirmationEmail($formData, $meetingData) {
         'X-Mailer: PHP/' . phpversion()
     ];
 
-    // Send email
-    $success = mail($to, $subject, $message, implode("\r\n", $headers));
+    // Send email with envelope sender (required for IONOS)
+    $additionalParameters = '-f' . $fromEmail;
+    $success = mail($to, $subject, $message, implode("\r\n", $headers), $additionalParameters);
 
     if (!$success) {
         error_log('Failed to send user confirmation email to: ' . $to);
@@ -682,8 +683,9 @@ Automatische Benachrichtigung vom Anamnese-System
         'X-Mailer: PHP/' . phpversion()
     ];
 
-    // Send email
-    $success = mail($adminEmail, $subject, $message, implode("\r\n", $headers));
+    // Send email with envelope sender (required for IONOS)
+    $additionalParameters = '-f' . $fromEmail;
+    $success = mail($adminEmail, $subject, $message, implode("\r\n", $headers), $additionalParameters);
 
     if (!$success) {
         error_log('Failed to send admin notification email');

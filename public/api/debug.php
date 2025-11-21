@@ -429,13 +429,18 @@ header('Content-Type: text/html; charset=utf-8');
                 $message .= "Zeitstempel: " . date('Y-m-d H:i:s') . "\n";
                 $message .= "Server: " . $_SERVER['SERVER_NAME'] . "\n";
 
+                $fromEmail = env('FROM_EMAIL');
                 $headers = [
-                    'From: ' . env('FROM_EMAIL'),
-                    'Reply-To: ' . env('FROM_EMAIL'),
-                    'X-Mailer: PHP/' . phpversion()
+                    'From: ' . env('FROM_NAME') . ' <' . $fromEmail . '>',
+                    'Reply-To: ' . $fromEmail,
+                    'X-Mailer: PHP/' . phpversion(),
+                    'MIME-Version: 1.0',
+                    'Content-Type: text/plain; charset=UTF-8'
                 ];
 
-                $result = mail($to, $subject, $message, implode("\r\n", $headers));
+                // WICHTIG für IONOS: -f Parameter (envelope sender)
+                $additionalParameters = '-f' . $fromEmail;
+                $result = mail($to, $subject, $message, implode("\r\n", $headers), $additionalParameters);
 
                 if ($result) {
                     echo "<p class='success'>✓ mail() Funktion gab TRUE zurück</p>";

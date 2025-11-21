@@ -117,11 +117,13 @@ $headers = [
     'From: ' . $fromName . ' <' . $fromEmail . '>',
     'Reply-To: ' . $email,
     'X-Mailer: PHP/' . phpversion(),
+    'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8'
 ];
 
-// Send email
-$mailSent = mail($adminEmail, $emailSubject, $emailBody, implode("\r\n", $headers));
+// Send email with envelope sender (required for IONOS)
+$additionalParameters = '-f' . $fromEmail;
+$mailSent = mail($adminEmail, $emailSubject, $emailBody, implode("\r\n", $headers), $additionalParameters);
 
 if ($mailSent) {
     echo json_encode([
