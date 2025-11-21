@@ -345,15 +345,39 @@ header('Content-Type: text/html; charset=utf-8');
         echo "<p class='info'>Teste CSRF-Token-Generierung...</p>";
 
         try {
-            $testToken = generateCSRFToken();
-            echo "<p class='success'>✓ CSRF-Token generiert!</p>";
-            echo "<p class='info'>Token (erste 20 Zeichen): " . htmlspecialchars(substr($testToken, 0, 20)) . "...</p>";
-
-            // Test validation
-            if (validateCSRFToken($testToken)) {
-                echo "<p class='success'>✓ Token-Validierung funktioniert!</p>";
+            // Check if functions exist
+            if (!function_exists('generateCSRFToken')) {
+                echo "<p class='error'>❌ Funktion generateCSRFToken() nicht gefunden!</p>";
+                echo "<p class='warning'>⚠️ security.php möglicherweise nicht korrekt geladen</p>";
             } else {
-                echo "<p class='error'>❌ Token-Validierung fehlgeschlagen</p>";
+                echo "<p class='success'>✓ generateCSRFToken() Funktion gefunden</p>";
+
+                try {
+                    $testToken = generateCSRFToken();
+                    echo "<p class='success'>✓ CSRF-Token generiert!</p>";
+                    echo "<p class='info'>Token (erste 20 Zeichen): " . htmlspecialchars(substr($testToken, 0, 20)) . "...</p>";
+
+                    // Test validation
+                    if (function_exists('validateCSRFToken')) {
+                        echo "<p class='success'>✓ validateCSRFToken() Funktion gefunden</p>";
+
+                        if (validateCSRFToken($testToken)) {
+                            echo "<p class='success'>✓ Token-Validierung funktioniert!</p>";
+                        } else {
+                            echo "<p class='error'>❌ Token-Validierung fehlgeschlagen</p>";
+                        }
+                    } else {
+                        echo "<p class='error'>❌ Funktion validateCSRFToken() nicht gefunden!</p>";
+                    }
+                } catch (Exception $innerE) {
+                    echo "<p class='error'>❌ Fehler bei Token-Generierung: " . htmlspecialchars($innerE->getMessage()) . "</p>";
+                    if (class_exists('Exception')) {
+                        echo "<p class='warning'>Stack Trace:</p>";
+                        echo "<pre style='background: #000; padding: 10px; font-size: 11px;'>";
+                        echo htmlspecialchars($innerE->getTraceAsString());
+                        echo "</pre>";
+                    }
+                }
             }
 
             // Test get-csrf-token.php endpoint
@@ -364,6 +388,15 @@ header('Content-Type: text/html; charset=utf-8');
 
         } catch (Exception $e) {
             echo "<p class='error'>❌ Fehler: " . htmlspecialchars($e->getMessage()) . "</p>";
+            echo "<p class='warning'>Fehlertyp: " . get_class($e) . "</p>";
+            if (method_exists($e, 'getTraceAsString')) {
+                echo "<pre style='background: #000; padding: 10px; font-size: 11px;'>";
+                echo htmlspecialchars($e->getTraceAsString());
+                echo "</pre>";
+            }
+        } catch (Error $e) {
+            echo "<p class='error'>❌ Fatal Error: " . htmlspecialchars($e->getMessage()) . "</p>";
+            echo "<p class='warning'>In Datei: " . htmlspecialchars($e->getFile()) . " Zeile " . $e->getLine() . "</p>";
         }
         ?>
     </div>
