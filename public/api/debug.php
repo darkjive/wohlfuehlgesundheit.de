@@ -336,11 +336,45 @@ header('Content-Type: text/html; charset=utf-8');
 
     <?php
     // ========================================================================
-    // 7. E-MAIL TEST
+    // 7. CSRF TOKEN TEST
     // ========================================================================
     ?>
     <div class="section">
-        <h2>7️⃣ E-Mail Konfiguration</h2>
+        <h2>7️⃣ CSRF Token Test</h2>
+        <?php
+        echo "<p class='info'>Teste CSRF-Token-Generierung...</p>";
+
+        try {
+            $testToken = generateCSRFToken();
+            echo "<p class='success'>✓ CSRF-Token generiert!</p>";
+            echo "<p class='info'>Token (erste 20 Zeichen): " . htmlspecialchars(substr($testToken, 0, 20)) . "...</p>";
+
+            // Test validation
+            if (validateCSRFToken($testToken)) {
+                echo "<p class='success'>✓ Token-Validierung funktioniert!</p>";
+            } else {
+                echo "<p class='error'>❌ Token-Validierung fehlgeschlagen</p>";
+            }
+
+            // Test get-csrf-token.php endpoint
+            echo "<hr style='margin: 15px 0; border-color: #444;'>";
+            echo "<p class='info'><strong>API-Endpoint Test:</strong></p>";
+            echo "<p>Teste manuell: <a href='/api/get-csrf-token.php' target='_blank' style='color: #00aaff;'>/api/get-csrf-token.php</a></p>";
+            echo "<p class='info'><small>Sollte JSON zurückgeben: {\"success\":true,\"token\":\"...\"}</small></p>";
+
+        } catch (Exception $e) {
+            echo "<p class='error'>❌ Fehler: " . htmlspecialchars($e->getMessage()) . "</p>";
+        }
+        ?>
+    </div>
+
+    <?php
+    // ========================================================================
+    // 8. E-MAIL TEST
+    // ========================================================================
+    ?>
+    <div class="section">
+        <h2>8️⃣ E-Mail Konfiguration</h2>
         <?php
         if (env('ADMIN_EMAIL') && env('FROM_EMAIL')) {
             echo "<table>";
@@ -385,11 +419,11 @@ header('Content-Type: text/html; charset=utf-8');
 
     <?php
     // ========================================================================
-    // 8. CORS & SECURITY
+    // 9. CORS & SECURITY
     // ========================================================================
     ?>
     <div class="section">
-        <h2>8️⃣ CORS & Security</h2>
+        <h2>9️⃣ CORS & Security</h2>
         <?php
         $allowedOrigins = env('ALLOWED_ORIGINS', 'nicht gesetzt');
         $hasUTF8 = strpos($allowedOrigins, 'wohlfühlgesundheit.de') !== false;
@@ -442,11 +476,11 @@ header('Content-Type: text/html; charset=utf-8');
 
     <?php
     // ========================================================================
-    // 9. EMPFEHLUNGEN
+    // 🔟 EMPFEHLUNGEN
     // ========================================================================
     ?>
     <div class="section">
-        <h2>9️⃣ Empfehlungen</h2>
+        <h2>🔟 Empfehlungen</h2>
         <ul>
             <?php if (!$foundEnv): ?>
             <li class="error">❌ .env-Datei erstellen und korrekt platzieren</li>
