@@ -12,6 +12,10 @@
  * WICHTIG: Nach dem Debugging LÖSCHEN oder umbenennen!
  */
 
+// Load dependencies
+require_once __DIR__ . '/env-loader.php';
+require_once __DIR__ . '/security.php';
+
 // Sicherheitscheck - nur von localhost oder mit secret parameter
 $allowedIPs = ['127.0.0.1', '::1'];
 $secret = $_GET['secret'] ?? '';
