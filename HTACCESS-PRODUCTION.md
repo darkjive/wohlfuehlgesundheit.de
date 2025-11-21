@@ -110,25 +110,27 @@
 ## Verzeichnis Browsing deaktivieren
 Options -Indexes
 
-## Versteckte Dateien schützen
+## Versteckte Dateien schützen (.env, .htaccess, .git, etc.)
 <FilesMatch "^\.">
-    Order allow,deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 ## Sensitive Dateien schützen
 <FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|env)$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
-
-## API-Dateien: Nur PHP-Dateien erlauben, keine .env direkt abrufbar
-<Directory "/kunden/homepages/21/d4298613629/htdocs/api">
-    <FilesMatch "\.env$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
         Order allow,deny
         Deny from all
-    </FilesMatch>
-</Directory>
+    </IfModule>
+</FilesMatch>
 
 ##############################################
 ## URL Rewriting
