@@ -116,6 +116,13 @@ import Consent from './anamnese-form/Consent.astro';
 </section>
 
 <script>
+  import {
+    setupFormValidation,
+    validateFormOnSubmit,
+    ValidationPatterns,
+    type ValidationRules,
+  } from '~/utils/form-validation';
+
   // Set minimum date to tomorrow
   const datumInput = document.getElementById('datum') as HTMLInputElement;
   const tomorrow = new Date();
@@ -132,6 +139,66 @@ import Consent from './anamnese-form/Consent.astro';
   const errorMessage = document.getElementById('error-message') as HTMLDivElement;
   const successText = document.getElementById('success-text') as HTMLParagraphElement;
   const errorText = document.getElementById('error-text') as HTMLParagraphElement;
+
+  // Define comprehensive validation rules for anamnese form
+  const validationRules: ValidationRules = {
+    // Personal Data (required fields)
+    vorname: [
+      { required: true, message: 'Bitte gib deinen Vornamen ein.' },
+      { minLength: 2, message: 'Der Vorname muss mindestens 2 Zeichen lang sein.' },
+    ],
+    nachname: [
+      { required: true, message: 'Bitte gib deinen Nachnamen ein.' },
+      { minLength: 2, message: 'Der Nachname muss mindestens 2 Zeichen lang sein.' },
+    ],
+    adresse: [{ required: true, message: 'Bitte gib deine Adresse ein.' }],
+    plz: [
+      { required: true, message: 'Bitte gib deine PLZ ein.' },
+      { pattern: ValidationPatterns.germanZip, message: 'Bitte gib eine gültige 5-stellige PLZ ein.' },
+    ],
+    ort: [
+      { required: true, message: 'Bitte gib deinen Ort ein.' },
+      { minLength: 2, message: 'Der Ort muss mindestens 2 Zeichen lang sein.' },
+    ],
+    telefon: [
+      { required: true, message: 'Bitte gib deine Telefonnummer ein.' },
+      { pattern: ValidationPatterns.phone, message: 'Bitte gib eine gültige Telefonnummer ein.' },
+      { minLength: 6, message: 'Die Telefonnummer muss mindestens 6 Zeichen lang sein.' },
+    ],
+    email: [
+      { required: true, message: 'Bitte gib deine E-Mail-Adresse ein.' },
+      { pattern: ValidationPatterns.email, message: 'Bitte gib eine gültige E-Mail-Adresse ein.' },
+    ],
+
+    // Personal Info (optional but validated if filled)
+    alter: [
+      { min: 1, message: 'Das Alter muss mindestens 1 sein.' },
+      { max: 150, message: 'Bitte gib ein realistisches Alter ein.' },
+    ],
+    groesse: [
+      { min: 50, message: 'Die Größe muss mindestens 50 cm sein.' },
+      { max: 250, message: 'Bitte gib eine realistische Größe ein.' },
+    ],
+    gewicht: [
+      { min: 10, message: 'Das Gewicht muss mindestens 10 kg sein.' },
+      { max: 500, message: 'Bitte gib ein realistisches Gewicht ein.' },
+    ],
+
+    // Zoom Booking (required fields)
+    datum: [{ required: true, message: 'Bitte wähle ein Datum für den Termin.' }],
+    uhrzeit: [{ required: true, message: 'Bitte wähle eine Uhrzeit für den Termin.' }],
+    dauer: [{ required: true, message: 'Bitte wähle eine Gesprächsdauer.' }],
+
+    // Consent (required)
+    datenschutz: [{ required: true, message: 'Bitte akzeptiere die Datenschutzerklärung.' }],
+  };
+
+  // Setup real-time validation
+  setupFormValidation(form, validationRules, {
+    validateOnBlur: true,
+    validateOnInput: true,
+    showValidIndicator: true,
+  });
 
   // Load CSRF token on page load
   let csrfToken = '';
@@ -155,6 +222,12 @@ import Consent from './anamnese-form/Consent.astro';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Validate form before submission
+    const validationResult = validateFormOnSubmit(form, validationRules);
+    if (!validationResult.isValid) {
+      return;
+    }
 
     // Hide previous messages
     successMessage.classList.add('hidden');
