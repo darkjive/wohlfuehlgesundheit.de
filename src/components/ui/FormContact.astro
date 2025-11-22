@@ -137,6 +137,13 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 </form>
 
 <script>
+  import {
+    setupFormValidation,
+    validateFormOnSubmit,
+    ValidationPatterns,
+    type ValidationRules,
+  } from '~/utils/form-validation';
+
   // Contact Form Handler with CSRF Protection and Caching
   (function () {
     const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
@@ -162,6 +169,30 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       console.error('Contact form: Required DOM elements not found');
       return;
     }
+
+    // Define validation rules
+    const validationRules: ValidationRules = {
+      name: [
+        { required: true, message: 'Bitte gib deinen Namen ein.' },
+        { minLength: 2, message: 'Der Name muss mindestens 2 Zeichen lang sein.' },
+      ],
+      email: [
+        { required: true, message: 'Bitte gib deine E-Mail-Adresse ein.' },
+        { pattern: ValidationPatterns.email, message: 'Bitte gib eine gültige E-Mail-Adresse ein.' },
+      ],
+      textarea: [
+        { required: true, message: 'Bitte gib deine Nachricht ein.' },
+        { minLength: 10, message: 'Die Nachricht muss mindestens 10 Zeichen lang sein.' },
+      ],
+      disclaimer: [{ required: true, message: 'Bitte akzeptiere die Datenschutzerklärung.' }],
+    };
+
+    // Setup real-time validation
+    setupFormValidation(contactForm, validationRules, {
+      validateOnBlur: true,
+      validateOnInput: true,
+      showValidIndicator: true,
+    });
 
     // CSRF Token Management with localStorage caching
     const CSRF_STORAGE_KEY = 'csrf_token';
@@ -210,6 +241,12 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Validate form before submission
+      const validationResult = validateFormOnSubmit(contactForm, validationRules);
+      if (!validationResult.isValid) {
+        return;
+      }
 
       // Hide previous messages
       successMessage.classList.add('hidden');
