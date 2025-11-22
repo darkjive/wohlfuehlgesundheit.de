@@ -35,19 +35,19 @@ export const ValidationPatterns = {
 };
 
 /**
- * Default error messages in German
+ * Default error messages in German (Du-Form)
  */
 export const DefaultMessages = {
-  required: 'Dieses Feld ist erforderlich.',
+  required: 'Bitte fülle dieses Feld aus.',
   email: 'Bitte gib eine gültige E-Mail-Adresse ein.',
-  minLength: (min: number) => `Mindestens ${min} Zeichen erforderlich.`,
-  maxLength: (max: number) => `Maximal ${max} Zeichen erlaubt.`,
-  pattern: 'Das Format ist ungültig.',
-  min: (min: number) => `Der Wert muss mindestens ${min} sein.`,
-  max: (max: number) => `Der Wert darf maximal ${max} sein.`,
+  minLength: (min: number) => `Bitte gib mindestens ${min} Zeichen ein.`,
+  maxLength: (max: number) => `Bitte gib maximal ${max} Zeichen ein.`,
+  pattern: 'Bitte überprüfe deine Eingabe.',
+  min: (min: number) => `Bitte gib einen Wert von mindestens ${min} ein.`,
+  max: (max: number) => `Bitte gib einen Wert von maximal ${max} ein.`,
   phone: 'Bitte gib eine gültige Telefonnummer ein.',
   germanZip: 'Bitte gib eine gültige 5-stellige PLZ ein.',
-  custom: 'Der eingegebene Wert ist ungültig.',
+  custom: 'Bitte überprüfe deine Eingabe.',
 };
 
 /**
