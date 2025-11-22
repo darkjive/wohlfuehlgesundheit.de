@@ -234,7 +234,7 @@ Vollautomatisches Terminbuchungssystem mit:
 - Automatische E-Mail-Benachrichtigungen (HTML für Kunden, Text für Admin)
 - Terminvalidierung und Zeitzonenmanagement (Europe/Berlin)
 - Warteraum-Funktion für mehr Sicherheit
-- Flexible Terminlängen (30/60 Minuten)
+- Flexible Terminlängen (20/40 Minuten)
 
 #### 2. Umfangreicher Anamnesebogen
 

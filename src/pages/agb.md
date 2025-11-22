@@ -21,7 +21,7 @@ Der Vertrag kommt mit der Buchung des Beratungspakets durch den Kunden und der B
 
 Das **3-Sitzungen-Komplett-Paket "Holistische Darmtherapie"** umfasst:
 
-1. **Sitzung 1: Anamnese & Vorgespräch (ca. 60 Minuten)**
+1. **Sitzung 1: Anamnese & Vorgespräch (ca. 40 Minuten)**
    - Ausführliche Besprechung des ausgefüllten Anamnesebogens
    - Klärung der Beschwerden, Gesundheitsgeschichte und Ziele
    - Erste Empfehlungen
