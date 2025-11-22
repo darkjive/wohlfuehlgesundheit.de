@@ -1,0 +1,35 @@
+# ============================================================================
+# API Directory - Additional Security
+# ============================================================================
+
+# Protect .env files
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
+
+<Files ".env.example">
+    Require all granted
+</Files>
+
+# Only allow access to PHP files (block access to other files)
+<FilesMatch "\.(txt|log|md|json|lock)$">
+    Require all denied
+</FilesMatch>
+
+# Prevent PHP execution in upload directories if any
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+# Re-enable PHP for actual API files
+<FilesMatch "\.php$">
+    <IfModule mod_php7.c>
+        php_flag engine on
+    </IfModule>
+    <IfModule mod_php8.c>
+        php_flag engine on
+    </IfModule>
+</FilesMatch>

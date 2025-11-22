@@ -9,6 +9,31 @@
  */
 
 // ============================================================================
+// SECURITY HEADERS
+// ============================================================================
+
+/**
+ * Set comprehensive security headers including CSP
+ * Call this early in your API scripts
+ */
+function setSecurityHeaders() {
+    // Content Security Policy - Restrictive by default
+    header("Content-Security-Policy: default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; base-uri 'self'; form-action 'self'");
+
+    // Additional security headers
+    header("X-Content-Type-Options: nosniff");
+    header("X-Frame-Options: DENY");
+    header("X-XSS-Protection: 1; mode=block");
+    header("Referrer-Policy: strict-origin-when-cross-origin");
+    header("Permissions-Policy: geolocation=(), microphone=(), camera=()");
+
+    // Prevent caching of API responses
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+}
+
+// ============================================================================
 // CORS PROTECTION
 // ============================================================================
 
@@ -61,17 +86,18 @@ function checkCORS() {
  * @return bool True if within limit, false if exceeded
  */
 function checkRateLimit($maxRequests = null, $timeWindow = null) {
-    // Get settings from environment
-    $maxRequests = $maxRequests ?? (int)env('RATE_LIMIT_MAX_REQUESTS', 5);
-    $timeWindow = $timeWindow ?? (int)env('RATE_LIMIT_TIME_WINDOW', 3600);
+    // Get settings from environment or use constants
+    $maxRequests = $maxRequests ?? (int)env('RATE_LIMIT_MAX_REQUESTS', RATE_LIMIT_DEFAULT_MAX_REQUESTS);
+    $timeWindow = $timeWindow ?? (int)env('RATE_LIMIT_TIME_WINDOW', RATE_LIMIT_DEFAULT_TIME_WINDOW);
 
     // Get client IP
     $ip = getClientIP();
 
-    // Create rate limit directory if not exists
-    $rateLimitDir = __DIR__ . '/../_rate_limit';
+    // Create rate limit directory outside of public/ for security
+    // __DIR__ = /public/api, so ../../var/rate_limit = /var/rate_limit (outside public)
+    $rateLimitDir = __DIR__ . '/../../var/rate_limit';
     if (!is_dir($rateLimitDir)) {
-        mkdir($rateLimitDir, 0755, true);
+        mkdir($rateLimitDir, 0700, true); // More restrictive permissions
     }
 
     // File for this IP
@@ -109,6 +135,11 @@ function checkRateLimit($maxRequests = null, $timeWindow = null) {
 
     // Save to file
     file_put_contents($filename, json_encode($requests));
+
+    // Run cleanup with configured probability to keep directory clean
+    if (rand(1, 100) <= RATE_LIMIT_CLEANUP_PROBABILITY) {
+        cleanupRateLimitFiles();
+    }
 
     return true;
 }
@@ -150,8 +181,8 @@ function getClientIP() {
  *
  * @param int $maxAge Maximum age in seconds (default: 24 hours)
  */
-function cleanupRateLimitFiles($maxAge = 86400) {
-    $rateLimitDir = __DIR__ . '/../_rate_limit';
+function cleanupRateLimitFiles($maxAge = RATE_LIMIT_CLEANUP_MAX_AGE) {
+    $rateLimitDir = __DIR__ . '/../../var/rate_limit';
 
     if (!is_dir($rateLimitDir)) {
         return;
@@ -173,30 +204,34 @@ function cleanupRateLimitFiles($maxAge = 86400) {
 
 /**
  * Generate CSRF token
- * Uses session-less approach with HMAC
+ * Uses session-less approach with HMAC and random nonce
+ * No longer tied to IP address to support users behind NAT/mobile networks
  *
  * @return string CSRF token
  */
 function generateCSRFToken() {
     $secret = env('CSRF_SECRET', 'change_this_secret');
     $timestamp = time();
-    $ip = getClientIP();
 
-    // Token format: timestamp|hmac
-    $data = $timestamp . '|' . $ip;
+    // Generate random nonce (32 bytes = 64 hex chars)
+    $nonce = bin2hex(random_bytes(32));
+
+    // Token format: timestamp|nonce|hmac
+    $data = $timestamp . '|' . $nonce;
     $hmac = hash_hmac('sha256', $data, $secret);
 
-    return base64_encode($timestamp . '|' . $hmac);
+    return base64_encode($timestamp . '|' . $nonce . '|' . $hmac);
 }
 
 /**
  * Validate CSRF token
+ * Updated to work with nonce-based tokens (no IP binding)
  *
  * @param string $token Token to validate
- * @param int $maxAge Maximum token age in seconds (default: 1 hour)
+ * @param int $maxAge Maximum token age in seconds (default: 30 minutes)
  * @return bool True if valid, false otherwise
  */
-function validateCSRFToken($token, $maxAge = 3600) {
+function validateCSRFToken($token, $maxAge = CSRF_TOKEN_MAX_AGE) {
     if (empty($token)) {
         return false;
     }
@@ -210,20 +245,19 @@ function validateCSRFToken($token, $maxAge = 3600) {
     }
 
     $parts = explode('|', $decoded);
-    if (count($parts) !== 2) {
+    if (count($parts) !== 3) {
         return false;
     }
 
-    list($timestamp, $hmac) = $parts;
+    list($timestamp, $nonce, $hmac) = $parts;
 
-    // Check token age
+    // Check token age (reduced from 1 hour to 30 minutes)
     if ((time() - $timestamp) > $maxAge) {
         return false;
     }
 
     // Verify HMAC
-    $ip = getClientIP();
-    $data = $timestamp . '|' . $ip;
+    $data = $timestamp . '|' . $nonce;
     $expectedHmac = hash_hmac('sha256', $data, $secret);
 
     return hash_equals($expectedHmac, $hmac);
@@ -259,8 +293,8 @@ function validatePhone($phone) {
     // Remove all non-digits except +, -, (, ), spaces
     $cleaned = preg_replace('/[^0-9+\-\(\) ]/', '', $phone);
 
-    // Check length (6-20 characters)
-    if (strlen($cleaned) >= 6 && strlen($cleaned) <= 20) {
+    // Check length
+    if (strlen($cleaned) >= VALIDATION_PHONE_MIN_LENGTH && strlen($cleaned) <= VALIDATION_PHONE_MAX_LENGTH) {
         return $cleaned;
     }
 
@@ -280,7 +314,7 @@ function validateAge($age) {
 
     $age = (int)$age;
 
-    if ($age >= 0 && $age <= 150) {
+    if ($age >= VALIDATION_AGE_MIN && $age <= VALIDATION_AGE_MAX) {
         return $age;
     }
 
@@ -320,7 +354,7 @@ function validateNumeric($value, $min = null, $max = null) {
  * @param int $maxLength Maximum length
  * @return string|false Sanitized text or false if too long
  */
-function validateText($text, $maxLength = 5000) {
+function validateText($text, $maxLength = VALIDATION_MESSAGE_MAX_LENGTH) {
     $text = trim($text);
 
     if (strlen($text) > $maxLength) {
