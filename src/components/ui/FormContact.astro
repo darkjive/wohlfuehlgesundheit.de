@@ -254,6 +254,11 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 
           // Scroll to success message
           successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+          // Redirect to thank you page after 1.5 seconds
+          setTimeout(() => {
+            window.location.href = '/danke';
+          }, 1500);
         } else {
           // Show error message
           errorText.textContent = result.message || 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
