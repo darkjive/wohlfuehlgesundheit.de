@@ -51,15 +51,14 @@ Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
 **DE0884102804**
 
 ## Bildnachweise
+Jannes Jacobs
+https://unsplash.com/de/fotos/frau-tragt-schwarzes-hoschen-pMQgDg_8z88?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText
 
 Unseen Studio  
 https://unsplash.com/de/fotos/person-die-auf-braunem-holztisch-in-der-nahe-von-weissem-keramikbecher-schreibt-s9CC2SKySJM
 
 Ollissv  
 https://unsplash.com/de/fotos/person-in-roter-jacke-die-herzillustration-macht-AITGS-Bi7Io
-
-Dan Gold  
-https://unsplash.com/de/fotos/makroaufnahme-von-gemuse-4_jhDO54BYg
 
 Drew Hays  
 https://unsplash.com/de/fotos/person-holding-round-clear-container-tGYrlchfObE
