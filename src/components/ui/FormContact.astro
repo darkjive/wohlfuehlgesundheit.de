@@ -138,29 +138,30 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 
 <script>
   // Contact Form Handler with CSRF Protection and Caching
-  const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
-  const submitButton = document.getElementById('contact-submit-button') as HTMLButtonElement | null;
-  const buttonText = document.getElementById('contact-button-text') as HTMLSpanElement | null;
-  const buttonSpinner = document.getElementById('contact-button-spinner') as HTMLSpanElement | null;
-  const successMessage = document.getElementById('contact-success-message') as HTMLDivElement | null;
-  const errorMessage = document.getElementById('contact-error-message') as HTMLDivElement | null;
-  const successText = document.getElementById('contact-success-text') as HTMLParagraphElement | null;
-  const errorText = document.getElementById('contact-error-text') as HTMLParagraphElement | null;
+  (function () {
+    const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
+    const submitButton = document.getElementById('contact-submit-button') as HTMLButtonElement | null;
+    const buttonText = document.getElementById('contact-button-text') as HTMLSpanElement | null;
+    const buttonSpinner = document.getElementById('contact-button-spinner') as HTMLSpanElement | null;
+    const successMessage = document.getElementById('contact-success-message') as HTMLDivElement | null;
+    const errorMessage = document.getElementById('contact-error-message') as HTMLDivElement | null;
+    const successText = document.getElementById('contact-success-text') as HTMLParagraphElement | null;
+    const errorText = document.getElementById('contact-error-text') as HTMLParagraphElement | null;
 
-  // Early exit if required elements are missing
-  if (
-    !contactForm ||
-    !submitButton ||
-    !buttonText ||
-    !buttonSpinner ||
-    !successMessage ||
-    !errorMessage ||
-    !successText ||
-    !errorText
-  ) {
-    console.error('Contact form: Required DOM elements not found');
-    return;
-  }
+    // Early exit if required elements are missing
+    if (
+      !contactForm ||
+      !submitButton ||
+      !buttonText ||
+      !buttonSpinner ||
+      !successMessage ||
+      !errorMessage ||
+      !successText ||
+      !errorText
+    ) {
+      console.error('Contact form: Required DOM elements not found');
+      return;
+    }
 
   // CSRF Token Management with localStorage caching
   const CSRF_STORAGE_KEY = 'csrf_token';
@@ -278,4 +279,5 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       buttonSpinner.classList.add('hidden');
     }
   });
+  })();
 </script>
