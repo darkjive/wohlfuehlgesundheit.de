@@ -5,7 +5,7 @@ import type { AstroConfig, AstroIntegration } from 'astro';
 import configBuilder, { type Config } from './utils/configBuilder';
 import loadConfig from './utils/loadConfig';
 
-export default ({ config: _themeConfig = 'src/config.yaml' } = {}): AstroIntegration => {
+export default ({ config: _themeConfig = 'src/config/site.yaml' } = {}): AstroIntegration => {
   let cfg: AstroConfig;
   return {
     name: 'astrowind-integration',
