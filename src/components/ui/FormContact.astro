@@ -163,121 +163,121 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       return;
     }
 
-  // CSRF Token Management with localStorage caching
-  const CSRF_STORAGE_KEY = 'csrf_token';
-  const CSRF_EXPIRY_KEY = 'csrf_token_expiry';
-  const CSRF_TOKEN_LIFETIME = 25 * 60 * 1000; // 25 minutes (token valid for 30, fetch at 25)
+    // CSRF Token Management with localStorage caching
+    const CSRF_STORAGE_KEY = 'csrf_token';
+    const CSRF_EXPIRY_KEY = 'csrf_token_expiry';
+    const CSRF_TOKEN_LIFETIME = 25 * 60 * 1000; // 25 minutes (token valid for 30, fetch at 25)
 
-  let csrfToken = '';
+    let csrfToken = '';
 
-  /**
-   * Load CSRF token from cache or fetch new one
-   */
-  async function loadCSRFToken(forceRefresh = false): Promise<void> {
-    // Try to load from cache first
-    if (!forceRefresh) {
-      const cachedToken = localStorage.getItem(CSRF_STORAGE_KEY);
-      const expiryTime = localStorage.getItem(CSRF_EXPIRY_KEY);
+    /**
+     * Load CSRF token from cache or fetch new one
+     */
+    async function loadCSRFToken(forceRefresh = false): Promise<void> {
+      // Try to load from cache first
+      if (!forceRefresh) {
+        const cachedToken = localStorage.getItem(CSRF_STORAGE_KEY);
+        const expiryTime = localStorage.getItem(CSRF_EXPIRY_KEY);
 
-      if (cachedToken && expiryTime) {
-        const now = Date.now();
-        if (now < parseInt(expiryTime, 10)) {
-          csrfToken = cachedToken;
-          return;
+        if (cachedToken && expiryTime) {
+          const now = Date.now();
+          if (now < parseInt(expiryTime, 10)) {
+            csrfToken = cachedToken;
+            return;
+          }
         }
       }
-    }
 
-    // Fetch new token
-    try {
-      const response = await fetch('/api/get-csrf-token.php');
-      const data = await response.json();
-      if (data.success && data.token) {
-        csrfToken = data.token;
+      // Fetch new token
+      try {
+        const response = await fetch('/api/get-csrf-token.php');
+        const data = await response.json();
+        if (data.success && data.token) {
+          csrfToken = data.token;
 
-        // Cache token with expiry
-        const expiryTime = Date.now() + CSRF_TOKEN_LIFETIME;
-        localStorage.setItem(CSRF_STORAGE_KEY, csrfToken);
-        localStorage.setItem(CSRF_EXPIRY_KEY, expiryTime.toString());
+          // Cache token with expiry
+          const expiryTime = Date.now() + CSRF_TOKEN_LIFETIME;
+          localStorage.setItem(CSRF_STORAGE_KEY, csrfToken);
+          localStorage.setItem(CSRF_EXPIRY_KEY, expiryTime.toString());
+        }
+      } catch (error) {
+        console.error('Error loading CSRF token:', error);
       }
-    } catch (error) {
-      console.error('Error loading CSRF token:', error);
     }
-  }
 
-  // Load token when page loads
-  loadCSRFToken();
+    // Load token when page loads
+    loadCSRFToken();
 
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    // Hide previous messages
-    successMessage.classList.add('hidden');
-    errorMessage.classList.add('hidden');
+      // Hide previous messages
+      successMessage.classList.add('hidden');
+      errorMessage.classList.add('hidden');
 
-    // Disable button and show spinner
-    submitButton.disabled = true;
-    buttonText.classList.add('hidden');
-    buttonSpinner.classList.remove('hidden');
+      // Disable button and show spinner
+      submitButton.disabled = true;
+      buttonText.classList.add('hidden');
+      buttonSpinner.classList.remove('hidden');
 
-    // Collect form data
-    const formData = new FormData(contactForm);
+      // Collect form data
+      const formData = new FormData(contactForm);
 
-    // Add CSRF token
-    if (csrfToken) {
-      formData.append('csrf_token', csrfToken);
-    } else {
-      await loadCSRFToken();
+      // Add CSRF token
       if (csrfToken) {
         formData.append('csrf_token', csrfToken);
-      }
-    }
-
-    try {
-      const response = await fetch('/api/contact-form.php', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        // Show success message
-        successText.textContent = result.message || 'Vielen Dank für deine Nachricht!';
-        successMessage.classList.remove('hidden');
-
-        // Reset form
-        contactForm.reset();
-
-        // Reload CSRF token (force refresh after successful submission)
-        loadCSRFToken(true);
-
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
-        // Show error message
-        errorText.textContent = result.message || 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
-        errorMessage.classList.remove('hidden');
-
-        // Reload CSRF token (force refresh after error)
-        loadCSRFToken(true);
-
-        // Scroll to error message
-        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        await loadCSRFToken();
+        if (csrfToken) {
+          formData.append('csrf_token', csrfToken);
+        }
       }
-    } catch (error) {
-      // Show error message
-      errorText.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
-      errorMessage.classList.remove('hidden');
-      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-      console.error('Form submission error:', error);
-    } finally {
-      // Re-enable button and hide spinner
-      submitButton.disabled = false;
-      buttonText.classList.remove('hidden');
-      buttonSpinner.classList.add('hidden');
-    }
-  });
+      try {
+        const response = await fetch('/api/contact-form.php', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // Show success message
+          successText.textContent = result.message || 'Vielen Dank für deine Nachricht!';
+          successMessage.classList.remove('hidden');
+
+          // Reset form
+          contactForm.reset();
+
+          // Reload CSRF token (force refresh after successful submission)
+          loadCSRFToken(true);
+
+          // Scroll to success message
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          // Show error message
+          errorText.textContent = result.message || 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
+          errorMessage.classList.remove('hidden');
+
+          // Reload CSRF token (force refresh after error)
+          loadCSRFToken(true);
+
+          // Scroll to error message
+          errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } catch (error) {
+        // Show error message
+        errorText.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
+        errorMessage.classList.remove('hidden');
+        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        console.error('Form submission error:', error);
+      } finally {
+        // Re-enable button and hide spinner
+        submitButton.disabled = false;
+        buttonText.classList.remove('hidden');
+        buttonSpinner.classList.add('hidden');
+      }
+    });
   })();
 </script>
