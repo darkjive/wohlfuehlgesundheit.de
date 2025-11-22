@@ -10,7 +10,7 @@ import icon from 'astro-icon';
 import compress from 'astro-compress';
 import type { AstroIntegration } from 'astro';
 
-import astrowind from './public/vendor/integration';
+import astrowind from './integrations/astrowind';
 
 import jopSoftwarecookieconsent from '@jop-software/astro-cookieconsent';
 
@@ -69,7 +69,7 @@ export default defineConfig({
       Logger: 1,
     }),
     astrowind({
-      config: './src/config.yaml',
+      config: './src/config/site.yaml',
     }),
     jopSoftwarecookieconsent({
       guiOptions: {
