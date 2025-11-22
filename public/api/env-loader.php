@@ -37,12 +37,20 @@ function loadEnv($path = null) {
 
     foreach ($possiblePaths as $tryPath) {
         if (file_exists($tryPath)) {
-            error_log('Loading .env from: ' . $tryPath);
+            // Only log path in debug mode to avoid exposing server structure
+            if (getenv('DEBUG_MODE') === 'true' || (isset($_ENV['DEBUG_MODE']) && $_ENV['DEBUG_MODE'] === 'true')) {
+                error_log('Loading .env from: ' . $tryPath);
+            }
             return loadEnvFromFile($tryPath);
         }
     }
 
-    error_log('.env file not found in any of the standard locations');
+    // Only log detailed error in debug mode
+    if (getenv('DEBUG_MODE') === 'true' || (isset($_ENV['DEBUG_MODE']) && $_ENV['DEBUG_MODE'] === 'true')) {
+        error_log('.env file not found in any of the standard locations');
+    } else {
+        error_log('.env file not found');
+    }
     return false;
 }
 
@@ -55,7 +63,10 @@ function loadEnv($path = null) {
 function loadEnvFromFile($path) {
     // Check if .env file exists
     if (!file_exists($path)) {
-        error_log('.env file not found at: ' . $path);
+        // Only log path in debug mode
+        if (getenv('DEBUG_MODE') === 'true' || (isset($_ENV['DEBUG_MODE']) && $_ENV['DEBUG_MODE'] === 'true')) {
+            error_log('.env file not found at: ' . $path);
+        }
         return false;
     }
 

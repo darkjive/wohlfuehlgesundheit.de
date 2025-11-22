@@ -9,44 +9,8 @@
  * @version 1.0
  */
 
-// Load Composer autoloader (try multiple paths for IONOS compatibility)
-$autoloadPaths = [
-    __DIR__ . '/../../vendor/autoload.php',              // /htdocs/public/api -> /htdocs/vendor
-    __DIR__ . '/../vendor/autoload.php',                 // /htdocs/api -> /htdocs/vendor
-    __DIR__ . '/vendor/autoload.php',                    // /htdocs/api/vendor
-    $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php',  // Document root
-    $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php', // Parent of document root
-    dirname(dirname(__DIR__)) . '/vendor/autoload.php',  // 2 levels up
-    dirname(__DIR__) . '/vendor/autoload.php',            // 1 level up
-];
-
-$autoloadLoaded = false;
-foreach ($autoloadPaths as $autoloadPath) {
-    if (file_exists($autoloadPath)) {
-        require_once $autoloadPath;
-        $autoloadLoaded = true;
-        break;
-    }
-}
-
-if (!$autoloadLoaded) {
-    http_response_code(500);
-    error_log('Composer autoload not found. Paths tried: ' . implode(', ', $autoloadPaths));
-    error_log('__DIR__ = ' . __DIR__);
-    error_log('DOCUMENT_ROOT = ' . ($_SERVER['DOCUMENT_ROOT'] ?? 'not set'));
-    echo json_encode([
-        'success' => false,
-        'message' => 'Server-Konfigurationsfehler: Composer autoload nicht gefunden.'
-    ], JSON_UNESCAPED_UNICODE);
-    exit();
-}
-
-require_once __DIR__ . '/env-loader.php';
-require_once __DIR__ . '/security.php';
-require_once __DIR__ . '/phpmailer-helper.php';
-
-// Load environment variables (auto-detects path)
-loadEnv();
+// Bootstrap: Load Composer autoloader, dependencies, and environment variables
+require_once __DIR__ . '/bootstrap.php';
 
 // Validate required environment variables
 try {
@@ -72,6 +36,9 @@ try {
 // Set JSON content type
 header('Content-Type: application/json; charset=utf-8');
 
+// Set security headers (including CSP)
+setSecurityHeaders();
+
 // Check CORS
 checkCORS();
 
@@ -91,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-// Check rate limiting (max 5 per hour for contact form)
-checkRateLimit(5, 3600);
+// Check rate limiting (contact form specific limits)
+checkRateLimit(RATE_LIMIT_CONTACT_FORM_MAX_REQUESTS, RATE_LIMIT_CONTACT_FORM_TIME_WINDOW);
 
 // Validate CSRF token
 $csrfToken = $_POST['csrf_token'] ?? '';
@@ -117,10 +84,10 @@ foreach ($requiredFields as $field) {
 }
 
 // Validate and sanitize inputs
-$name = validateText($_POST['name'], 100);
+$name = validateText($_POST['name'], VALIDATION_NAME_MAX_LENGTH);
 $email = validateEmail($_POST['email']);
-$subject = !empty($_POST['subject']) ? validateText($_POST['subject'], 200) : 'Neue Nachricht von der Website';
-$message = validateText($_POST['message'], 5000);
+$subject = !empty($_POST['subject']) ? validateText($_POST['subject'], VALIDATION_ADDRESS_MAX_LENGTH) : 'Neue Nachricht von der Website';
+$message = validateText($_POST['message'], VALIDATION_MESSAGE_MAX_LENGTH);
 
 if ($name === false || $email === false || $message === false) {
     echo json_encode([

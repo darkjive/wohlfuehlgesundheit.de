@@ -9,58 +9,11 @@
  */
 
 // ============================================================================
-// LOAD DEPENDENCIES
+// BOOTSTRAP
 // ============================================================================
 
-// Load Composer autoloader (try multiple paths for IONOS compatibility)
-$autoloadPaths = [
-    __DIR__ . '/../../vendor/autoload.php',              // /htdocs/public/api -> /htdocs/vendor
-    __DIR__ . '/../vendor/autoload.php',                 // /htdocs/api -> /htdocs/vendor
-    __DIR__ . '/vendor/autoload.php',                    // /htdocs/api/vendor
-    $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php',  // Document root
-    $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php', // Parent of document root
-    dirname(dirname(__DIR__)) . '/vendor/autoload.php',  // 2 levels up
-    dirname(__DIR__) . '/vendor/autoload.php',            // 1 level up
-];
-
-$autoloadLoaded = false;
-foreach ($autoloadPaths as $autoloadPath) {
-    if (file_exists($autoloadPath)) {
-        require_once $autoloadPath;
-        $autoloadLoaded = true;
-        break;
-    }
-}
-
-if (!$autoloadLoaded) {
-    http_response_code(500);
-    error_log('Composer autoload not found. Paths tried: ' . implode(', ', $autoloadPaths));
-    error_log('__DIR__ = ' . __DIR__);
-    error_log('DOCUMENT_ROOT = ' . ($_SERVER['DOCUMENT_ROOT'] ?? 'not set'));
-    echo json_encode([
-        'success' => false,
-        'message' => 'Server-Konfigurationsfehler: Composer autoload nicht gefunden.'
-    ], JSON_UNESCAPED_UNICODE);
-    exit();
-}
-
-require_once __DIR__ . '/env-loader.php';
-require_once __DIR__ . '/security.php';
-require_once __DIR__ . '/phpmailer-helper.php';
-
-// ============================================================================
-// LOAD ENVIRONMENT VARIABLES
-// ============================================================================
-
-// Load .env file (auto-detects path)
-if (!loadEnv()) {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Server-Konfigurationsfehler. Bitte kontaktiere den Administrator.'
-    ], JSON_UNESCAPED_UNICODE);
-    exit();
-}
+// Bootstrap: Load Composer autoloader, dependencies, and environment variables
+require_once __DIR__ . '/bootstrap.php';
 
 // Validate required environment variables
 try {
@@ -93,6 +46,9 @@ try {
 
 // Set JSON content type
 header('Content-Type: application/json; charset=utf-8');
+
+// Set security headers (including CSP)
+setSecurityHeaders();
 
 // Check CORS
 checkCORS();
