@@ -163,7 +163,7 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 Das Projekt nutzt **GitHub Actions** für automatisches Deployment auf IONOS:
 
 - **Production** (main Branch) → `wohlfuehlgesundheit.de`
-- **Preview** (andere Branches) → `preview.wohlfuehlgesundheit.de`
+- **Test** (andere Branches) → `test.wohlfuehlgesundheit.de`
 
 **Setup-Anleitung**: Siehe [DEPLOYMENT.md](./DEPLOYMENT.md) für Details zur Einrichtung der FTP-Zugangsdaten und GitHub Secrets.
 

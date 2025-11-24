@@ -79,7 +79,7 @@ jobs:
             .env
 
   deploy-preview:
-    name: Deploy to Preview (preview.*)
+    name: Deploy to Test (test.*)
     runs-on: ubuntu-latest
     needs: [build, check]
     if: github.ref != 'refs/heads/main' && github.event_name == 'push'
@@ -98,7 +98,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to IONOS Preview via SFTP
+      - name: Deploy to IONOS Test via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER_PREVIEW }}
@@ -107,7 +107,7 @@ jobs:
           protocol: ftps
           port: 22
           local-dir: ./dist/
-          server-dir: ./preview/
+          server-dir: ./test/
           dangerous-clean-slate: false
           exclude: |
             **/.git*

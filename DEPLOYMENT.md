@@ -9,10 +9,10 @@ Dieses Projekt nutzt GitHub Actions für automatisches Push-to-Deploy auf IONOS.
 - **Ziel**: wohlfuehlgesundheit.de
 - **Workflow**: Build + Tests → Automatischer FTP-Upload
 
-### 2. Preview Deployment (Preview-Subdomain)
+### 2. Test Deployment (Test-Subdomain)
 - **Trigger**: Push auf alle anderen Branches (z.B. `claude/**`)
-- **Ziel**: preview.wohlfuehlgesundheit.de
-- **Workflow**: Build + Tests → Automatischer FTP-Upload zur Preview-Subdomain
+- **Ziel**: test.wohlfuehlgesundheit.de
+- **Workflow**: Build + Tests → Automatischer FTP-Upload zur Test-Subdomain
 
 ## GitHub Secrets einrichten
 
@@ -29,7 +29,7 @@ Du musst folgende Secrets in deinem GitHub Repository hinterlegen:
 3. `FTP_PASSWORD` - Dein SFTP-Passwort
    - Das Passwort für deinen IONOS SFTP-Zugang
 
-### Für Preview (Subdomain):
+### Für Test (Subdomain):
 
 **Option A: Gleicher SFTP-Zugang mit Unterordner (empfohlen)**
 4. `FTP_SERVER_PREVIEW` - Gleicher SFTP-Server
@@ -41,10 +41,10 @@ Du musst folgende Secrets in deinem GitHub Repository hinterlegen:
 6. `FTP_PASSWORD_PREVIEW` - Gleiches Passwort
    - Wert: Dein IONOS SFTP-Passwort
 
-Die Preview-Dateien werden dann in `/preview/` hochgeladen (siehe Workflow-Konfiguration).
+Die Test-Dateien werden dann in `/test/` hochgeladen (siehe Workflow-Konfiguration).
 
 **Option B: Separate Subdomain mit eigenem SFTP-Zugang**
-Falls du eine separate Subdomain `preview.wohlfuehlgesundheit.de` mit eigenem SFTP-Zugang eingerichtet hast, trage hier die separaten Zugangsdaten ein.
+Falls du eine separate Subdomain `test.wohlfuehlgesundheit.de` mit eigenem SFTP-Zugang eingerichtet hast, trage hier die separaten Zugangsdaten ein.
 
 ## Schritt-für-Schritt Anleitung
 
@@ -59,16 +59,16 @@ Du nutzt bereits SFTP (Port 22) mit folgenden Zugangsdaten:
 #### Option A: Ein SFTP-Zugang mit Unterordnern (Standard)
 Die aktuelle Konfiguration nutzt deinen bestehenden SFTP-Zugang:
 - **Production**: Hochladen ins Root-Verzeichnis (`./`)
-- **Preview**: Hochladen in `/preview/` Unterordner
+- **Test**: Hochladen in `/test/` Unterordner
 
 Du musst in IONOS:
-1. Einen Ordner `/preview/` anlegen (per SFTP oder FileZilla)
-2. Eine Subdomain `preview.wohlfuehlgesundheit.de` erstellen, die auf `/preview/` zeigt
+1. Einen Ordner `/test/` anlegen (per SFTP oder FileZilla)
+2. Eine Subdomain `test.wohlfuehlgesundheit.de` erstellen, die auf `/test/` zeigt
 
 #### Option B: Separate Subdomain mit eigenem SFTP-Zugang (Optional)
 Falls du eine separate Subdomain mit eigenem SFTP-Zugang einrichten möchtest:
 1. Logge dich in dein IONOS Control Panel ein
-2. Richte eine Subdomain `preview.wohlfuehlgesundheit.de` mit separatem SFTP-Zugang ein
+2. Richte eine Subdomain `test.wohlfuehlgesundheit.de` mit separatem SFTP-Zugang ein
 3. Trage die separaten Zugangsdaten als GitHub Secrets ein
 
 ### 2. GitHub Secrets hinzufügen
@@ -94,7 +94,7 @@ Name: FTP_PASSWORD
 Value: [dein-ionos-sftp-passwort]
 ```
 
-**Für Preview (gleicher SFTP-Zugang):**
+**Für Test (gleicher SFTP-Zugang):**
 ```
 Name: FTP_SERVER_PREVIEW
 Value: access-5016697314.webspace-host.com
@@ -110,7 +110,7 @@ Name: FTP_PASSWORD_PREVIEW
 Value: [dein-ionos-sftp-passwort] (gleiches Passwort)
 ```
 
-💡 **Tipp**: Falls du den gleichen SFTP-Zugang für Production und Preview nutzt (empfohlen), sind die Werte für die Preview-Secrets identisch mit den Production-Secrets.
+💡 **Tipp**: Falls du den gleichen SFTP-Zugang für Production und Test nutzt (empfohlen), sind die Werte für die Test-Secrets (PREVIEW) identisch mit den Production-Secrets.
 
 ### 3. Workflow testen
 
@@ -121,11 +121,11 @@ Value: [dein-ionos-sftp-passwort] (gleiches Passwort)
    git push origin main
    ```
 
-2. **Preview-Deployment testen:**
+2. **Test-Deployment testen:**
    ```bash
-   git checkout -b test-preview
-   git commit --allow-empty -m "Test preview deployment"
-   git push origin test-preview
+   git checkout -b test-deployment
+   git commit --allow-empty -m "Test deployment to test subdomain"
+   git push origin test-deployment
    ```
 
 3. Überprüfe den Status in GitHub:
@@ -151,7 +151,7 @@ Value: [dein-ionos-sftp-passwort] (gleiches Passwort)
 ### Deployment-Trigger
 
 - **Production**: Nur bei Push auf `main` Branch
-- **Preview**: Bei Push auf alle anderen Branches (außer `main`)
+- **Test**: Bei Push auf alle anderen Branches (außer `main`)
 - **Pull Requests**: Nur Build & Check, kein Deployment
 
 ## Wichtige Hinweise
@@ -213,10 +213,10 @@ Falls Verbindungsprobleme auftreten, kannst du alternativ testen:
 - Teste Build lokal: `npm run build`
 - Stelle sicher, dass alle Dependencies installiert sind
 
-### Preview-Deployment funktioniert nicht
-- Prüfe ob Subdomain `preview.*` bei IONOS eingerichtet ist
-- Verifiziere FTP-Zugangsdaten für Preview
-- Überprüfe `server-dir` Pfad
+### Test-Deployment funktioniert nicht
+- Prüfe ob Subdomain `test.*` bei IONOS eingerichtet ist
+- Verifiziere FTP-Zugangsdaten für Test
+- Überprüfe `server-dir` Pfad (sollte `/test/` sein)
 
 ## Support
 
