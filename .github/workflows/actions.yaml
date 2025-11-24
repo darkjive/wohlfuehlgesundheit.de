@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+      - 'claude/**'
 
 jobs:
   build:
@@ -39,3 +40,73 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+
+  deploy-production:
+    name: Deploy to Production (main)
+    runs-on: ubuntu-latest
+    needs: [build, check]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to IONOS Production via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .env
+
+  deploy-preview:
+    name: Deploy to Preview (preview.*)
+    runs-on: ubuntu-latest
+    needs: [build, check]
+    if: github.ref != 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to IONOS Preview via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER_PREVIEW }}
+          username: ${{ secrets.FTP_USERNAME_PREVIEW }}
+          password: ${{ secrets.FTP_PASSWORD_PREVIEW }}
+          local-dir: ./dist/
+          server-dir: ./
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .env
