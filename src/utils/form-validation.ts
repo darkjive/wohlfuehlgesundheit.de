@@ -28,7 +28,7 @@ export interface ValidationResult {
  */
 export const ValidationPatterns = {
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  phone: /^[\d\s\+\-\(\)\/]+$/,
+  phone: /^[\d\s+\-()/]+$/,
   germanZip: /^\d{5}$/,
   url: /^https?:\/\/.+/,
   number: /^\d+$/,

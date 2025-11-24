@@ -158,6 +158,17 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 
 ## Deployment
 
+### Automatisches Deployment (Push-to-Deploy)
+
+Das Projekt nutzt **GitHub Actions** für automatisches Deployment auf IONOS:
+
+- **Production** (main Branch) → `wohlfuehlgesundheit.de`
+- **Test** (andere Branches) → `test.wohlfuehlgesundheit.de`
+
+**Setup-Anleitung**: Siehe [DEPLOYMENT.md](./DEPLOYMENT.md) für Details zur Einrichtung der FTP-Zugangsdaten und GitHub Secrets.
+
+### Manuelles Deployment
+
 1. Produktionsbuild erstellen:
 
    ```bash
