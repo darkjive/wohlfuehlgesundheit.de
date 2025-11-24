@@ -61,12 +61,14 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to IONOS Production via FTP
+      - name: Deploy to IONOS Production via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 22
           local-dir: ./dist/
           server-dir: ./
           dangerous-clean-slate: false
@@ -96,14 +98,16 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to IONOS Preview via FTP
+      - name: Deploy to IONOS Preview via SFTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER_PREVIEW }}
           username: ${{ secrets.FTP_USERNAME_PREVIEW }}
           password: ${{ secrets.FTP_PASSWORD_PREVIEW }}
+          protocol: ftps
+          port: 22
           local-dir: ./dist/
-          server-dir: ./
+          server-dir: ./preview/
           dangerous-clean-slate: false
           exclude: |
             **/.git*

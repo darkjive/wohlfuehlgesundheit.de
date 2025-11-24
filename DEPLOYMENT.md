@@ -20,45 +20,56 @@ Du musst folgende Secrets in deinem GitHub Repository hinterlegen:
 
 ### Für Production (Hauptdomain):
 
-1. `FTP_SERVER` - FTP/SFTP-Server von IONOS
-   - Beispiel: `wohlfuehlgesundheit.de` oder `ftp.wohlfuehlgesundheit.de`
-   - Findest du in deinem IONOS Control Panel unter "FTP-Zugänge"
+1. `FTP_SERVER` - SFTP-Server von IONOS
+   - Wert: `access-5016697314.webspace-host.com`
 
-2. `FTP_USERNAME` - Dein FTP-Benutzername
-   - Beispiel: `u12345678` oder deine E-Mail-Adresse
-   - Findest du in deinem IONOS Control Panel
+2. `FTP_USERNAME` - Dein SFTP-Benutzername
+   - Wert: `a1798707`
 
-3. `FTP_PASSWORD` - Dein FTP-Passwort
-   - Das Passwort, das du für deinen FTP-Zugang vergeben hast
+3. `FTP_PASSWORD` - Dein SFTP-Passwort
+   - Das Passwort für deinen IONOS SFTP-Zugang
 
 ### Für Preview (Subdomain):
 
-4. `FTP_SERVER_PREVIEW` - FTP/SFTP-Server für Preview-Subdomain
-   - Beispiel: `preview.wohlfuehlgesundheit.de` oder `ftp.preview.wohlfuehlgesundheit.de`
-   - Falls du eine separate Subdomain eingerichtet hast
+**Option A: Gleicher SFTP-Zugang mit Unterordner (empfohlen)**
+4. `FTP_SERVER_PREVIEW` - Gleicher SFTP-Server
+   - Wert: `access-5016697314.webspace-host.com`
 
-5. `FTP_USERNAME_PREVIEW` - FTP-Benutzername für Preview
-   - Kann der gleiche sein wie für Production oder ein separater
+5. `FTP_USERNAME_PREVIEW` - Gleicher Benutzername
+   - Wert: `a1798707`
 
-6. `FTP_PASSWORD_PREVIEW` - FTP-Passwort für Preview
-   - Das zugehörige Passwort
+6. `FTP_PASSWORD_PREVIEW` - Gleiches Passwort
+   - Wert: Dein IONOS SFTP-Passwort
+
+Die Preview-Dateien werden dann in `/preview/` hochgeladen (siehe Workflow-Konfiguration).
+
+**Option B: Separate Subdomain mit eigenem SFTP-Zugang**
+Falls du eine separate Subdomain `preview.wohlfuehlgesundheit.de` mit eigenem SFTP-Zugang eingerichtet hast, trage hier die separaten Zugangsdaten ein.
 
 ## Schritt-für-Schritt Anleitung
 
 ### 1. IONOS vorbereiten
 
-#### Option A: Separate FTP-Zugänge (empfohlen)
-1. Logge dich in dein IONOS Control Panel ein
-2. Richte eine Subdomain `preview.wohlfuehlgesundheit.de` ein
-3. Erstelle separate FTP-Zugänge für:
-   - Hauptdomain (wohlfuehlgesundheit.de)
-   - Preview-Subdomain (preview.wohlfuehlgesundheit.de)
+Du nutzt bereits SFTP (Port 22) mit folgenden Zugangsdaten:
+- **Server**: `access-5016697314.webspace-host.com`
+- **Port**: 22
+- **Protokoll**: SFTP
+- **Benutzername**: `a1798707`
 
-#### Option B: Ein FTP-Zugang mit Unterordnern
-1. Verwende einen FTP-Zugang
-2. Passe die `server-dir` in `.github/workflows/actions.yaml` an:
-   - Production: `server-dir: /www/` (oder dein Hauptverzeichnis)
-   - Preview: `server-dir: /preview/` (oder Subdomain-Verzeichnis)
+#### Option A: Ein SFTP-Zugang mit Unterordnern (Standard)
+Die aktuelle Konfiguration nutzt deinen bestehenden SFTP-Zugang:
+- **Production**: Hochladen ins Root-Verzeichnis (`./`)
+- **Preview**: Hochladen in `/preview/` Unterordner
+
+Du musst in IONOS:
+1. Einen Ordner `/preview/` anlegen (per SFTP oder FileZilla)
+2. Eine Subdomain `preview.wohlfuehlgesundheit.de` erstellen, die auf `/preview/` zeigt
+
+#### Option B: Separate Subdomain mit eigenem SFTP-Zugang (Optional)
+Falls du eine separate Subdomain mit eigenem SFTP-Zugang einrichten möchtest:
+1. Logge dich in dein IONOS Control Panel ein
+2. Richte eine Subdomain `preview.wohlfuehlgesundheit.de` mit separatem SFTP-Zugang ein
+3. Trage die separaten Zugangsdaten als GitHub Secrets ein
 
 ### 2. GitHub Secrets hinzufügen
 
@@ -67,35 +78,39 @@ Du musst folgende Secrets in deinem GitHub Repository hinterlegen:
 3. Klicke auf **New repository secret**
 4. Füge nacheinander alle 6 Secrets hinzu:
 
+**Für Production:**
 ```
 Name: FTP_SERVER
-Value: wohlfuehlgesundheit.de
+Value: access-5016697314.webspace-host.com
 ```
 
 ```
 Name: FTP_USERNAME
-Value: u12345678
+Value: a1798707
 ```
 
 ```
 Name: FTP_PASSWORD
-Value: dein-ftp-passwort
+Value: [dein-ionos-sftp-passwort]
 ```
 
+**Für Preview (gleicher SFTP-Zugang):**
 ```
 Name: FTP_SERVER_PREVIEW
-Value: preview.wohlfuehlgesundheit.de
+Value: access-5016697314.webspace-host.com
 ```
 
 ```
 Name: FTP_USERNAME_PREVIEW
-Value: u12345678-preview
+Value: a1798707
 ```
 
 ```
 Name: FTP_PASSWORD_PREVIEW
-Value: dein-preview-ftp-passwort
+Value: [dein-ionos-sftp-passwort] (gleiches Passwort)
 ```
+
+💡 **Tipp**: Falls du den gleichen SFTP-Zugang für Production und Preview nutzt (empfohlen), sind die Werte für die Preview-Secrets identisch mit den Production-Secrets.
 
 ### 3. Workflow testen
 
@@ -173,21 +188,18 @@ server-dir: /htdocs/              # Alternative
 server-dir: /public_html/         # Alternative
 ```
 
-## Alternative: SFTP statt FTP
+## SFTP-Konfiguration
 
-Falls du SFTP nutzen möchtest (sicherer), ändere in `.github/workflows/actions.yaml`:
+Dieses Projekt nutzt bereits **SFTP (Port 22)** für sichere Übertragungen. Die Konfiguration ist bereits in `.github/workflows/actions.yaml` eingerichtet:
 
 ```yaml
-- name: Deploy via SFTP
-  uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-  with:
-    server: ${{ secrets.FTP_SERVER }}
-    username: ${{ secrets.FTP_USERNAME }}
-    password: ${{ secrets.FTP_PASSWORD }}
-    protocol: ftps  # oder ftps-legacy
-    local-dir: ./dist/
-    server-dir: ./
+protocol: ftps
+port: 22
 ```
+
+Falls Verbindungsprobleme auftreten, kannst du alternativ testen:
+- `protocol: sftp` (native SFTP)
+- `protocol: ftps-legacy` (ältere FTPS-Implementierung)
 
 ## Troubleshooting
 
