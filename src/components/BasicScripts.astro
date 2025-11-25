@@ -2,11 +2,18 @@
 import { UI } from 'astrowind:config';
 ---
 
-<!-- AOS CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<!-- anime.js -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 
-<!-- AOS JavaScript -->
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<style>
+  /* Initial state for animated elements */
+  [data-aos] {
+    opacity: 0;
+  }
+  [data-aos].aos-animate {
+    opacity: 1;
+  }
+</style>
 
 <script is:inline define:vars={{ defaultTheme: UI.theme }}>
   if (window.basic_script) {
@@ -37,18 +44,104 @@ import { UI } from 'astrowind:config';
   };
   initTheme();
 
-  // AOS initialisieren
-  function initAOS() {
-    if (typeof AOS !== 'undefined') {
-      AOS.init({
-        duration: 3000,
-        easing: 'ease-out-cubic',
-        once: true,
-        offset: 60,
-        delay: 0,
-        disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      });
+  // Scroll-Animationen mit anime.js initialisieren
+  function initScrollAnimations() {
+    if (typeof anime === 'undefined') return;
+
+    // Prüfe ob reduced motion bevorzugt wird
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const animatedElements = document.querySelectorAll('[data-aos]');
+
+    if (!animatedElements.length) return;
+
+    // Observer für Scroll-Animationen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            const animationType = element.getAttribute('data-aos') || 'fade-up';
+            const delay = parseInt(element.getAttribute('data-aos-delay') || '0');
+
+            // Animation basierend auf Typ
+            let animation = {};
+
+            switch (animationType) {
+              case 'fade-up':
+                animation = {
+                  opacity: [0, 1],
+                  translateY: [50, 0],
+                };
+                break;
+              case 'fade-in':
+                animation = {
+                  opacity: [0, 1],
+                };
+                break;
+              case 'flip-up':
+                animation = {
+                  opacity: [0, 1],
+                  rotateX: [90, 0],
+                };
+                break;
+              case 'flip-left':
+                animation = {
+                  opacity: [0, 1],
+                  rotateY: [-90, 0],
+                };
+                break;
+              case 'flip-right':
+                animation = {
+                  opacity: [0, 1],
+                  rotateY: [90, 0],
+                };
+                break;
+              default:
+                animation = {
+                  opacity: [0, 1],
+                  translateY: [50, 0],
+                };
+            }
+
+            // Führe Animation aus
+            anime({
+              targets: element,
+              ...animation,
+              duration: 3000,
+              easing: 'easeOutCubic',
+              delay: delay,
+              complete: function() {
+                element.classList.add('aos-animate');
+              }
+            });
+
+            // Element nicht mehr beobachten (once: true)
+            observer.unobserve(element);
+          }
+        });
+      },
+      {
+        threshold: 0,
+        rootMargin: '-60px',
+      }
+    );
+
+    // Beobachte alle Elemente
+    animatedElements.forEach((element) => {
+      observer.observe(element);
+    });
+
+    // Speichere Observer für späteres Refresh
+    window.scrollAnimationObserver = observer;
+  }
+
+  // Refresh-Funktion für ViewTransitions
+  function refreshScrollAnimations() {
+    if (window.scrollAnimationObserver) {
+      window.scrollAnimationObserver.disconnect();
     }
+    initScrollAnimations();
   }
 
   function attachEvent(selector, event, fn) {
@@ -65,8 +158,8 @@ import { UI } from 'astrowind:config';
     let previousScrollPosition = window.scrollY;
     let ticking = false;
 
-    // AOS initialisieren nach dem Laden
-    initAOS();
+    // Scroll-Animationen initialisieren nach dem Laden
+    initScrollAnimations();
 
     attachEvent('#header nav', 'click', function () {
       document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
@@ -207,9 +300,7 @@ import { UI } from 'astrowind:config';
     initTheme();
     onLoad();
     onPageShow();
-    // AOS für ViewTransitions refreshen
-    if (typeof AOS !== 'undefined') {
-      AOS.refresh();
-    }
+    // Scroll-Animationen für ViewTransitions refreshen
+    refreshScrollAnimations();
   });
 </script>
