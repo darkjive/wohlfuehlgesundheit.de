@@ -216,11 +216,7 @@ Das Projekt nutzt **GitHub Actions** für automatisches Deployment auf IONOS:
 - **Schriftarten**:
   - Noto Serif Display (Variable Font)
   - Quicksand (Variable Font)
-- **Animationen**:
-  - CSS-basierte Scroll-Animationen (fade-up, fade-in, flip-up, flip-left, flip-right)
-  - Astro View Transitions für sanfte Seitenübergänge
-  - IntersectionObserver für performante Scroll-Trigger
-  - Respektiert `prefers-reduced-motion` für Barrierefreiheit
+- **View Transitions**: Astro View Transitions für sanfte Seitenübergänge
 
 ### Backend & APIs
 
@@ -316,17 +312,13 @@ Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/an
 - Vollständig auf Deutsch lokalisiert
 - Anpassbare Einstellungen
 
-#### 5. Animationen & Übergänge
+#### 5. View Transitions
 
-Die Website nutzt moderne, performante CSS-Animationen ohne externe Bibliotheken:
+Die Website nutzt Astro's native View Transitions API:
 
-- **Scroll-Animationen**: CSS-basierte Animationen mit IntersectionObserver
-  - `fade-up`: Sanftes Einblenden von unten
-  - `fade-in`: Einfaches Einblenden
-  - `flip-up`, `flip-left`, `flip-right`: 3D-Flip-Effekte mit CSS transforms
-- **View Transitions**: Astro's native View Transitions API für nahtlose Seitenübergänge
-- **Accessibility**: Automatische Deaktivierung bei `prefers-reduced-motion`
-- **Performance**: Keine externe Animation-Bibliotheken, nur natives CSS
+- **Sanfte Seitenübergänge**: Nahtlose Übergänge zwischen Seiten
+- **Accessibility**: Respektiert `prefers-reduced-motion` für Barrierefreiheit
+- **Performance**: Natives Browser-Feature ohne externe Bibliotheken
 
 #### 6. Performance-Optimierungen
 
@@ -335,7 +327,7 @@ Die Website nutzt moderne, performante CSS-Animationen ohne externe Bibliotheken
 - Lazy Loading für Bilder
 - CSS Code-Splitting
 - Optimierte Font-Loading-Strategie
-- CSS-only Animationen (kein JavaScript-Overhead)
+- Native View Transitions (kein JavaScript-Overhead)
 
 ## Seiten
 

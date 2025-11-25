@@ -31,51 +31,6 @@ import { UI } from 'astrowind:config';
   };
   initTheme();
 
-  // Scroll-Animationen mit CSS initialisieren (IntersectionObserver)
-  function initScrollAnimations() {
-    // Prüfe ob reduced motion bevorzugt wird
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const animatedElements = document.querySelectorAll('[data-aos]');
-
-    if (!animatedElements.length) return;
-
-    // Observer für Scroll-Animationen - fügt nur CSS-Klassen hinzu
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const element = entry.target;
-            // Aktiviere CSS-Animation durch Hinzufügen der Klasse
-            element.classList.add('aos-animate');
-            // Element nicht mehr beobachten (once: true)
-            observer.unobserve(element);
-          }
-        });
-      },
-      {
-        threshold: 0,
-        rootMargin: '-60px',
-      }
-    );
-
-    // Beobachte alle Elemente
-    animatedElements.forEach((element) => {
-      observer.observe(element);
-    });
-
-    // Speichere Observer für späteres Refresh
-    window.scrollAnimationObserver = observer;
-  }
-
-  // Refresh-Funktion für ViewTransitions
-  function refreshScrollAnimations() {
-    if (window.scrollAnimationObserver) {
-      window.scrollAnimationObserver.disconnect();
-    }
-    initScrollAnimations();
-  }
-
   function attachEvent(selector, event, fn) {
     const matches = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
     if (matches && matches.length) {
@@ -90,8 +45,6 @@ import { UI } from 'astrowind:config';
     let previousScrollPosition = window.scrollY;
     let ticking = false;
 
-    // Scroll-Animationen initialisieren nach dem Laden
-    initScrollAnimations();
 
     attachEvent('#header nav', 'click', function () {
       document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
@@ -232,7 +185,5 @@ import { UI } from 'astrowind:config';
     initTheme();
     onLoad();
     onPageShow();
-    // Scroll-Animationen für ViewTransitions refreshen
-    refreshScrollAnimations();
   });
 </script>

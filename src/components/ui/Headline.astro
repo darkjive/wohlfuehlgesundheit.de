@@ -18,11 +18,7 @@ const {
 
 {
   (title || subtitle || tagline) && (
-    <div
-      data-aos="fade-up"
-      data-aos-delay="150"
-      class={twMerge('mb-8 text-center md:mx-auto md:mb-12', containerClass)}
-    >
+    <div class={twMerge('mb-8 text-center md:mx-auto md:mb-12', containerClass)}>
       {tagline && <p class="text-base uppercase tracking-wide text-gray-400 dark:text-gray-300" set:html={tagline} />}
       {title && (
         <h2
