@@ -2,7 +2,10 @@
 
 # Load environment variables
 if [ -f public/api/.env ]; then
-    export $(cat public/api/.env | grep -v '^#' | xargs)
+    # Source the .env file properly, handling special characters
+    set -a
+    source <(grep -E '^SFTP_' public/api/.env | grep -v '^#')
+    set +a
 else
     echo "❌ .env file not found at public/api/.env!"
     echo "Please create a public/api/.env file with your SFTP credentials."
