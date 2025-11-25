@@ -16,20 +16,7 @@
     Require all denied
 </FilesMatch>
 
-# Prevent PHP execution in upload directories if any
-<IfModule mod_php7.c>
-    php_flag engine off
+# Ensure PHP is enabled for API endpoints
+<IfModule mod_mime.c>
+    AddType application/x-httpd-php .php
 </IfModule>
-<IfModule mod_php8.c>
-    php_flag engine off
-</IfModule>
-
-# Re-enable PHP for actual API files
-<FilesMatch "\.php$">
-    <IfModule mod_php7.c>
-        php_flag engine on
-    </IfModule>
-    <IfModule mod_php8.c>
-        php_flag engine on
-    </IfModule>
-</FilesMatch>
