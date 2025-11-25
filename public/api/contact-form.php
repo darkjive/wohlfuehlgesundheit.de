@@ -124,12 +124,12 @@ $mailSent = sendTextEmail($adminEmail, $emailSubject, $emailBody, $email);
 if ($mailSent) {
     echo json_encode([
         'success' => true,
-        'message' => 'Vielen Dank für deine Nachricht! Wir melden uns bald bei dir.'
+        'message' => 'Vielen Dank für deine Nachricht! Ich melde mich bald bei dir.'
     ], JSON_UNESCAPED_UNICODE);
 } else {
     error_log('Contact form mail() failed for: ' . $email);
     echo json_encode([
         'success' => false,
-        'message' => 'Fehler beim Senden. Bitte versuche es später erneut oder kontaktiere uns direkt per E-Mail.'
+        'message' => 'Fehler beim Senden. Bitte versuche es später erneut oder kontaktiere mich direkt per E-Mail.'
     ], JSON_UNESCAPED_UNICODE);
 }
