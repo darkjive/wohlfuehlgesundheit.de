@@ -33,7 +33,7 @@ const {
       )}
     >
       {items.map(({ title, description, icon, callToAction, classes: itemClasses = {} }, index) => (
-        <div class="" data-animate="fadeInUp" data-animate-duration="800" data-animate-delay={index * 100}>
+        <div class="" data-animate="fadeIn" data-animate-duration="600" data-animate-delay={index * 100}>
           <div class={twMerge('flex max-w-md flex-row', panelClass, itemClasses?.panel)}>
             <div class="flex justify-center">
               {(icon || defaultIcon) && (

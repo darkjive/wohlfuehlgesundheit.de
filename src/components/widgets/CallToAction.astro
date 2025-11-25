@@ -28,8 +28,8 @@ const {
 <WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
   <div
     class="dark:bg-dark mx-auto max-w-3xl rounded-md bg-white p-6 text-center shadow-xl dark:border dark:border-slate-600"
-    data-animate="fadeInUp"
-    data-animate-duration="1000"
+    data-animate="fadeIn"
+    data-animate-duration="800"
   >
     <Headline
       title={title}
@@ -45,8 +45,8 @@ const {
       actions && (
         <div
           class="m-auto mt-6 flex max-w-xs flex-col flex-nowrap gap-4 sm:max-w-md sm:flex-row sm:justify-center"
-          data-animate="fadeInUp"
-          data-animate-duration="800"
+          data-animate="fadeIn"
+          data-animate-duration="600"
           data-animate-delay="200"
         >
           {Array.isArray(actions) ? (

@@ -39,8 +39,8 @@ const {
           title && (
             <h1
               class="leading-tighter mb-4 font-heading text-[3em]/10 font-bold tracking-tighter dark:text-gray-200 md:text-6xl"
-              data-animate="fadeInUp"
-              data-animate-duration="1200"
+              data-animate="fadeIn"
+              data-animate-duration="1000"
               data-animate-delay="200"
               set:html={title}
             />
@@ -50,8 +50,8 @@ const {
           {subtitle && (
             <p
               class="mb-6 text-xl text-muted dark:text-slate-100"
-              data-animate="fadeInUp"
-              data-animate-duration="1000"
+              data-animate="fadeIn"
+              data-animate-duration="800"
               data-animate-delay="400"
               set:html={subtitle}
             />
@@ -60,8 +60,8 @@ const {
             actions && (
               <div
                 class="m-auto flex max-w-xs flex-col flex-nowrap gap-4 sm:max-w-md sm:flex-row sm:justify-center"
-                data-animate="fadeInUp"
-                data-animate-duration="1000"
+                data-animate="fadeIn"
+                data-animate-duration="800"
                 data-animate-delay="600"
               >
                 {Array.isArray(actions) ? (
@@ -85,7 +85,7 @@ const {
             <div
               class="relative m-auto max-w-5xl"
               data-animate="fadeIn"
-              data-animate-duration="1200"
+              data-animate-duration="1000"
               data-animate-delay="800"
             >
               {typeof image === 'string' ? (

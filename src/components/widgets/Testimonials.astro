@@ -26,7 +26,7 @@ const {
     {
       testimonials &&
         testimonials.map(({ title, testimonial, name, job, image }, index) => (
-          <div class="flex h-auto" data-animate="fadeInUp" data-animate-duration="800" data-animate-delay={index * 150}>
+          <div class="flex h-auto" data-animate="fadeIn" data-animate-duration="600" data-animate-delay={index * 100}>
             <div class="flex flex-col rounded-md bg-white p-4 shadow-xl dark:border dark:border-slate-600 dark:bg-primary dark:text-white dark:shadow-none md:p-6">
               {title && <h2 class="pb-4 text-lg font-medium leading-6">{title}</h2>}
               {testimonial && (

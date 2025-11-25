@@ -45,15 +45,15 @@ const {
     <div class={`md:flex ${isReversed ? 'md:flex-row-reverse' : ''} md:gap-16`}>
       <div class="self-center md:basis-1/2">
         {content && (
-          <div class="mb-12 text-lg" data-animate="fadeInUp" data-animate-duration="1000" set:html={content} />
+          <div class="mb-12 text-lg" data-animate="fadeIn" data-animate-duration="800" set:html={content} />
         )}
 
         {
           callToAction && (
             <div
               class="mb-8 mt-[-40px] text-primary"
-              data-animate="fadeInUp"
-              data-animate-duration="800"
+              data-animate="fadeIn"
+              data-animate-duration="600"
               data-animate-delay="200"
             >
               <Button variant="link" {...callToAction} />
@@ -81,7 +81,7 @@ const {
             <div
               class="relative m-auto max-w-4xl"
               data-animate="fadeIn"
-              data-animate-duration="1200"
+              data-animate-duration="800"
               data-animate-delay="300"
             >
               {typeof image === 'string' ? (
