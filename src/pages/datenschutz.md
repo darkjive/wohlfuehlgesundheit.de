@@ -153,9 +153,77 @@ Die Rechtsgrundlage für die Verarbeitung ist **Art. 6 Abs. 1 lit. f DSGVO** (be
 
 Sie können die Speicherung von Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern. Bitte beachten Sie, dass bei Deaktivierung von Cookies möglicherweise nicht alle Funktionen dieser Website vollumfänglich genutzt werden können.
 
-## 8. Online-Beratung via Zoom
+## 8. Google Analytics
 
 ### 8.1 Beschreibung und Umfang der Datenverarbeitung
+
+Diese Website nutzt **Google Analytics**, einen Webanalysedienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland ("Google").
+
+Google Analytics verwendet Cookies, um zu analysieren, wie Sie diese Website nutzen. Die durch das Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der Regel an einen Server von Google übertragen und dort gespeichert.
+
+**Die folgenden Daten werden erfasst:**
+
+- Anonymisierte IP-Adresse (IP-Anonymisierung ist aktiviert)
+- Browsertyp und -version
+- Verwendetes Betriebssystem und Gerät
+- Referrer URL (zuvor besuchte Seite)
+- Hostname des zugreifenden Rechners
+- Uhrzeit der Serveranfrage
+- Besuchte Seiten und Verweildauer
+- Klickpfade und Nutzerinteraktionen
+
+**Google Analytics setzt folgende Cookies:**
+
+- **_ga**: Wird verwendet, um Nutzer zu unterscheiden (Speicherdauer: 2 Jahre)
+- **_gid**: Wird verwendet, um Nutzer zu unterscheiden (Speicherdauer: 24 Stunden)
+- **_gat**: Wird verwendet, um die Anforderungsrate zu drosseln (Speicherdauer: 1 Minute)
+
+### 8.2 IP-Anonymisierung
+
+Auf dieser Website ist die **IP-Anonymisierung aktiviert**. Dadurch wird Ihre IP-Adresse von Google innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum zuvor gekürzt. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google übertragen und dort gekürzt.
+
+### 8.3 Rechtsgrundlage
+
+Die Rechtsgrundlage für die Verarbeitung ist **Art. 6 Abs. 1 lit. a DSGVO** (Einwilligung des Betroffenen).
+
+**Wichtig:** Google Analytics wird nur aktiviert, wenn Sie über unser Cookie-Consent Tool ausdrücklich in die Kategorie "Statistik" eingewilligt haben. Ohne Ihre Einwilligung werden keine Analytics-Cookies gesetzt.
+
+### 8.4 Zweck der Datenverarbeitung
+
+Die Nutzung von Google Analytics dient dem Zweck der Analyse des Nutzerverhaltens, um meine Website und mein Angebot kontinuierlich zu verbessern und bedarfsgerecht zu gestalten.
+
+### 8.5 Datenübermittlung in Drittländer
+
+**Wichtiger Hinweis:** Google verarbeitet Ihre Daten möglicherweise auch in den USA. Google ist unter dem EU-US Data Privacy Framework zertifiziert, wodurch ein angemessenes Datenschutzniveau gewährleistet wird.
+
+Weitere Informationen zum EU-US Data Privacy Framework: [https://www.dataprivacyframework.gov](https://www.dataprivacyframework.gov)
+
+### 8.6 Auftragsverarbeitung
+
+Mit Google wurde ein Vertrag zur Auftragsverarbeitung gemäß **Art. 28 DSGVO** abgeschlossen. Google verarbeitet die Daten ausschließlich nach meinen Weisungen.
+
+### 8.7 Speicherdauer
+
+Die von Google Analytics gesetzten Cookies werden nach den oben genannten Zeiträumen automatisch gelöscht. Sie können Ihre Einwilligung jederzeit über das Cookie-Consent Tool widerrufen, woraufhin alle Google Analytics Cookies umgehend gelöscht werden.
+
+### 8.8 Widerspruchsmöglichkeit
+
+Sie haben folgende Möglichkeiten, der Verwendung von Google Analytics zu widersprechen:
+
+1. **Cookie-Einstellungen anpassen:** Öffnen Sie unser Cookie-Consent Tool und deaktivieren Sie die Kategorie "Statistik"
+2. **Browser-Add-on:** Sie können die Erfassung durch Google Analytics verhindern, indem Sie das folgende Browser-Plugin installieren: [Google Analytics Opt-out Browser Add-on](https://tools.google.com/dlpage/gaoptout?hl=de)
+3. **Browser-Einstellungen:** Deaktivieren Sie Cookies in Ihren Browser-Einstellungen
+
+### 8.9 Weitere Informationen
+
+Weitere Informationen zum Datenschutz bei Google Analytics finden Sie unter:
+
+- [Google Analytics Datenschutzerklärung](https://policies.google.com/privacy?hl=de)
+- [Google Analytics Nutzungsbedingungen](https://marketingplatform.google.com/about/analytics/terms/de/)
+
+## 9. Online-Beratung via Zoom
+
+### 9.1 Beschreibung und Umfang der Datenverarbeitung
 
 Für Online-Beratungen nutze ich die Videokonferenz-Software **Zoom**. Zoom ist ein Produkt der Zoom Video Communications Inc., 55 Almaden Blvd, Suite 600, San Jose, CA 95113, USA.
 
@@ -167,66 +235,66 @@ Bei der Nutzung von Zoom werden folgende Daten verarbeitet:
 - Video- und Audiodaten während der Sitzung
 - Chat-Nachrichten (falls genutzt)
 
-### 8.2 Rechtsgrundlage
+### 9.2 Rechtsgrundlage
 
 Die Rechtsgrundlage für die Verarbeitung ist:
 
 - **Art. 6 Abs. 1 lit. a DSGVO** - Einwilligung des Betroffenen
 - **Art. 6 Abs. 1 lit. b DSGVO** - Erfüllung des Beratungsvertrags
 
-### 8.3 Datenübermittlung in Drittländer
+### 9.3 Datenübermittlung in Drittländer
 
 **Wichtiger Hinweis:** Der Europäische Gerichtshof (EuGH) stuft die USA als Land mit unzureichendem Datenschutzniveau ein. Es besteht die Möglichkeit, dass US-Behörden personenbezogene Daten zur Terrorabwehr verarbeiten. Ein Rechtsbehelf dagegen steht möglicherweise nicht zur Verfügung.
 
 Mit Ihrer ausdrücklichen Einwilligung zur Durchführung der Beratung via Zoom willigen Sie in diese Datenübermittlung ein.
 
-### 8.4 Auftragsverarbeitung
+### 9.4 Auftragsverarbeitung
 
 Mit Zoom wurde ein Vertrag zur Auftragsverarbeitung gemäß **Art. 28 DSGVO** abgeschlossen. Zoom verarbeitet die Daten ausschließlich nach meinen Weisungen.
 
-### 8.5 Aufzeichnungen
+### 9.5 Aufzeichnungen
 
 **Sitzungen werden grundsätzlich NICHT aufgezeichnet.** Sollte ausnahmsweise eine Aufzeichnung erfolgen, wird dies vorab ausdrücklich angekündigt und Ihre separate Einwilligung eingeholt.
 
-### 8.6 Weitere Informationen
+### 9.6 Weitere Informationen
 
 Weitere Informationen zum Datenschutz bei Zoom finden Sie unter: [https://zoom.us/de-de/privacy.html](https://zoom.us/de-de/privacy.html)
 
-## 9. Ihre Rechte als Betroffener
+## 10. Ihre Rechte als Betroffener
 
 Sie haben gegenüber mir folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:
 
-### 9.1 Recht auf Auskunft (Art. 15 DSGVO)
+### 10.1 Recht auf Auskunft (Art. 15 DSGVO)
 
 Sie haben das Recht, von mir eine Bestätigung darüber zu verlangen, ob Sie betreffende personenbezogene Daten verarbeitet werden. Ist dies der Fall, haben Sie ein Recht auf Auskunft über diese Daten und auf weitere Informationen (Verarbeitungszweck, Kategorien, Empfänger, Speicherdauer etc.).
 
-### 9.2 Recht auf Berichtigung (Art. 16 DSGVO)
+### 10.2 Recht auf Berichtigung (Art. 16 DSGVO)
 
 Sie haben das Recht, unverzüglich die Berichtigung Sie betreffender unrichtiger personenbezogener Daten zu verlangen.
 
-### 9.3 Recht auf Löschung (Art. 17 DSGVO)
+### 10.3 Recht auf Löschung (Art. 17 DSGVO)
 
 Sie haben das Recht, von mir zu verlangen, dass Sie betreffende personenbezogene Daten unverzüglich gelöscht werden, sofern einer der gesetzlichen Gründe zutrifft und soweit die Verarbeitung nicht erforderlich ist.
 
 **Wichtig:** Bei Gesundheitsdaten besteht gemäß § 630f BGB eine gesetzliche Aufbewahrungspflicht von 10 Jahren, die einer sofortigen Löschung entgegensteht.
 
-### 9.4 Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)
+### 10.4 Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)
 
 Sie haben das Recht, von mir die Einschränkung der Verarbeitung zu verlangen, wenn bestimmte Voraussetzungen gegeben sind.
 
-### 9.5 Recht auf Datenübertragbarkeit (Art. 20 DSGVO)
+### 10.5 Recht auf Datenübertragbarkeit (Art. 20 DSGVO)
 
 Sie haben das Recht, die Sie betreffenden personenbezogenen Daten in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten.
 
-### 9.6 Widerspruchsrecht (Art. 21 DSGVO)
+### 10.6 Widerspruchsrecht (Art. 21 DSGVO)
 
 Sie haben das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung Sie betreffender personenbezogener Daten Widerspruch einzulegen.
 
-### 9.7 Recht auf Widerruf der Einwilligung (Art. 7 Abs. 3 DSGVO)
+### 10.7 Recht auf Widerruf der Einwilligung (Art. 7 Abs. 3 DSGVO)
 
 Sie haben das Recht, Ihre erteilte Einwilligung jederzeit mit Wirkung für die Zukunft zu widerrufen. Die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung bleibt unberührt.
 
-### 9.8 Beschwerderecht bei der Aufsichtsbehörde (Art. 77 DSGVO)
+### 10.8 Beschwerderecht bei der Aufsichtsbehörde (Art. 77 DSGVO)
 
 Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten durch mich zu beschweren.
 
@@ -239,17 +307,17 @@ Telefon: +49 611 1408-0
 E-Mail: [poststelle@datenschutz.hessen.de](mailto:poststelle@datenschutz.hessen.de)
 Website: [https://datenschutz.hessen.de](https://datenschutz.hessen.de)
 
-## 10. SSL- bzw. TLS-Verschlüsselung
+## 11. SSL- bzw. TLS-Verschlüsselung
 
 Diese Website nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von "http://" auf "https://" wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.
 
 Wenn die SSL- bzw. TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an mich übermitteln, nicht von Dritten mitgelesen werden.
 
-## 11. Änderungen dieser Datenschutzerklärung
+## 12. Änderungen dieser Datenschutzerklärung
 
 Ich behalte mir vor, diese Datenschutzerklärung bei Bedarf zu aktualisieren, um sie an geänderte Rechtslagen oder Änderungen meiner Datenverarbeitung anzupassen. Die aktuelle Version ist stets auf dieser Website abrufbar.
 
-## 12. Kontakt bei Datenschutzfragen
+## 13. Kontakt bei Datenschutzfragen
 
 Bei Fragen zum Datenschutz oder zur Ausübung Ihrer Rechte können Sie mich jederzeit kontaktieren:
 
