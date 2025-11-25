@@ -180,7 +180,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
         { required: true, message: 'Bitte gib deine E-Mail-Adresse ein.' },
         { pattern: ValidationPatterns.email, message: 'Bitte gib eine gültige E-Mail-Adresse ein.' },
       ],
-      textarea: [
+      message: [
         { required: true, message: 'Bitte gib deine Nachricht ein.' },
         { minLength: 10, message: 'Die Nachricht muss mindestens 10 Zeichen lang sein.' },
       ],
