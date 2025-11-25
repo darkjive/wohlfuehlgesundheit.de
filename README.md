@@ -96,15 +96,16 @@ Alle Befehle werden im Hauptverzeichnis des Projekts ausgeführt:
 | Befehl                 | Aktion                                                                  |
 | ---------------------- | ----------------------------------------------------------------------- |
 | `npm install`          | Installiert Abhängigkeiten                                              |
-| `npm start`            | **Empfohlen**: Startet PHP + Astro Dev-Server (localhost:4321)         |
+| `npm start`            | **Empfohlen**: Startet PHP + Astro Dev-Server (localhost:4321)          |
 | `npm run dev:full`     | Gleich wie `npm start` - startet beide Server                           |
-| `npm run dev`          | Startet nur Astro Dev-Server (localhost:4321) - **ohne PHP!**          |
+| `npm run dev`          | Startet nur Astro Dev-Server (localhost:4321) - **ohne PHP!**           |
 | `npm run dev:php`      | Startet nur PHP Dev-Server (localhost:8000)                             |
 | `npm run build`        | Erstellt die produktionsreife Website in ./dist/                        |
 | `npm run preview`      | Vorschau der gebauten Website vor dem Deployment                        |
 | `npm run check`        | Überprüft das Projekt auf Fehler                                        |
 | `npm run fix`          | Führt ESLint aus und formatiert Code mit Prettier                       |
 | `npm run astro ...`    | Führt Astro CLI-Befehle aus                                             |
+| `npm run deploy ...`   | Führt Deployment-Befehle aus                                            |
 
 ### Lokale Entwicklung mit PHP-Backend
 
@@ -186,15 +187,6 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 
 ## Deployment
 
-### Automatisches Deployment (Push-to-Deploy)
-
-Das Projekt nutzt **GitHub Actions** für automatisches Deployment auf IONOS:
-
-- **Production** (main Branch) → `wohlfuehlgesundheit.de`
-- **Test** (andere Branches) → `test.wohlfuehlgesundheit.de`
-
-**Setup-Anleitung**: Siehe [DEPLOYMENT.md](./DEPLOYMENT.md) für Details zur Einrichtung der FTP-Zugangsdaten und GitHub Secrets.
-
 ### Manuelles Deployment
 
 1. Produktionsbuild erstellen:
@@ -204,6 +196,12 @@ Das Projekt nutzt **GitHub Actions** für automatisches Deployment auf IONOS:
    ```
 
 2. Der `dist/` Ordner enthält alle statischen Dateien für das Deployment
+
+3. Deployment starten
+
+   ```bash
+   npm run deploy
+   ```
 
 ## Technische Details
 
@@ -335,7 +333,6 @@ Die Website umfasst folgende Hauptseiten (`src/pages/`):
 
 - **index.astro**: Startseite mit Hero, Features, FAQs
 - **ueber-mich.astro**: Über Stefanie Leidel & ihre Qualifikationen
-- **angebot.astro**: Leistungen & Angebote der holistischen Darmtherapie
 - **termin-buchen.astro**: Anamnesebogen & Zoom-Terminbuchung
 - **kontakt.astro**: Kontaktformular
 - **danke.astro**: Danke-Seite nach erfolgreicher Formular-Absendung
