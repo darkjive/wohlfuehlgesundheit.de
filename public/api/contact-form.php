@@ -12,6 +12,13 @@
 // Bootstrap: Load Composer autoloader, dependencies, and environment variables
 require_once __DIR__ . '/bootstrap.php';
 
+// Debug logging
+$debugMode = env('DEBUG_MODE') === 'true';
+if ($debugMode) {
+    error_log('Contact form: Request received');
+    error_log('Contact form: REQUEST_METHOD = ' . $_SERVER['REQUEST_METHOD']);
+}
+
 // Validate required environment variables
 try {
     validateEnv([
@@ -24,11 +31,15 @@ try {
         'SMTP_USERNAME',
         'SMTP_PASSWORD'
     ]);
+    if ($debugMode) {
+        error_log('Contact form: All required environment variables are set');
+    }
 } catch (Exception $e) {
+    error_log('Contact form: Environment validation failed - ' . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Server-Konfigurationsfehler.'
+        'message' => $debugMode ? $e->getMessage() : 'Server-Konfigurationsfehler.'
     ], JSON_UNESCAPED_UNICODE);
     exit();
 }
@@ -119,15 +130,24 @@ IP: " . $_SERVER['REMOTE_ADDR'] . "
 ";
 
 // Send email via PHPMailer (IONOS SMTP)
+if ($debugMode) {
+    error_log('Contact form: Attempting to send email to ' . $adminEmail);
+    error_log('Contact form: From email = ' . $email);
+    error_log('Contact form: Subject = ' . $emailSubject);
+}
+
 $mailSent = sendTextEmail($adminEmail, $emailSubject, $emailBody, $email);
 
 if ($mailSent) {
+    if ($debugMode) {
+        error_log('Contact form: Email sent successfully');
+    }
     echo json_encode([
         'success' => true,
         'message' => 'Vielen Dank für deine Nachricht! Wir melden uns bald bei dir.'
     ], JSON_UNESCAPED_UNICODE);
 } else {
-    error_log('Contact form mail() failed for: ' . $email);
+    error_log('Contact form: Email sending failed for: ' . $email);
     echo json_encode([
         'success' => false,
         'message' => 'Fehler beim Senden. Bitte versuche es später erneut oder kontaktiere uns direkt per E-Mail.'

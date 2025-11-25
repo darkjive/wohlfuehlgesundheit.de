@@ -64,11 +64,12 @@ require_once __DIR__ . '/phpmailer-helper.php'; // Email helper
 // LOAD ENVIRONMENT VARIABLES
 // ============================================================================
 
-if (!loadEnv()) {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Server-Konfigurationsfehler. Bitte kontaktiere den Administrator.'
-    ], JSON_UNESCAPED_UNICODE);
-    exit();
+// Try to load .env file (for local development)
+// On Vercel/production, environment variables are already set via platform
+$envLoaded = loadEnv();
+
+// Log env loading status in debug mode
+$debugMode = getenv('DEBUG_MODE') === 'true' || (isset($_ENV['DEBUG_MODE']) && $_ENV['DEBUG_MODE'] === 'true');
+if ($debugMode) {
+    error_log('.env file ' . ($envLoaded ? 'loaded successfully' : 'not found (using platform environment variables)'));
 }

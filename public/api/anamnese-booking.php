@@ -15,6 +15,13 @@
 // Bootstrap: Load Composer autoloader, dependencies, and environment variables
 require_once __DIR__ . '/bootstrap.php';
 
+// Debug logging
+$debugMode = env('DEBUG_MODE') === 'true';
+if ($debugMode) {
+    error_log('Anamnese booking: Request received');
+    error_log('Anamnese booking: REQUEST_METHOD = ' . $_SERVER['REQUEST_METHOD']);
+}
+
 // Validate required environment variables
 try {
     validateEnv([
@@ -30,12 +37,15 @@ try {
         'SMTP_USERNAME',
         'SMTP_PASSWORD'
     ]);
+    if ($debugMode) {
+        error_log('Anamnese booking: All required environment variables are set');
+    }
 } catch (Exception $e) {
-    error_log('Environment validation failed: ' . $e->getMessage());
+    error_log('Anamnese booking: Environment validation failed - ' . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Server-Konfigurationsfehler. Bitte kontaktiere den Administrator.'
+        'message' => $debugMode ? $e->getMessage() : 'Server-Konfigurationsfehler. Bitte kontaktiere den Administrator.'
     ], JSON_UNESCAPED_UNICODE);
     exit();
 }
