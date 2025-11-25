@@ -104,10 +104,10 @@ jobs:
           server: ${{ secrets.FTP_SERVER_PREVIEW }}
           username: ${{ secrets.FTP_USERNAME_PREVIEW }}
           password: ${{ secrets.FTP_PASSWORD_PREVIEW }}
-          protocol: ftps
+          protocol: sftp
           port: 22
           local-dir: ./dist/
-          server-dir: ./test/
+          server-dir: ./
           dangerous-clean-slate: false
           exclude: |
             **/.git*
