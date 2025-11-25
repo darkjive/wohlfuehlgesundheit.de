@@ -44,11 +44,18 @@ const {
   <div class="mx-auto max-w-7xl p-4 md:px-8">
     <div class={`md:flex ${isReversed ? 'md:flex-row-reverse' : ''} md:gap-16`}>
       <div class="self-center md:basis-1/2">
-        {content && <div class="mb-12 text-lg" set:html={content} />}
+        {content && (
+          <div class="mb-12 text-lg" data-animate="fadeIn" data-animate-duration="800" set:html={content} />
+        )}
 
         {
           callToAction && (
-            <div class="mb-8 mt-[-40px] text-primary">
+            <div
+              class="mb-8 mt-[-40px] text-primary"
+              data-animate="fadeIn"
+              data-animate-duration="600"
+              data-animate-delay="200"
+            >
               <Button variant="link" {...callToAction} />
             </div>
           )
@@ -71,7 +78,12 @@ const {
       <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
         {
           image && (
-            <div class="relative m-auto max-w-4xl">
+            <div
+              class="relative m-auto max-w-4xl"
+              data-animate="fadeIn"
+              data-animate-duration="800"
+              data-animate-delay="300"
+            >
               {typeof image === 'string' ? (
                 <Fragment set:html={image} />
               ) : (
