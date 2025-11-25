@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Load environment variables
-if [ -f .env ]; then
-    export $(cat .env | grep -v '^#' | xargs)
+if [ -f public/api/.env ]; then
+    export $(cat public/api/.env | grep -v '^#' | xargs)
 else
-    echo "❌ .env file not found!"
-    echo "Please create a .env file with your SFTP credentials."
+    echo "❌ .env file not found at public/api/.env!"
+    echo "Please create a public/api/.env file with your SFTP credentials."
     echo "See .env.example for reference."
     exit 1
 fi
