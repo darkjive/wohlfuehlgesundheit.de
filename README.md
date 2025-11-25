@@ -93,19 +93,19 @@ Website: Wohlfühlgesundheit Holistische Darmtherapie , entwickelt mit Astro und
 
 Alle Befehle werden im Hauptverzeichnis des Projekts ausgeführt:
 
-| Befehl                 | Aktion                                                                  |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `npm install`          | Installiert Abhängigkeiten                                              |
-| `npm start`            | **Empfohlen**: Startet PHP + Astro Dev-Server (localhost:4321)          |
-| `npm run dev:full`     | Gleich wie `npm start` - startet beide Server                           |
-| `npm run dev`          | Startet nur Astro Dev-Server (localhost:4321) - **ohne PHP!**           |
-| `npm run dev:php`      | Startet nur PHP Dev-Server (localhost:8000)                             |
-| `npm run build`        | Erstellt die produktionsreife Website in ./dist/                        |
-| `npm run preview`      | Vorschau der gebauten Website vor dem Deployment                        |
-| `npm run check`        | Überprüft das Projekt auf Fehler                                        |
-| `npm run fix`          | Führt ESLint aus und formatiert Code mit Prettier                       |
-| `npm run astro ...`    | Führt Astro CLI-Befehle aus                                             |
-| `npm run deploy ...`   | Führt Deployment-Befehle aus                                            |
+| Befehl               | Aktion                                                         |
+| -------------------- | -------------------------------------------------------------- |
+| `npm install`        | Installiert Abhängigkeiten                                     |
+| `npm start`          | **Empfohlen**: Startet PHP + Astro Dev-Server (localhost:4321) |
+| `npm run dev:full`   | Gleich wie `npm start` - startet beide Server                  |
+| `npm run dev`        | Startet nur Astro Dev-Server (localhost:4321) - **ohne PHP!**  |
+| `npm run dev:php`    | Startet nur PHP Dev-Server (localhost:8000)                    |
+| `npm run build`      | Erstellt die produktionsreife Website in ./dist/               |
+| `npm run preview`    | Vorschau der gebauten Website vor dem Deployment               |
+| `npm run check`      | Überprüft das Projekt auf Fehler                               |
+| `npm run fix`        | Führt ESLint aus und formatiert Code mit Prettier              |
+| `npm run astro ...`  | Führt Astro CLI-Befehle aus                                    |
+| `npm run deploy ...` | Führt Deployment-Befehle aus                                   |
 
 ### Lokale Entwicklung mit PHP-Backend
 
@@ -115,6 +115,7 @@ Alle Befehle werden im Hauptverzeichnis des Projekts ausgeführt:
 2. **Astro-Development-Server** (Port 4321) - dient die Website
 
 **Empfohlener Start:**
+
 ```bash
 npm start
 # oder
@@ -124,6 +125,7 @@ npm run dev:full
 Dies startet automatisch beide Server. Die Website ist dann unter `http://localhost:4321` erreichbar und alle `/api/*` Anfragen werden automatisch an den PHP-Server weitergeleitet.
 
 **Manuelle Variante** (in separaten Terminals):
+
 ```bash
 # Terminal 1: PHP-Server starten
 npm run dev:php
