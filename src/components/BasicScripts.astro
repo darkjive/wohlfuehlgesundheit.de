@@ -204,23 +204,37 @@ import { UI } from 'astrowind:config';
   // Store cleanup function globally
   let cleanupAnimations: (() => void) | null = null;
 
+  function waitForAnime(callback: () => void, maxAttempts = 50) {
+    let attempts = 0;
+
+    const checkAnime = () => {
+      attempts++;
+
+      if (typeof anime !== 'undefined') {
+        callback();
+      } else if (attempts < maxAttempts) {
+        setTimeout(checkAnime, 100);
+      } else {
+        console.warn('anime.js failed to load after multiple attempts');
+      }
+    };
+
+    checkAnime();
+  }
+
   function initAnimations() {
-    // Check if anime is loaded
-    if (typeof anime === 'undefined') {
-      console.warn('anime.js is not loaded');
-      return;
-    }
+    waitForAnime(() => {
+      // Cleanup previous observers
+      if (cleanupAnimations) {
+        cleanupAnimations();
+      }
 
-    // Cleanup previous observers
-    if (cleanupAnimations) {
-      cleanupAnimations();
-    }
+      // Auto-animate elements that don't have explicit animation attributes
+      autoAnimateElements();
 
-    // Auto-animate elements that don't have explicit animation attributes
-    autoAnimateElements();
-
-    // Initialize scroll animations with viewport detection
-    cleanupAnimations = initScrollAnimations(anime);
+      // Initialize scroll animations with viewport detection
+      cleanupAnimations = initScrollAnimations(anime);
+    });
   }
 
   // Initialize on page load
