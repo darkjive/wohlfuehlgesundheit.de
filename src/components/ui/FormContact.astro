@@ -194,42 +194,17 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       showValidIndicator: true,
     });
 
-    // CSRF Token Management with localStorage caching
-    const CSRF_STORAGE_KEY = 'csrf_token';
-    const CSRF_EXPIRY_KEY = 'csrf_token_expiry';
-    const CSRF_TOKEN_LIFETIME = 25 * 60 * 1000; // 25 minutes (token valid for 30, fetch at 25)
-
+    // Load CSRF token on page load
     let csrfToken = '';
 
-    /**
-     * Load CSRF token from cache or fetch new one
-     */
-    async function loadCSRFToken(forceRefresh = false): Promise<void> {
-      // Try to load from cache first
-      if (!forceRefresh) {
-        const cachedToken = localStorage.getItem(CSRF_STORAGE_KEY);
-        const expiryTime = localStorage.getItem(CSRF_EXPIRY_KEY);
-
-        if (cachedToken && expiryTime) {
-          const now = Date.now();
-          if (now < parseInt(expiryTime, 10)) {
-            csrfToken = cachedToken;
-            return;
-          }
-        }
-      }
-
-      // Fetch new token
+    async function loadCSRFToken() {
       try {
         const response = await fetch('/api/get-csrf-token.php');
         const data = await response.json();
         if (data.success && data.token) {
           csrfToken = data.token;
-
-          // Cache token with expiry
-          const expiryTime = Date.now() + CSRF_TOKEN_LIFETIME;
-          localStorage.setItem(CSRF_STORAGE_KEY, csrfToken);
-          localStorage.setItem(CSRF_EXPIRY_KEY, expiryTime.toString());
+        } else {
+          console.error('Failed to load CSRF token');
         }
       } catch (error) {
         console.error('Error loading CSRF token:', error);
@@ -264,6 +239,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       if (csrfToken) {
         formData.append('csrf_token', csrfToken);
       } else {
+        // Try to reload token if not available
         await loadCSRFToken();
         if (csrfToken) {
           formData.append('csrf_token', csrfToken);
@@ -286,8 +262,8 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
           // Reset form
           contactForm.reset();
 
-          // Reload CSRF token (force refresh after successful submission)
-          loadCSRFToken(true);
+          // Reload CSRF token for next submission
+          loadCSRFToken();
 
           // Scroll to success message
           successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -301,8 +277,8 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
           errorText.textContent = result.message || 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
           errorMessage.classList.remove('hidden');
 
-          // Reload CSRF token (force refresh after error)
-          loadCSRFToken(true);
+          // Reload CSRF token
+          loadCSRFToken();
 
           // Scroll to error message
           errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
