@@ -9,7 +9,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "dev:php": "php -S localhost:8000 -t public",
+    "dev:full": "echo 'Starting PHP server on port 8000 and Astro dev server on port 4321...' && (php -S localhost:8000 -t public > /dev/null 2>&1 &) && astro dev",
+    "start": "npm run dev:full",
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "npm run build && ./deploy.sh",

@@ -154,6 +154,16 @@ export default defineConfig({
       },
     },
 
+    // Proxy API requests to PHP dev server
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:8000',
+          changeOrigin: true,
+        },
+      },
+    },
+
     // Source-Map-Fehler beheben
     build: {
       sourcemap: false, // Source Maps für Production deaktivieren
