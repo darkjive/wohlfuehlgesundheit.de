@@ -64,56 +64,77 @@ jobs:
       - name: Create .env file from secrets
         run: |
           mkdir -p dist/public/api
-          cat > dist/public/api/.env <<EOF
-          # =============================================================================
-          # ENVIRONMENT CONFIGURATION
-          # =============================================================================
 
-          # -----------------------------------------------------------------------------
-          # ZOOM MEETING API (Server-to-Server OAuth)
-          # -----------------------------------------------------------------------------
-          ZOOM_ACCOUNT_ID=${{ secrets.ZOOM_ACCOUNT_ID }}
-          ZOOM_CLIENT_ID=${{ secrets.ZOOM_CLIENT_ID }}
-          ZOOM_CLIENT_SECRET=${{ secrets.ZOOM_CLIENT_SECRET }}
+          # Create .env file with proper quoting
+          cat > dist/public/api/.env << 'ENVEOF'
+# =============================================================================
+# ENVIRONMENT CONFIGURATION
+# =============================================================================
 
-          # -----------------------------------------------------------------------------
-          # E-MAIL KONFIGURATION (IONOS SMTP)
-          # -----------------------------------------------------------------------------
-          ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}
-          FROM_EMAIL=${{ secrets.FROM_EMAIL }}
-          FROM_NAME=${{ secrets.FROM_NAME }}
+# -----------------------------------------------------------------------------
+# ZOOM MEETING API (Server-to-Server OAuth)
+# -----------------------------------------------------------------------------
+ENVEOF
+          echo "ZOOM_ACCOUNT_ID=\"${{ secrets.ZOOM_ACCOUNT_ID }}\"" >> dist/public/api/.env
+          echo "ZOOM_CLIENT_ID=\"${{ secrets.ZOOM_CLIENT_ID }}\"" >> dist/public/api/.env
+          echo "ZOOM_CLIENT_SECRET=\"${{ secrets.ZOOM_CLIENT_SECRET }}\"" >> dist/public/api/.env
 
-          # -----------------------------------------------------------------------------
-          # SMTP KONFIGURATION (IONOS)
-          # -----------------------------------------------------------------------------
-          SMTP_HOST=${{ secrets.SMTP_HOST }}
-          SMTP_PORT=${{ secrets.SMTP_PORT }}
-          SMTP_ENCRYPTION=${{ secrets.SMTP_ENCRYPTION }}
-          SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}
-          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          cat >> dist/public/api/.env << 'ENVEOF'
 
-          # -----------------------------------------------------------------------------
-          # SICHERHEIT
-          # -----------------------------------------------------------------------------
-          ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}
-          CSRF_SECRET=${{ secrets.CSRF_SECRET }}
+# -----------------------------------------------------------------------------
+# E-MAIL KONFIGURATION (IONOS SMTP)
+# -----------------------------------------------------------------------------
+ENVEOF
+          echo "ADMIN_EMAIL=\"${{ secrets.ADMIN_EMAIL }}\"" >> dist/public/api/.env
+          echo "FROM_EMAIL=\"${{ secrets.FROM_EMAIL }}\"" >> dist/public/api/.env
+          echo "FROM_NAME=\"${{ secrets.FROM_NAME }}\"" >> dist/public/api/.env
 
-          # -----------------------------------------------------------------------------
-          # RATE LIMITING
-          # -----------------------------------------------------------------------------
-          RATE_LIMIT_MAX_REQUESTS=${{ secrets.RATE_LIMIT_MAX_REQUESTS }}
-          RATE_LIMIT_TIME_WINDOW=${{ secrets.RATE_LIMIT_TIME_WINDOW }}
+          cat >> dist/public/api/.env << 'ENVEOF'
 
-          # -----------------------------------------------------------------------------
-          # DEBUG (nur für Entwicklung!)
-          # -----------------------------------------------------------------------------
-          DEBUG_MODE=${{ secrets.DEBUG_MODE }}
-          EOF
+# -----------------------------------------------------------------------------
+# SMTP KONFIGURATION (IONOS)
+# -----------------------------------------------------------------------------
+ENVEOF
+          echo "SMTP_HOST=\"${{ secrets.SMTP_HOST }}\"" >> dist/public/api/.env
+          echo "SMTP_PORT=\"${{ secrets.SMTP_PORT }}\"" >> dist/public/api/.env
+          echo "SMTP_ENCRYPTION=\"${{ secrets.SMTP_ENCRYPTION }}\"" >> dist/public/api/.env
+          echo "SMTP_USERNAME=\"${{ secrets.SMTP_USERNAME }}\"" >> dist/public/api/.env
+          echo "SMTP_PASSWORD=\"${{ secrets.SMTP_PASSWORD }}\"" >> dist/public/api/.env
+
+          cat >> dist/public/api/.env << 'ENVEOF'
+
+# -----------------------------------------------------------------------------
+# SICHERHEIT
+# -----------------------------------------------------------------------------
+ENVEOF
+          echo "ALLOWED_ORIGINS=\"${{ secrets.ALLOWED_ORIGINS }}\"" >> dist/public/api/.env
+          echo "CSRF_SECRET=\"${{ secrets.CSRF_SECRET }}\"" >> dist/public/api/.env
+
+          cat >> dist/public/api/.env << 'ENVEOF'
+
+# -----------------------------------------------------------------------------
+# RATE LIMITING
+# -----------------------------------------------------------------------------
+ENVEOF
+          echo "RATE_LIMIT_MAX_REQUESTS=\"${{ secrets.RATE_LIMIT_MAX_REQUESTS }}\"" >> dist/public/api/.env
+          echo "RATE_LIMIT_TIME_WINDOW=\"${{ secrets.RATE_LIMIT_TIME_WINDOW }}\"" >> dist/public/api/.env
+
+          cat >> dist/public/api/.env << 'ENVEOF'
+
+# -----------------------------------------------------------------------------
+# DEBUG (nur für Entwicklung!)
+# -----------------------------------------------------------------------------
+ENVEOF
+          echo "DEBUG_MODE=\"${{ secrets.DEBUG_MODE }}\"" >> dist/public/api/.env
 
           echo "✅ .env file created in dist/public/api/.env"
           ls -la dist/public/api/.env
-          echo "First 5 lines (without sensitive data):"
-          head -5 dist/public/api/.env
+          echo ""
+          echo "Checking .env file format:"
+          wc -l dist/public/api/.env
+          echo ""
+          echo "First 10 lines (secrets masked):"
+          head -10 dist/public/api/.env
 
       - name: Deploy to IONOS Production via SFTP
         run: |
