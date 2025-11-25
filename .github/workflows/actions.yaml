@@ -56,14 +56,13 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to IONOS Production via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          port: 21
-          local-dir: ./dist/
-          server-dir: ./
-          dangerous-clean-slate: false
+      - name: Deploy to IONOS Production via SFTP
+        run: |
+          sudo apt-get update && sudo apt-get install -y lftp
+          lftp -e "
+            set sftp:auto-confirm yes;
+            set ssl:verify-certificate no;
+            open -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} sftp://${{ secrets.FTP_SERVER }}:22;
+            mirror -R --verbose --delete dist/ ./;
+            bye
+          "
