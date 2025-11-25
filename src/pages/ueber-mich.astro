@@ -1,0 +1,211 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Content from '~/components/ui/Content.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+import Quote from '~/components/widgets/Quote.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Image from '~/components/common/Image.astro';
+
+import certImage from '~/assets/images/INA_Cert2025.jpg';
+import certImage2 from '~/assets/images/Teilnahmebestaetigung_Leidel.jpg';
+
+const metadata = {
+  title: 'Über mich',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    id="hero"
+    title="Stefanie Leidel"
+    tagline="Holistische Darmtherapeutin"
+    actions={[{ variant: 'secondary', text: 'Mehr erfahren', href: '#about' }]}
+  >
+    <Fragment slot="subtitle">
+      Schön, dass du hier bist! Mein Name ist Stefanie Leidel. Als zertifizierte holistische Darmtherapeutin und
+      Ernährungsberaterin begleite ich dich auf deinem Weg zu mehr Gesundheit und Wohlbefinden.
+    </Fragment>
+  </Hero>
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    id="about"
+    columns={3}
+    items={[
+      {
+        icon: 'tabler:brand-instagram',
+        callToAction: {
+          target: '_blank',
+          text: 'Instagram',
+          href: 'https://www.instagram.com/stories/wohl_fuehl_gesundheit/',
+        },
+      },
+    ]}
+    image={{
+      src: '~/assets/images/stefanie-leidl.jpg',
+      alt: 'Stefanie Leidel',
+      loading: 'eager',
+    }}
+  >
+    <Fragment slot="content">
+      <h2 class="mb-2 font-heading text-4xl font-bold tracking-tight dark:text-white sm:text-4xl">Über mich</h2>
+      <p>
+        Ich habe eine 12-monatige Ausbildung am Institut für Naturheilkunde und Ayurveda erfolgreich abgeschlossen
+        (April 2024 - März 2025). Dabei habe ich die Fachkompetenz als <strong
+          >zertifizierte holistische Darmtherapeutin und Ernährungsberaterin</strong
+        > erlangt.
+      </p>
+      <br />
+      <p>
+        Die Ausbildung umfasste unter anderem Anatomie der Verdauungsorgane, das Immunsystem, Darmmikrobiom und
+        Darm-Hirn-Achse, Stoffwechsel- und Regulationssysteme, Säure-Basen-Haushalt, Nähr- und Vitalstoffe,
+        ganzheitliche Ernährungslehre, Darm- und Lebertherapie, Stressmanagement sowie Praxisfälle mit Anamnesen,
+        Stuhlbefund-Interpretationen und individuellen Gesundheitsplänen.
+      </p>
+      <br />
+      <p>
+        In meiner Arbeit ist es mir wichtig, aktuelles Wissen mit einer ganzheitlichen und praxisnahen Beratung zu
+        verbinden. Mein Ziel ist es, dir zu helfen, dein Wohlbefinden zu stärken und langfristig in Balance zu kommen.
+      </p>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div
+        class="absolute inset-0 bg-green-100 bg-[url(~/assets/images/assets_task_01k5bmcw2beb2tnwgq1edcv91d_1758105932_img_0.webp)] bg-cover dark:bg-primary dark:bg-none"
+      >
+      </div>
+    </Fragment>
+  </Content>
+
+  <!-- Steps Widget ****************** -->
+
+  <Steps
+    id="resume"
+    title="Beruflicher Werdegang"
+    items={[
+      {
+        title:
+          'Gesundheitsberatung <br /> <span class="font-normal">Selbstständig</span> <br /> <span class="text-base font-normal">2025 - heute</span>',
+        description: `Begleitung von Klientinnen und Klienten mit dem Schwerpunkt ganzheitliche Darmtherapie und Ernährungsberatung.`,
+        icon: 'tabler:briefcase',
+      },
+    ]}
+    classes={{ container: 'max-w-3xl' }}
+  />
+
+  <!-- Steps Widget ****************** -->
+
+  <Steps
+    id="education"
+    title="Ausbildung"
+    items={[
+      {
+        title:
+          'Zertifizierte holistische Darmtherapeutin & Ernährungsberaterin <br /> <span class="font-normal">Institut für Naturheilkunde und Ayurveda, Dorsten</span> <br /> <span class="text-base font-normal">April 2024 – März 2025</span>',
+        icon: 'tabler:school',
+      },
+    ]}
+    classes={{ container: 'max-w-3xl' }}
+  />
+
+  <section
+    data-aos="flip-left"
+    data-aos-delay="150"
+    class="not-prose relative scroll-mt-[80px] border-t dark:border-none"
+  >
+    <div class="relative mx-auto max-w-3xl px-4 py-12 text-center text-default md:px-6 md:py-16 lg:py-20">
+      <h2 class="text-heading font-heading text-3xl font-bold lg:text-4xl">Zertifikate</h2>
+    </div>
+
+    <!-- Zertifikat Bild -->
+    <div class="relative mx-auto max-w-3xl px-4 text-default md:px-6">
+      <Image
+        src={certImage}
+        alt="Zertifikat INA 2025"
+        class="mx-auto w-full max-w-md rounded-lg shadow-md"
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <section
+    data-aos="flip-right"
+    data-aos-delay="150"
+    class="not-prose relative scroll-mt-[80px] border-t dark:border-none"
+  >
+    <div class="relative mx-auto max-w-3xl px-4 py-12 text-center text-default md:px-6 md:py-16 lg:py-20">
+      <h2 class="text-heading font-heading text-3xl font-bold lg:text-4xl">
+        Teilnahmebestätigung für die Ausbildung am Institut für Naturheilkunde
+      </h2>
+    </div>
+
+    <!-- Zertifikat Bild -->
+    <div class="relative mx-auto max-w-3xl px-4 text-default md:px-6">
+      <Image
+        src={certImage2}
+        alt="Teilnahmebestätigung für die Ausbildung am Institut für Naturheilkunde"
+        class="mx-auto w-full max-w-md rounded-lg shadow-md"
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <!-- Features3 Widget ************** -->
+
+  <Features3
+    title="Fähigkeiten"
+    classes={{ container: 'bg-green-50 dark:bg-primary' }}
+    subtitle="Ganzheitliche Darmgesundheit, Ernährungsberatung und individuelle Gesundheitspläne."
+    columns={3}
+    defaultIcon="tabler:point-filled"
+    items={[
+      {
+        title: 'Darmgesundheit',
+        description: 'Anamnesen, Stuhlbefund-Interpretationen und ganzheitliche Darmtherapie.',
+      },
+      {
+        title: 'Ernährungsberatung',
+        description: 'Individuelle Ernährungspläne basierend auf deinen Bedürfnissen und Zielen.',
+      },
+      {
+        title: 'Stressmanagement',
+        description: 'Aktivierung des Vagusnervs und Methoden für mehr innere Balance.',
+      },
+    ]}
+  />
+
+  <Quote quote="Die Natur kann von keinem belehrt werden, sie weiß immer das Richtige." author="Hippokrates" />
+
+  <!-- Testimonials Widget *********** -->
+
+  <Testimonials
+    title="Das sagen meine Klienten"
+    subtitle="Hier findest du einige Erfahrungsberichte meiner Klienten."
+    testimonials={[
+      {
+        testimonial: `Die Beratung von Stefanie hat mir geholfen, meine Verdauungsprobleme endlich in den Griff zu bekommen. Besonders die Kombination aus Ernährungstipps und Darmtherapie hat mir neue Lebensqualität geschenkt.`,
+        // name: 'Markus Fischer',
+        // job: 'Klient',
+        // image: {
+        //   src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80',
+        //   alt: 'Markus Fischer',
+        // },
+      },
+      {
+        testimonial: `Dank der einfühlsamen und fundierten Begleitung von Stefanie fühle ich mich leichter, energiegeladener und ausgeglichener.`,
+        // name: 'Sandra Muster',
+        // job: 'Klientin',
+        // image: {
+        //   src: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=772&q=80',
+        //   alt: 'Sandra Muster',
+        // },
+      },
+    ]}
+  />
+</Layout>

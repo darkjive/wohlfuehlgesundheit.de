@@ -1,0 +1,75 @@
+---
+// PersonalInfo.astro - Persönliche Informationen
+import CollapsibleSection from '~/components/ui/CollapsibleSection.astro';
+---
+
+<!-- Persönliche Daten -->
+<CollapsibleSection title="Persönliche Daten" isOptional={true}>
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div>
+      <label for="alter" class="mb-3 block text-base font-medium">Alter</label>
+      <input
+        type="number"
+        id="alter"
+        name="alter"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="groesse" class="mb-3 block text-base font-medium">Größe (cm)</label>
+      <input
+        type="number"
+        id="groesse"
+        name="groesse"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="gewicht" class="mb-3 block text-base font-medium">Gewicht (kg)</label>
+      <input
+        type="number"
+        id="gewicht"
+        name="gewicht"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="familienstand" class="mb-3 block text-base font-medium">Familienstand</label>
+      <select
+        id="familienstand"
+        name="familienstand"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      >
+        <option value="">Bitte wählen</option>
+        <option value="ledig">Ledig</option>
+        <option value="verheiratet">Verheiratet</option>
+        <option value="geschieden">Geschieden</option>
+        <option value="verwitwet">Verwitwet</option>
+        <option value="partnerschaft">In Partnerschaft</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="kinder" class="mb-3 block text-base font-medium">Kinder im Haushalt</label>
+      <input
+        type="text"
+        id="kinder"
+        name="kinder"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="beruf" class="mb-3 block text-base font-medium">Beruf</label>
+      <input
+        type="text"
+        id="beruf"
+        name="beruf"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+  </div>
+</CollapsibleSection>

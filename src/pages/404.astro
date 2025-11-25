@@ -1,0 +1,27 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { getHomePermalink } from '~/utils/permalinks';
+import Emoji from 'astro-emoji';
+
+const title = `Error 404`;
+---
+
+<Layout metadata={{ title }}>
+  <section data-aos="flip-up" data-aos-delay="150" class="flex h-full items-center p-16">
+    <div class="container mx-auto my-8 flex flex-col items-center justify-center px-5">
+      <div class="max-w-md text-center">
+        <h2 class="mb-8 font-heading text-9xl font-bold">
+          <span class="sr-only">Error</span>
+
+          <br />
+          <span class="text-primary"><Emoji symbol="💩" label="Shit" /></span>
+        </h2>
+        <p class="text-3xl font-semibold md:text-3xl">Hoppla, das sollte nicht passieren.</p>
+        <p class="mb-8 mt-4 text-lg text-muted dark:text-slate-400">
+          Aber keine Sorge, auf meiner Homepage findest du viele andere Dinge.
+        </p>
+        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Zurück zur Startseite</a>
+      </div>
+    </div>
+  </section>
+</Layout>

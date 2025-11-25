@@ -1,0 +1,306 @@
+---
+import { UI } from 'astrowind:config';
+---
+
+<!-- anime.js -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+<style>
+  /* Initial state for animated elements */
+  [data-aos] {
+    opacity: 0;
+  }
+  [data-aos].aos-animate {
+    opacity: 1;
+  }
+</style>
+
+<script is:inline define:vars={{ defaultTheme: UI.theme }}>
+  if (window.basic_script) {
+    return;
+  }
+
+  window.basic_script = true;
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
+  const initTheme = function () {
+    if ((defaultTheme && defaultTheme.endsWith(':only')) || (!localStorage.theme && defaultTheme !== 'system')) {
+      applyTheme(defaultTheme.replace(':only', ''));
+    } else if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
+  };
+  initTheme();
+
+  // Scroll-Animationen mit anime.js initialisieren
+  function initScrollAnimations() {
+    if (typeof anime === 'undefined') return;
+
+    // Prüfe ob reduced motion bevorzugt wird
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const animatedElements = document.querySelectorAll('[data-aos]');
+
+    if (!animatedElements.length) return;
+
+    // Observer für Scroll-Animationen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            const animationType = element.getAttribute('data-aos') || 'fade-up';
+            const delay = parseInt(element.getAttribute('data-aos-delay') || '0');
+
+            // Animation basierend auf Typ
+            let animation = {};
+
+            switch (animationType) {
+              case 'fade-up':
+                animation = {
+                  opacity: [0, 1],
+                  translateY: [50, 0],
+                };
+                break;
+              case 'fade-in':
+                animation = {
+                  opacity: [0, 1],
+                };
+                break;
+              case 'flip-up':
+                animation = {
+                  opacity: [0, 1],
+                  rotateX: [90, 0],
+                };
+                break;
+              case 'flip-left':
+                animation = {
+                  opacity: [0, 1],
+                  rotateY: [-90, 0],
+                };
+                break;
+              case 'flip-right':
+                animation = {
+                  opacity: [0, 1],
+                  rotateY: [90, 0],
+                };
+                break;
+              default:
+                animation = {
+                  opacity: [0, 1],
+                  translateY: [50, 0],
+                };
+            }
+
+            // Führe Animation aus
+            anime({
+              targets: element,
+              ...animation,
+              duration: 3000,
+              easing: 'easeOutCubic',
+              delay: delay,
+              complete: function () {
+                element.classList.add('aos-animate');
+              },
+            });
+
+            // Element nicht mehr beobachten (once: true)
+            observer.unobserve(element);
+          }
+        });
+      },
+      {
+        threshold: 0,
+        rootMargin: '-60px',
+      }
+    );
+
+    // Beobachte alle Elemente
+    animatedElements.forEach((element) => {
+      observer.observe(element);
+    });
+
+    // Speichere Observer für späteres Refresh
+    window.scrollAnimationObserver = observer;
+  }
+
+  // Refresh-Funktion für ViewTransitions
+  function refreshScrollAnimations() {
+    if (window.scrollAnimationObserver) {
+      window.scrollAnimationObserver.disconnect();
+    }
+    initScrollAnimations();
+  }
+
+  function attachEvent(selector, event, fn) {
+    const matches = typeof selector === 'string' ? document.querySelectorAll(selector) : selector;
+    if (matches && matches.length) {
+      matches.forEach((elem) => {
+        elem.addEventListener(event, (e) => fn(e, elem), false);
+      });
+    }
+  }
+
+  const onLoad = function () {
+    let lastKnownScrollPosition = window.scrollY;
+    let previousScrollPosition = window.scrollY;
+    let ticking = false;
+
+    // Scroll-Animationen initialisieren nach dem Laden
+    initScrollAnimations();
+
+    attachEvent('#header nav', 'click', function () {
+      document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
+      document.body.classList.remove('overflow-hidden');
+      document.getElementById('header')?.classList.remove('h-screen');
+      document.getElementById('header')?.classList.remove('expanded');
+      document.getElementById('header')?.classList.remove('bg-page');
+      document.querySelector('#header nav')?.classList.add('hidden');
+      // Navigation wieder verstecken erlauben nach Menü-Schließung
+      document.getElementById('header')?.classList.remove('header-hidden');
+    });
+
+    attachEvent('[data-aw-toggle-menu]', 'click', function (_, elem) {
+      const header = document.getElementById('header');
+      const isExpanding = !elem.classList.contains('expanded');
+
+      elem.classList.toggle('expanded');
+      document.body.classList.toggle('overflow-hidden');
+      header?.classList.toggle('h-screen');
+      header?.classList.toggle('expanded');
+      header?.classList.toggle('bg-page');
+      document.querySelector('#header nav')?.classList.toggle('hidden');
+
+      // Beim Öffnen des Menüs: Navigation immer sichtbar machen
+      if (isExpanding) {
+        header?.classList.remove('header-hidden');
+      }
+    });
+
+    attachEvent('[data-aw-toggle-color-scheme]', 'click', function () {
+      if (defaultTheme.endsWith(':only')) {
+        return;
+      }
+      document.documentElement.classList.toggle('dark');
+      localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    });
+
+    attachEvent('[data-aw-social-share]', 'click', function (_, elem) {
+      const network = elem.getAttribute('data-aw-social-share');
+      const url = encodeURIComponent(elem.getAttribute('data-aw-url'));
+      const text = encodeURIComponent(elem.getAttribute('data-aw-text'));
+
+      let href;
+      switch (network) {
+        case 'mail':
+          href = `mailto:?subject=%22${text}%22&body=${text}%20${url}`;
+          break;
+
+        default:
+          return;
+      }
+
+      const newlink = document.createElement('a');
+      newlink.target = '_blank';
+      newlink.href = href;
+      newlink.click();
+    });
+
+    const screenSize = window.matchMedia('(max-width: 767px)');
+    screenSize.addEventListener('change', function () {
+      document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
+      document.body.classList.remove('overflow-hidden');
+      document.getElementById('header')?.classList.remove('h-screen');
+      document.getElementById('header')?.classList.remove('expanded');
+      document.getElementById('header')?.classList.remove('bg-page');
+      document.getElementById('header')?.classList.remove('header-hidden');
+      document.querySelector('#header nav')?.classList.add('hidden');
+      document.querySelector('#header > div > div:last-child')?.classList.add('hidden');
+    });
+
+    function applyHeaderStylesOnScroll() {
+      const header = document.querySelector('#header[data-aw-sticky-header]');
+      if (!header) return;
+
+      // Bestehende scroll Klasse für Desktop
+      if (lastKnownScrollPosition > 60 && !header.classList.contains('scroll')) {
+        header.classList.add('scroll');
+      } else if (lastKnownScrollPosition <= 60 && header.classList.contains('scroll')) {
+        header.classList.remove('scroll');
+      }
+
+      // Auto-hide Navigation nur auf mobilen Geräten
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      const isMenuOpen = header.classList.contains('expanded');
+
+      // Nicht verstecken wenn das Menü geöffnet ist
+      if (isMobile && !isMenuOpen) {
+        const scrollingDown = lastKnownScrollPosition > previousScrollPosition;
+        const scrollDelta = Math.abs(lastKnownScrollPosition - previousScrollPosition);
+
+        // Nur verstecken wenn mindestens 5px gescrollt wurde und weiter als 100px runter
+        if (scrollingDown && lastKnownScrollPosition > 100 && scrollDelta > 5) {
+          header.classList.add('header-hidden');
+        }
+        // Zeigen beim Hochscrollen oder ganz oben
+        else if ((!scrollingDown && scrollDelta > 5) || lastKnownScrollPosition < 100) {
+          header.classList.remove('header-hidden');
+        }
+      } else {
+        // Auf Desktop oder bei geöffnetem Menü immer sichtbar
+        header.classList.remove('header-hidden');
+      }
+
+      previousScrollPosition = lastKnownScrollPosition;
+      ticking = false;
+    }
+    applyHeaderStylesOnScroll();
+
+    attachEvent([document], 'scroll', function () {
+      lastKnownScrollPosition = window.scrollY;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          applyHeaderStylesOnScroll();
+        });
+        ticking = true;
+      }
+    });
+  };
+
+  const onPageShow = function () {
+    document.documentElement.classList.add('motion-safe:scroll-smooth');
+    const elem = document.querySelector('[data-aw-toggle-menu]');
+    if (elem) {
+      elem.classList.remove('expanded');
+    }
+    document.body.classList.remove('overflow-hidden');
+    document.getElementById('header')?.classList.remove('h-screen');
+    document.getElementById('header')?.classList.remove('expanded');
+    document.getElementById('header')?.classList.remove('header-hidden');
+    document.querySelector('#header nav')?.classList.add('hidden');
+  };
+
+  window.onload = onLoad;
+  window.onpageshow = onPageShow;
+
+  document.addEventListener('astro:after-swap', () => {
+    initTheme();
+    onLoad();
+    onPageShow();
+    // Scroll-Animationen für ViewTransitions refreshen
+    refreshScrollAnimations();
+  });
+</script>

@@ -1,0 +1,16 @@
+{
+  "name": "a/wohlfuehlgesundheit.de",
+  "description": "backend",
+  "autoload": {
+    "psr-4": {
+      "A\\WohlfuehlgesundheitDe\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Al Ain",
+      "email": "82544587+darkjive@users.noreply.github.com"
+    }
+  ],
+  "require": {}
+}

@@ -1,0 +1,94 @@
+---
+// Digestion.astro - Verdauung und Stuhlgang
+// Abschnitt für detaillierte Fragen zum Stuhlgang und zur Verdauung
+import CollapsibleSection from '~/components/ui/CollapsibleSection.astro';
+---
+
+<!-- Fragen zum Stuhlgang -->
+<CollapsibleSection title="Fragen zum Stuhlgang" isOptional={true}>
+  <div class="space-y-6">
+    <div>
+      <label for="stuhlgang_freq" class="mb-3 block text-base font-medium"> Wie häufig hast Du Stuhlgang? </label>
+      <input
+        type="text"
+        id="stuhlgang_freq"
+        name="stuhlgang_freq"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      />
+    </div>
+
+    <div>
+      <label for="stuhlgang_schmerzen" class="mb-3 block text-base font-medium">
+        Hast Du Schmerzen beim Stuhlgang?
+      </label>
+      <select
+        id="stuhlgang_schmerzen"
+        name="stuhlgang_schmerzen"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      >
+        <option value="">Bitte wählen</option>
+        <option value="nein">Nein</option>
+        <option value="ja">Ja</option>
+        <option value="manchmal">Manchmal</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="stuhlgang_auffaelligkeiten" class="mb-3 block text-base font-medium">
+        Gab es Auffälligkeiten (Blut, Schleim usw.)?
+      </label>
+      <textarea
+        id="stuhlgang_auffaelligkeiten"
+        name="stuhlgang_auffaelligkeiten"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+      ></textarea>
+    </div>
+
+    <div>
+      <label for="stuhlgang_konsistenz" class="mb-3 block text-base font-medium">
+        Welche Form und Konsistenz hat Dein Stuhl?
+      </label>
+      <textarea
+        id="stuhlgang_konsistenz"
+        name="stuhlgang_konsistenz"
+        rows="2"
+        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        placeholder="z.B. fest, weich, hart, flüssig"></textarea>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div>
+        <label for="stuhlgang_geruch_saeuerlich" class="mb-3 block text-base font-medium">
+          Riecht Dein Stuhl säuerlich?
+        </label>
+        <select
+          id="stuhlgang_geruch_saeuerlich"
+          name="stuhlgang_geruch_saeuerlich"
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        >
+          <option value="">Bitte wählen</option>
+          <option value="nein">Nein</option>
+          <option value="ja">Ja</option>
+          <option value="manchmal">Manchmal</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="winde_geruch" class="mb-3 block text-base font-medium">
+          Riechen Deine Winde stark nach „verfaulten Eiern"?
+        </label>
+        <select
+          id="winde_geruch"
+          name="winde_geruch"
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        >
+          <option value="">Bitte wählen</option>
+          <option value="nein">Nein</option>
+          <option value="ja">Ja</option>
+          <option value="manchmal">Manchmal</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</CollapsibleSection>
