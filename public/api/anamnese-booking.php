@@ -283,9 +283,9 @@ function validateAndSanitizeInput() {
     // MEETING DURATION
     // ========================================================================
 
-    $data['dauer'] = intval($_POST['dauer'] ?? 60);
-    if (!in_array($data['dauer'], [30, 60])) {
-        $data['dauer'] = 60; // Default to 60 minutes
+    $data['dauer'] = intval($_POST['dauer'] ?? 40);
+    if (!in_array($data['dauer'], [20, 40])) {
+        $data['dauer'] = 40; // Default to 40 minutes
     }
 
     // ========================================================================
