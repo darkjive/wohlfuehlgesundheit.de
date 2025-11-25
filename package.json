@@ -34,7 +34,6 @@
     "@fontsource-variable/quicksand": "^5.1.0",
     "@jop-software/astro-cookieconsent": "^3.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "animejs": "^4.2.2",
     "astro": "^5.16.0",
     "astro-embed": "^0.7.4",
     "astro-emoji": "^1.2.0",
