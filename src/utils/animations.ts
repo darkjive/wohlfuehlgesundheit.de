@@ -31,6 +31,26 @@ export type AnimationType =
   | 'rotate-in'
   | 'gentle-float';
 
+// Type for anime.js animation property values
+type AnimationPropertyValue = number | [number, number];
+
+// Interface for anime.js animation properties
+export interface AnimeAnimationProperties {
+  opacity?: AnimationPropertyValue;
+  translateX?: AnimationPropertyValue;
+  translateY?: AnimationPropertyValue;
+  translateZ?: AnimationPropertyValue;
+  scale?: AnimationPropertyValue;
+  scaleX?: AnimationPropertyValue;
+  scaleY?: AnimationPropertyValue;
+  rotate?: AnimationPropertyValue;
+  rotateX?: AnimationPropertyValue;
+  rotateY?: AnimationPropertyValue;
+  rotateZ?: AnimationPropertyValue;
+  skewX?: AnimationPropertyValue;
+  skewY?: AnimationPropertyValue;
+}
+
 // Default animation settings for calm, smooth feel
 export const DEFAULT_ANIMATION_DURATION = 1200; // Longer for calmer feel
 export const DEFAULT_EASING = 'easeOutQuad'; // Gentle easing
@@ -40,8 +60,8 @@ export const DEFAULT_ROOT_MARGIN = '0px 0px -10% 0px'; // Start slightly before 
 /**
  * Get animation properties based on type
  */
-export function getAnimationProperties(type: AnimationType): Record<string, any> {
-  const animations: Record<AnimationType, Record<string, any>> = {
+export function getAnimationProperties(type: AnimationType): AnimeAnimationProperties {
+  const animations: Record<AnimationType, AnimeAnimationProperties> = {
     'fade-up': {
       opacity: [0, 1],
       translateY: [40, 0],
