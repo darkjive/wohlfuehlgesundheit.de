@@ -117,9 +117,3 @@
     align-items: center;
   }
 }
-
-/* To deprecated */
-
-.dd *:first-child {
-  margin-top: 0;
-}

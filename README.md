@@ -216,6 +216,11 @@ Das Projekt nutzt **GitHub Actions** für automatisches Deployment auf IONOS:
 - **Schriftarten**:
   - Noto Serif Display (Variable Font)
   - Quicksand (Variable Font)
+- **Animationen**:
+  - CSS-basierte Scroll-Animationen (fade-up, fade-in, flip-up, flip-left, flip-right)
+  - Astro View Transitions für sanfte Seitenübergänge
+  - IntersectionObserver für performante Scroll-Trigger
+  - Respektiert `prefers-reduced-motion` für Barrierefreiheit
 
 ### Backend & APIs
 
@@ -311,13 +316,26 @@ Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/an
 - Vollständig auf Deutsch lokalisiert
 - Anpassbare Einstellungen
 
-#### 5. Performance-Optimierungen
+#### 5. Animationen & Übergänge
+
+Die Website nutzt moderne, performante CSS-Animationen ohne externe Bibliotheken:
+
+- **Scroll-Animationen**: CSS-basierte Animationen mit IntersectionObserver
+  - `fade-up`: Sanftes Einblenden von unten
+  - `fade-in`: Einfaches Einblenden
+  - `flip-up`, `flip-left`, `flip-right`: 3D-Flip-Effekte mit CSS transforms
+- **View Transitions**: Astro's native View Transitions API für nahtlose Seitenübergänge
+- **Accessibility**: Automatische Deaktivierung bei `prefers-reduced-motion`
+- **Performance**: Keine externe Animation-Bibliotheken, nur natives CSS
+
+#### 6. Performance-Optimierungen
 
 - Statische Site-Generierung für beste Performance
 - Asset-Komprimierung (HTML, CSS, JS)
 - Lazy Loading für Bilder
 - CSS Code-Splitting
 - Optimierte Font-Loading-Strategie
+- CSS-only Animationen (kein JavaScript-Overhead)
 
 ## Seiten
 

@@ -54,4 +54,77 @@ import '@fontsource-variable/quicksand';
   #header[data-aw-sticky-header].header-hidden {
     transform: translateY(-100%);
   }
+
+  /* ===================================
+     Scroll-Animationen (CSS-basiert)
+     =================================== */
+
+  /* Initiale Zustände für animierte Elemente */
+  [data-aos] {
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Sichtbarer Zustand nach Animation */
+  [data-aos].aos-animate {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* fade-up Animation */
+  [data-aos='fade-up'] {
+    transform: translateY(50px);
+  }
+
+  /* fade-in Animation */
+  [data-aos='fade-in'] {
+    transform: none;
+  }
+
+  /* flip-up Animation */
+  [data-aos='flip-up'] {
+    transform: perspective(1000px) rotateX(90deg);
+    transform-style: preserve-3d;
+  }
+
+  /* flip-left Animation */
+  [data-aos='flip-left'] {
+    transform: perspective(1000px) rotateY(-90deg);
+    transform-style: preserve-3d;
+  }
+
+  /* flip-right Animation */
+  [data-aos='flip-right'] {
+    transform: perspective(1000px) rotateY(90deg);
+    transform-style: preserve-3d;
+  }
+
+  /* Verzögerungen */
+  [data-aos-delay='50'].aos-animate {
+    transition-delay: 50ms;
+  }
+
+  [data-aos-delay='150'].aos-animate {
+    transition-delay: 150ms;
+  }
+
+  /* Respektiere prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    [data-aos] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* ViewTransitions: Sanfte Übergänge zwischen Seiten */
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.3s;
+      animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  }
 </style>

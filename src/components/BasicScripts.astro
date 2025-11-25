@@ -2,19 +2,6 @@
 import { UI } from 'astrowind:config';
 ---
 
-<!-- anime.js -->
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
-
-<style>
-  /* Initial state for animated elements */
-  [data-aos] {
-    opacity: 0;
-  }
-  [data-aos].aos-animate {
-    opacity: 1;
-  }
-</style>
-
 <script is:inline define:vars={{ defaultTheme: UI.theme }}>
   if (window.basic_script) {
     return;
@@ -44,10 +31,8 @@ import { UI } from 'astrowind:config';
   };
   initTheme();
 
-  // Scroll-Animationen mit anime.js initialisieren
+  // Scroll-Animationen mit CSS initialisieren (IntersectionObserver)
   function initScrollAnimations() {
-    if (typeof anime === 'undefined') return;
-
     // Prüfe ob reduced motion bevorzugt wird
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -55,67 +40,14 @@ import { UI } from 'astrowind:config';
 
     if (!animatedElements.length) return;
 
-    // Observer für Scroll-Animationen
+    // Observer für Scroll-Animationen - fügt nur CSS-Klassen hinzu
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const element = entry.target;
-            const animationType = element.getAttribute('data-aos') || 'fade-up';
-            const delay = parseInt(element.getAttribute('data-aos-delay') || '0');
-
-            // Animation basierend auf Typ
-            let animation = {};
-
-            switch (animationType) {
-              case 'fade-up':
-                animation = {
-                  opacity: [0, 1],
-                  translateY: [50, 0],
-                };
-                break;
-              case 'fade-in':
-                animation = {
-                  opacity: [0, 1],
-                };
-                break;
-              case 'flip-up':
-                animation = {
-                  opacity: [0, 1],
-                  rotateX: [90, 0],
-                };
-                break;
-              case 'flip-left':
-                animation = {
-                  opacity: [0, 1],
-                  rotateY: [-90, 0],
-                };
-                break;
-              case 'flip-right':
-                animation = {
-                  opacity: [0, 1],
-                  rotateY: [90, 0],
-                };
-                break;
-              default:
-                animation = {
-                  opacity: [0, 1],
-                  translateY: [50, 0],
-                };
-            }
-
-            // Führe Animation aus
-            anime({
-              targets: element,
-              ...animation,
-              duration: 3000,
-              easing: 'easeOutCubic',
-              delay: delay,
-              complete: function () {
-                element.classList.add('aos-animate');
-              },
-            });
-
+            // Aktiviere CSS-Animation durch Hinzufügen der Klasse
+            element.classList.add('aos-animate');
             // Element nicht mehr beobachten (once: true)
             observer.unobserve(element);
           }
