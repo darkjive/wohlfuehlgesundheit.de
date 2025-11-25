@@ -22,8 +22,9 @@ const {
 
 <WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-5xl ${classes?.container ?? ''}`} bg={bg}>
   <div
-    data-aos="fade-up"
-    data-aos-delay="150"
+    data-animate
+    data-anim-type="fade-up"
+    data-anim-delay="100"
     class:list={['flex flex-col gap-8 md:gap-12', { 'md:flex-row-reverse': isReversed }, { 'md:flex-row': image }]}
   >
     <div class:list={['md:self-center md:py-4', { 'md:basis-1/2': image }, { 'w-full': !image }]}>

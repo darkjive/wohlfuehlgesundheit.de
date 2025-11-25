@@ -15,8 +15,9 @@ const WrapperTag = as;
 ---
 
 <WrapperTag
-  data-aos="fade-up"
-  data-aos-delay="150"
+  data-animate
+  data-anim-type="fade-in"
+  data-anim-delay="50"
   class="not-prose relative scroll-mt-[80px] border-t dark:border-none"
   {...id ? { id } : {}}
 >
@@ -26,8 +27,10 @@ const WrapperTag = as;
     </slot>
   </div>
   <div
-    data-aos="fade-up"
-    data-aos-delay="150"
+    data-animate
+    data-anim-type="fade-up"
+    data-anim-delay="100"
+    data-anim-stagger="80"
     class:list={[
       twMerge('relative mx-auto max-w-7xl px-4 py-12 text-default md:px-6 md:py-16 lg:py-20', containerClass),
       { dark: isDark },
