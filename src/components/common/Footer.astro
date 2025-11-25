@@ -18,6 +18,15 @@ export interface Props {
 }
 
 const { socialLinks = [], footNote = '', theme = 'light' } = Astro.props;
+
+const buildTime = import.meta.env.BUILD_TIME || '';
+const formattedBuildTime = buildTime ? new Date(buildTime).toLocaleString('de-DE', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit'
+}) : '';
 ---
 
 <footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative']}>
@@ -43,6 +52,11 @@ const { socialLinks = [], footNote = '', theme = 'light' } = Astro.props;
       <div class="text-center text-xs uppercase tracking-wider dark:text-muted sm:tracking-widest md:text-sm">
         <Fragment set:html={footNote} />
       </div>
+      {formattedBuildTime && (
+        <div class="mt-2 text-center text-[0.625rem] text-gray-400 dark:text-gray-600 opacity-50" title={`Build: ${buildTime}`}>
+          {formattedBuildTime}
+        </div>
+      )}
     </div>
   </div>
 </footer>
