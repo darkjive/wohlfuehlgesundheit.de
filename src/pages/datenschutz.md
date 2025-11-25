@@ -174,9 +174,9 @@ Google Analytics verwendet Cookies, um zu analysieren, wie Sie diese Website nut
 
 **Google Analytics setzt folgende Cookies:**
 
-- **_ga**: Wird verwendet, um Nutzer zu unterscheiden (Speicherdauer: 2 Jahre)
-- **_gid**: Wird verwendet, um Nutzer zu unterscheiden (Speicherdauer: 24 Stunden)
-- **_gat**: Wird verwendet, um die Anforderungsrate zu drosseln (Speicherdauer: 1 Minute)
+- **\_ga**: Wird verwendet, um Nutzer zu unterscheiden (Speicherdauer: 2 Jahre)
+- **\_gid**: Wird verwendet, um Nutzer zu unterscheiden (Speicherdauer: 24 Stunden)
+- **\_gat**: Wird verwendet, um die Anforderungsrate zu drosseln (Speicherdauer: 1 Minute)
 
 ### 8.2 IP-Anonymisierung
 

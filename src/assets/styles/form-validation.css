@@ -57,7 +57,9 @@ input[type='checkbox'].field-invalid {
 /* Select field valid/invalid */
 select.field-valid,
 select.field-invalid {
-  background-position: right 2.5rem center, right 0.75rem center;
+  background-position:
+    right 2.5rem center,
+    right 0.75rem center;
   padding-right: 4rem;
 }
 
@@ -78,5 +80,7 @@ select:focus {
 input,
 textarea,
 select {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
