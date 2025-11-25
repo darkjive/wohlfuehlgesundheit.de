@@ -64,7 +64,7 @@ jobs:
       - name: Create .env file from secrets
         run: |
           mkdir -p dist/public/api
-          cat > dist/public/api/.env << 'EOF'
+          cat > dist/public/api/.env <<EOF
           # =============================================================================
           # ENVIRONMENT CONFIGURATION
           # =============================================================================
@@ -112,6 +112,8 @@ jobs:
 
           echo "✅ .env file created in dist/public/api/.env"
           ls -la dist/public/api/.env
+          echo "First 5 lines (without sensitive data):"
+          head -5 dist/public/api/.env
 
       - name: Deploy to IONOS Production via SFTP
         run: |
