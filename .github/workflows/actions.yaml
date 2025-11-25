@@ -56,6 +56,58 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Create .env file from secrets
+        run: |
+          mkdir -p dist/public
+          cat > dist/public/.env << 'EOF'
+          # =============================================================================
+          # ENVIRONMENT CONFIGURATION
+          # =============================================================================
+
+          # -----------------------------------------------------------------------------
+          # ZOOM MEETING API (Server-to-Server OAuth)
+          # -----------------------------------------------------------------------------
+          ZOOM_ACCOUNT_ID=${{ secrets.ZOOM_ACCOUNT_ID }}
+          ZOOM_CLIENT_ID=${{ secrets.ZOOM_CLIENT_ID }}
+          ZOOM_CLIENT_SECRET=${{ secrets.ZOOM_CLIENT_SECRET }}
+
+          # -----------------------------------------------------------------------------
+          # E-MAIL KONFIGURATION (IONOS SMTP)
+          # -----------------------------------------------------------------------------
+          ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}
+          FROM_EMAIL=${{ secrets.FROM_EMAIL }}
+          FROM_NAME=${{ secrets.FROM_NAME }}
+
+          # -----------------------------------------------------------------------------
+          # SMTP KONFIGURATION (IONOS)
+          # -----------------------------------------------------------------------------
+          SMTP_HOST=${{ secrets.SMTP_HOST }}
+          SMTP_PORT=${{ secrets.SMTP_PORT }}
+          SMTP_ENCRYPTION=${{ secrets.SMTP_ENCRYPTION }}
+          SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+
+          # -----------------------------------------------------------------------------
+          # SICHERHEIT
+          # -----------------------------------------------------------------------------
+          ALLOWED_ORIGINS=${{ secrets.ALLOWED_ORIGINS }}
+          CSRF_SECRET=${{ secrets.CSRF_SECRET }}
+
+          # -----------------------------------------------------------------------------
+          # RATE LIMITING
+          # -----------------------------------------------------------------------------
+          RATE_LIMIT_MAX_REQUESTS=${{ secrets.RATE_LIMIT_MAX_REQUESTS }}
+          RATE_LIMIT_TIME_WINDOW=${{ secrets.RATE_LIMIT_TIME_WINDOW }}
+
+          # -----------------------------------------------------------------------------
+          # DEBUG (nur für Entwicklung!)
+          # -----------------------------------------------------------------------------
+          DEBUG_MODE=${{ secrets.DEBUG_MODE }}
+          EOF
+
+          echo "✅ .env file created in dist/public/.env"
+          ls -la dist/public/.env
+
       - name: Deploy to IONOS Production via SFTP
         run: |
           sudo apt-get update && sudo apt-get install -y lftp
