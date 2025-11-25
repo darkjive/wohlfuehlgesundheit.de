@@ -82,6 +82,12 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 - DSGVO-konforme Cookie-Verwaltung
 - Performance-Optimierungen
 
+## Deployment
+
+Das Projekt wird automatisch über GitHub Actions zu IONOS deployed, sobald Änderungen in den master-Branch gepusht werden.
+
+**Wichtig**: IONOS erlaubt nur eine SFTP-Verbindung gleichzeitig. Stellen Sie sicher, dass keine lokalen SFTP-Verbindungen aktiv sind, wenn das automatische Deployment läuft.
+
 ## Lizenz
 
 Dieses Projekt basiert auf dem AstroWind Template und steht unter der MIT-Lizenz.
