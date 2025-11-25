@@ -1,6 +1,7 @@
 ---
 // HealthQuestions.astro - Fragen zu Deiner gesundheitlichen Situation
 // Abschnitt des Anamnesebogens für gesundheitliche Beschwerden und Probleme
+import CollapsibleSection from '~/components/ui/CollapsibleSection.astro';
 ---
 
 <!-- Fragen zu Deiner gesundheitlichen Situation -->
@@ -17,32 +18,33 @@
     Fragen zu Deiner gesundheitlichen Situation
   </h3>
 
-  <div class="space-y-6">
-    <div>
-      <label for="hauptbeschwerde" class="mb-3 block text-base font-medium">
-        Was ist Deine Hauptbeschwerde? <span class="text-xl text-red-500">*</span>
-      </label>
-      <textarea
-        id="hauptbeschwerde"
-        name="hauptbeschwerde"
-        rows="3"
-        required
-        placeholder="z.B. Verdauungsprobleme, Blähungen, chronische Müdigkeit..."
-        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
-      ></textarea>
-    </div>
+  <div class="mb-6">
+    <label for="hauptbeschwerde" class="mb-3 block text-base font-medium">
+      Was ist Deine Hauptbeschwerde? <span class="text-xl text-red-500">*</span>
+    </label>
+    <textarea
+      id="hauptbeschwerde"
+      name="hauptbeschwerde"
+      rows="3"
+      required
+      placeholder="z.B. Verdauungsprobleme, Blähungen, chronische Müdigkeit..."
+      class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+    ></textarea>
+  </div>
 
-    <div>
-      <label for="gesundheitsprobleme" class="mb-3 block text-base font-medium">
-        Unter welchen weiteren gesundheitlichen Problemen leidest Du derzeit und seit wann bestehen diese?
-      </label>
-      <textarea
-        id="gesundheitsprobleme"
-        name="gesundheitsprobleme"
-        rows="4"
-        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
-      ></textarea>
-    </div>
+  <CollapsibleSection title="Weitere gesundheitliche Fragen" isOptional={true}>
+    <div class="space-y-6">
+      <div>
+        <label for="gesundheitsprobleme" class="mb-3 block text-base font-medium">
+          Unter welchen weiteren gesundheitlichen Problemen leidest Du derzeit und seit wann bestehen diese?
+        </label>
+        <textarea
+          id="gesundheitsprobleme"
+          name="gesundheitsprobleme"
+          rows="4"
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        ></textarea>
+      </div>
 
     <div>
       <label for="allergien" class="mb-3 block text-base font-medium">Hast Du Allergien?</label>
@@ -328,14 +330,15 @@
       ></textarea>
     </div>
 
-    <div>
-      <label for="hauptproblem" class="mb-3 block text-base font-medium"> Was ist Dein Hauptproblem? </label>
-      <textarea
-        id="hauptproblem"
-        name="hauptproblem"
-        rows="3"
-        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
-      ></textarea>
+      <div>
+        <label for="hauptproblem" class="mb-3 block text-base font-medium"> Was ist Dein Hauptproblem? </label>
+        <textarea
+          id="hauptproblem"
+          name="hauptproblem"
+          rows="3"
+          class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        ></textarea>
+      </div>
     </div>
-  </div>
+  </CollapsibleSection>
 </div>
