@@ -35,7 +35,7 @@ lftp -u "$SFTP_USER","$SFTP_PASSWORD" sftp://"$SFTP_HOST":"${SFTP_PORT:-22}" <<E
 set sftp:auto-confirm yes
 set ssl:verify-certificate no
 cd $SFTP_REMOTE_PATH
-mirror --reverse --delete --verbose --exclude .git/ --exclude .gitignore dist/ ./
+mirror --reverse --delete --verbose --exclude .git/ --exclude .gitignore --exclude-glob logs/ --exclude-glob logs/* dist/ ./
 bye
 EOF
 
