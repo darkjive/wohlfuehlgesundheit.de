@@ -1,15 +1,15 @@
-site:
-  name: ''
+site: 
+  name: 'Wohlfühlgesundheit - Holistische Darmtherapie'
   site: 'https://wohlfühlgesundheit.de'
   base: '/'
   trailingSlash: false
 
-  googleSiteVerificationId: am4o936StJOXZfUTSRB262VSHDHaoPfc-ZImQ8Qoxkw
+  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
 
 # Default SEO metadata
 metadata:
   title:
-    default:
+    default: Wohlfühlgesundheit - Holistische Darmtherapie
     template: '%s | Wohlfühlgesundheit - Holistische Darmtherapie'
   description: 'Wohlfühlgesundheit - Holistische Darmtherapie, Ihre Holistische Darmtherapeutin. Entdecken Sie Tipps und Programme zur Verbesserung Ihrer Gesundheit und Ihres Wohlbefindens. Starten Sie Ihre Reise zu einem gesünderen Lebensstil noch heute!'
   robots:
