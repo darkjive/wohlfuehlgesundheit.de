@@ -24,7 +24,12 @@ const {
   items && items.length > 0 && (
     <div class={containerClass}>
       {items.map(({ title, description, icon, classes: itemClasses = {} }, index = 0) => (
-        <div class={twMerge('flex', panelClass, itemClasses?.panel)}>
+        <div
+          class={twMerge('flex', panelClass, itemClasses?.panel)}
+          data-animate="fadeInLeft"
+          data-animate-duration="800"
+          data-animate-delay={index * 150}
+        >
           <div class="mr-4 flex flex-col items-center rtl:ml-4 rtl:mr-0">
             <div>
               <div class="flex items-center justify-center">

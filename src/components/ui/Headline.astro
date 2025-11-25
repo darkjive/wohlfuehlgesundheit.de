@@ -19,15 +19,33 @@ const {
 {
   (title || subtitle || tagline) && (
     <div class={twMerge('mb-8 text-center md:mx-auto md:mb-12', containerClass)}>
-      {tagline && <p class="text-base uppercase tracking-wide text-gray-400 dark:text-gray-300" set:html={tagline} />}
+      {tagline && (
+        <p
+          class="text-base uppercase tracking-wide text-gray-400 dark:text-gray-300"
+          data-animate="fadeIn"
+          data-animate-duration="800"
+          set:html={tagline}
+        />
+      )}
       {title && (
         <h2
           class={twMerge('leading-tighter text-heading font-heading text-3xl font-bold tracking-tighter', titleClass)}
+          data-animate="fadeInUp"
+          data-animate-duration="1000"
+          data-animate-delay="100"
           set:html={title}
         />
       )}
 
-      {subtitle && <p class={twMerge('mt-4 text-muted', subtitleClass)} set:html={subtitle} />}
+      {subtitle && (
+        <p
+          class={twMerge('mt-4 text-muted', subtitleClass)}
+          data-animate="fadeInUp"
+          data-animate-duration="1000"
+          data-animate-delay="200"
+          set:html={subtitle}
+        />
+      )}
     </div>
   )
 }

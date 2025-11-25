@@ -32,8 +32,8 @@ const {
         containerClass
       )}
     >
-      {items.map(({ title, description, icon, callToAction, classes: itemClasses = {} }) => (
-        <div class="">
+      {items.map(({ title, description, icon, callToAction, classes: itemClasses = {} }, index) => (
+        <div class="" data-animate="fadeInUp" data-animate-duration="800" data-animate-delay={index * 100}>
           <div class={twMerge('flex max-w-md flex-row', panelClass, itemClasses?.panel)}>
             <div class="flex justify-center">
               {(icon || defaultIcon) && (

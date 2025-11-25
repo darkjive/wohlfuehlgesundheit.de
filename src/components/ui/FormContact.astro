@@ -37,9 +37,14 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
   {
     inputs &&
       inputs.map(
-        ({ type = 'text', name, label = '', autocomplete = 'on', placeholder = '' }) =>
+        ({ type = 'text', name, label = '', autocomplete = 'on', placeholder = '' }, index) =>
           name && (
-            <div class="mb-6">
+            <div
+              class="mb-6"
+              data-animate="fadeInUp"
+              data-animate-duration="800"
+              data-animate-delay={index * 100}
+            >
               {label && (
                 <label for={name} class="mb-3 block text-base font-medium">
                   {label}
@@ -61,7 +66,11 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 
   {
     textarea && (
-      <div>
+      <div
+        data-animate="fadeInUp"
+        data-animate-duration="800"
+        data-animate-delay={(inputs?.length || 0) * 100}
+      >
         <label for="textarea" class="mb-3 block text-base font-medium">
           {textarea.label}
         </label>
@@ -79,7 +88,12 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 
   {
     disclaimer && (
-      <div class="mt-3 flex items-start">
+      <div
+        class="mt-3 flex items-start"
+        data-animate="fadeInUp"
+        data-animate-duration="800"
+        data-animate-delay={(inputs?.length || 0) * 100 + 100}
+      >
         <div class="mt-0.5 flex">
           <input
             id="disclaimer"
@@ -100,7 +114,12 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 
   {
     button && (
-      <div class="mt-10 grid">
+      <div
+        class="mt-10 grid"
+        data-animate="fadeInUp"
+        data-animate-duration="800"
+        data-animate-delay={(inputs?.length || 0) * 100 + 200}
+      >
         <Button variant="primary" type="submit" id="contact-submit-button">
           <span id="contact-button-text">{button}</span>
           <span id="contact-button-spinner" class="hidden">

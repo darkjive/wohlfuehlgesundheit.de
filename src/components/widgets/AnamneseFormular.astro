@@ -52,39 +52,64 @@ import Consent from './anamnese-form/Consent.astro';
     </div>
 
     <!-- Form -->
-    <form id="anamnese-form" class="space-y-8 rounded-2xl bg-white p-6 shadow-xl dark:bg-primary sm:p-10">
+    <form
+      id="anamnese-form"
+      class="space-y-8 rounded-2xl bg-white p-6 shadow-xl dark:bg-primary sm:p-10"
+      data-animate="fadeIn"
+      data-animate-duration="1000"
+    >
       <!-- Persönliche Daten -->
-      <PersonalData />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="100">
+        <PersonalData />
+      </div>
 
       <!-- Persönliche Informationen -->
-      <PersonalInfo />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="200">
+        <PersonalInfo />
+      </div>
 
       <!-- Gesundheitsfragen -->
-      <HealthQuestions />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="300">
+        <HealthQuestions />
+      </div>
 
       <!-- Medizinische Vorgeschichte -->
-      <MedicalHistory />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="400">
+        <MedicalHistory />
+      </div>
 
       <!-- Ernährung & Lebensstil -->
-      <NutritionLifestyle />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="500">
+        <NutritionLifestyle />
+      </div>
 
       <!-- Verdauung & Stuhlgang -->
-      <Digestion />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="600">
+        <Digestion />
+      </div>
 
       <!-- Bereitschaft -->
-      <Readiness />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="700">
+        <Readiness />
+      </div>
 
       <!-- Erwartungen und Herkunft -->
-      <Expectations />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="800">
+        <Expectations />
+      </div>
 
       <!-- Zoom-Terminbuchung -->
-      <ZoomBooking />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="900">
+        <ZoomBooking />
+      </div>
 
       <!-- Einwilligungserklärung -->
-      <Consent />
+      <div data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="1000">
+        <Consent />
+      </div>
 
       <!-- Submit Button -->
-      <div class="pt-4">
+      <div class="pt-4" data-animate="fadeInUp" data-animate-duration="800" data-animate-delay="1100">
         <button type="submit" id="submit-button" class="btn-primary dark:btn-secondary w-full sm:mb-0">
           <span id="button-text">Anamnesebogen absenden</span>
           <span id="button-spinner" class="hidden">

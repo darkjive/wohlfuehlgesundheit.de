@@ -27,20 +27,43 @@ const {
     <Logo2 />
     <div class="">
       <div class="mx-auto max-w-5xl pb-10 text-center md:pb-16">
-        {tagline && <p class="text-base uppercase tracking-wide text-gray-400 dark:text-gray-300" set:html={tagline} />}
+        {tagline && (
+          <p
+            class="text-base uppercase tracking-wide text-gray-400 dark:text-gray-300"
+            data-animate="fadeIn"
+            data-animate-duration="800"
+            set:html={tagline}
+          />
+        )}
         {
           title && (
             <h1
               class="leading-tighter mb-4 font-heading text-[3em]/10 font-bold tracking-tighter dark:text-gray-200 md:text-6xl"
+              data-animate="fadeInUp"
+              data-animate-duration="1200"
+              data-animate-delay="200"
               set:html={title}
             />
           )
         }
         <div class="mx-auto max-w-3xl">
-          {subtitle && <p class="mb-6 text-xl text-muted dark:text-slate-100" set:html={subtitle} />}
+          {subtitle && (
+            <p
+              class="mb-6 text-xl text-muted dark:text-slate-100"
+              data-animate="fadeInUp"
+              data-animate-duration="1000"
+              data-animate-delay="400"
+              set:html={subtitle}
+            />
+          )}
           {
             actions && (
-              <div class="m-auto flex max-w-xs flex-col flex-nowrap gap-4 sm:max-w-md sm:flex-row sm:justify-center">
+              <div
+                class="m-auto flex max-w-xs flex-col flex-nowrap gap-4 sm:max-w-md sm:flex-row sm:justify-center"
+                data-animate="fadeInUp"
+                data-animate-duration="1000"
+                data-animate-delay="600"
+              >
                 {Array.isArray(actions) ? (
                   actions.map((action) => (
                     <div class="flex w-full sm:w-auto">
@@ -59,7 +82,12 @@ const {
       <div class="relative m-auto max-w-5xl">
         {
           image && (
-            <div class="relative m-auto max-w-5xl">
+            <div
+              class="relative m-auto max-w-5xl"
+              data-animate="fadeIn"
+              data-animate-duration="1200"
+              data-animate-delay="800"
+            >
               {typeof image === 'string' ? (
                 <Fragment set:html={image} />
               ) : (

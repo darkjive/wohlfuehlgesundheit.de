@@ -186,3 +186,18 @@ import { UI } from 'astrowind:config';
     onPageShow();
   });
 </script>
+
+<!-- Scroll-Animationen -->
+<script>
+  import { initScrollAnimations } from '~/utils/scroll-animations';
+
+  // Initialisiere Animationen beim ersten Laden
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollAnimations);
+  } else {
+    initScrollAnimations();
+  }
+
+  // Initialisiere Animationen nach View Transitions
+  document.addEventListener('astro:after-swap', initScrollAnimations);
+</script>
