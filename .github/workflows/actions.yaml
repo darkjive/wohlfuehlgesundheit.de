@@ -63,8 +63,8 @@ jobs:
 
       - name: Create .env file from secrets
         run: |
-          mkdir -p dist/public
-          cat > dist/public/.env << 'EOF'
+          mkdir -p dist/public/api
+          cat > dist/public/api/.env << 'EOF'
           # =============================================================================
           # ENVIRONMENT CONFIGURATION
           # =============================================================================
@@ -110,8 +110,8 @@ jobs:
           DEBUG_MODE=${{ secrets.DEBUG_MODE }}
           EOF
 
-          echo "✅ .env file created in dist/public/.env"
-          ls -la dist/public/.env
+          echo "✅ .env file created in dist/public/api/.env"
+          ls -la dist/public/api/.env
 
       - name: Deploy to IONOS Production via SFTP
         run: |
