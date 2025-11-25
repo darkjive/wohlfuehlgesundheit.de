@@ -62,21 +62,15 @@ jobs:
         run: npm run build
 
       - name: Deploy to IONOS Production via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
           port: 22
-          local-dir: ./dist/
-          server-dir: ./
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            .env
+          local_path: ./dist/*
+          remote_path: ./
+          sftp_only: true
 
   deploy-preview:
     name: Deploy to Test (test.*)
@@ -99,18 +93,12 @@ jobs:
         run: npm run build
 
       - name: Deploy to IONOS Test via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.FTP_SERVER_PREVIEW }}
           username: ${{ secrets.FTP_USERNAME_PREVIEW }}
           password: ${{ secrets.FTP_PASSWORD_PREVIEW }}
-          protocol: sftp
           port: 22
-          local-dir: ./dist/
-          server-dir: ./
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            .env
+          local_path: ./dist/*
+          remote_path: ./
+          sftp_only: true
