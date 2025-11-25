@@ -16,7 +16,7 @@ import ZoomBooking from './anamnese-form/ZoomBooking.astro';
 import Consent from './anamnese-form/Consent.astro';
 ---
 
-<section class="dark:bg-page csm:py-20 bg-white py-12">
+<section data-aos="fade-up" data-aos-delay="150" class="dark:bg-page csm:py-20 bg-white py-12">
   <div class="mx-auto max-w-5xl px-4 sm:px-6">
     <!-- Header -->
     <Headline
@@ -28,8 +28,8 @@ import Consent from './anamnese-form/Consent.astro';
     <!-- Success Message -->
     <div id="success-message" class="mb-6 hidden rounded-lg bg-green-50 p-8 shadow-md">
       <div class="text-center">
-        <p class="text-2xl mb-4">💖 💖 💖</p>
-        <h3 class="text-3xl md:text-4xl font-bold text-green-800 mb-4">Danke, das hat geklappt!</h3>
+        <p class="mb-4 text-2xl">💖 💖 💖</p>
+        <h3 class="mb-4 text-3xl font-bold text-green-800 md:text-4xl">Danke, das hat geklappt!</h3>
         <p class="text-green-700" id="success-text"></p>
       </div>
     </div>

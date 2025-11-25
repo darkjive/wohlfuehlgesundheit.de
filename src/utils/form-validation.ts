@@ -129,10 +129,7 @@ export function validateForm(formData: FormData, rules: ValidationRules): Valida
 /**
  * Add visual feedback to form field
  */
-export function updateFieldUI(
-  field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement,
-  error: string | null
-) {
+export function updateFieldUI(field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, error: string | null) {
   const container = field.closest('div');
   if (!container) return;
 
@@ -264,10 +261,7 @@ export function setupFormValidation(
 /**
  * Validate form on submit
  */
-export function validateFormOnSubmit(
-  form: HTMLFormElement,
-  rules: ValidationRules
-): ValidationResult {
+export function validateFormOnSubmit(form: HTMLFormElement, rules: ValidationRules): ValidationResult {
   const formData = new FormData(form);
   const result = validateForm(formData, rules);
 

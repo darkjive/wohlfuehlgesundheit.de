@@ -263,6 +263,7 @@ Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/an
 10. **Consent.astro**: DSGVO-konforme Einwilligungen & Datenschutz
 
 **Features**:
+
 - Progressive Form mit Fortschrittsanzeige
 - Client-seitige Validierung
 - Auto-Save Funktionalität (LocalStorage)
@@ -303,6 +304,7 @@ Die Website umfasst folgende Hauptseiten (`src/pages/`):
 - **404.astro**: Custom 404-Fehlerseite
 
 Zusätzliche rechtliche Seiten (aus Navigation):
+
 - Impressum, Datenschutz, AGB, Widerrufsbelehrung
 
 ## Custom Integration
@@ -319,6 +321,7 @@ Das Projekt nutzt eine Custom Astro Integration (`integrations/astrowind/`):
 ### Deployment
 
 **Voraussetzungen**:
+
 - **Node.js**: v18+ für Astro Build
 - **PHP**: 7.4+ für Backend-API
 - **Composer**: Für PHP-Dependencies
@@ -326,6 +329,7 @@ Das Projekt nutzt eine Custom Astro Integration (`integrations/astrowind/`):
 - **HTTPS**: Erforderlich für sichere Datenübertragung (Formulare, Zoom-API)
 
 **Build & Deployment**:
+
 1. Dependencies installieren: `npm install` und `composer install`
 2. Build erstellen: `npm run build`
 3. `dist/` Ordner auf Webserver deployen
