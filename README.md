@@ -1,89 +1,26 @@
 # Stefanie Leidel - Holistische Darmtherapie
 
-Website: Wohlfühlgesundheit Holistische Darmtherapie , entwickelt mit Astro und Tailwind CSS.
+Website für Holistische Darmtherapie, entwickelt mit Astro und Tailwind CSS.
 
 ## Projektstruktur
 
 ```
 /
 ├── integrations/          # Custom Astro Integrations
-│   └── astrowind/        # AstroWind Template Integration
-│       ├── index.ts
-│       ├── types.d.ts
-│       └── utils/
 ├── public/
-│   ├── api/              # PHP Backend APIs
-│   │   ├── anamnese-booking.php    # Anamnesebogen & Zoom Integration
-│   │   ├── contact-form.php        # Kontaktformular Handler
-│   │   ├── bootstrap.php           # API Bootstrap
-│   │   ├── config.php              # API Konfiguration
-│   │   ├── env-loader.php          # Environment Loader
-│   │   ├── get-csrf-token.php      # CSRF Token Generator
-│   │   ├── phpmailer-helper.php    # E-Mail Helper
-│   │   └── security.php            # Security Functions
-│   ├── vendor/           # PHP Composer Dependencies
-│   ├── _headers          # Security Headers
-│   ├── .htaccess         # Apache Konfiguration
-│   └── robots.txt
+│   ├── api/              # Backend APIs
+│   └── vendor/           # Dependencies
 ├── src/
 │   ├── assets/
-│   │   ├── favicons/
-│   │   ├── images/
-│   │   └── styles/
-│   │       └── tailwind.css
 │   ├── components/
 │   │   ├── common/       # Gemeinsame Komponenten
-│   │   │   ├── Header.astro
-│   │   │   ├── Footer.astro
-│   │   │   ├── Logo-lg.astro
-│   │   │   ├── Logo-sm.astro
-│   │   │   └── ...
 │   │   ├── ui/           # UI Komponenten
-│   │   │   ├── Button.astro
-│   │   │   ├── FormContact.astro
-│   │   │   └── ...
-│   │   ├── widgets/      # Widget Komponenten
-│   │   │   ├── anamnese-form/    # Anamnesebogen Komponenten
-│   │   │   │   ├── PersonalInfo.astro
-│   │   │   │   ├── PersonalData.astro
-│   │   │   │   ├── MedicalHistory.astro
-│   │   │   │   ├── HealthQuestions.astro
-│   │   │   │   ├── NutritionLifestyle.astro
-│   │   │   │   ├── Digestion.astro
-│   │   │   │   ├── Expectations.astro
-│   │   │   │   ├── Readiness.astro
-│   │   │   │   ├── ZoomBooking.astro
-│   │   │   │   └── Consent.astro
-│   │   │   ├── Hero.astro
-│   │   │   ├── Features.astro
-│   │   │   ├── CallToAction.astro
-│   │   │   └── ...
-│   │   ├── BasicScripts.astro
-│   │   ├── CustomStyles.astro
-│   │   └── Favicons.astro
+│   │   └── widgets/      # Widget Komponenten
 │   ├── config/           # Konfigurationsdateien
-│   │   ├── site.yaml     # Site-Konfiguration
-│   │   └── navigation.ts # Navigation
 │   ├── layouts/
-│   │   ├── Layout.astro
-│   │   ├── MarkdownLayout.astro
-│   │   └── PageLayout.astro
 │   ├── pages/
-│   │   ├── index.astro
-│   │   ├── ueber-mich.astro
-│   │   ├── angebot.astro
-│   │   ├── termin-buchen.astro
-│   │   ├── kontakt.astro
-│   │   ├── danke.astro
-│   │   └── 404.astro
-│   ├── utils/            # Utility Functions
-│   │   ├── images.ts
-│   │   ├── images-optimization.ts
-│   │   ├── permalinks.ts
-│   │   └── utils.ts
-│   ├── env.d.ts
-│   └── types.d.ts
-├── composer.json         # PHP Dependencies
+│   └── utils/
+├── composer.json
 ├── package.json
 ├── astro.config.ts
 └── tailwind.config.js
@@ -105,37 +42,7 @@ Alle Befehle werden im Hauptverzeichnis des Projekts ausgeführt:
 
 ## Konfiguration
 
-Die Hauptkonfigurationsdatei befindet sich unter `./src/config/site.yaml`:
-
-```yaml
-  name: ''
-  site: 'https://wohlfühlgesundheit.de'
-  base: '/'
-  trailingSlash: false
-
-metadata:
-  title:
-    default:
-    template: '%s | Wohlfühlgesundheit - Holistische Darmtherapie'
-  description: 'Wohlfühlgesundheit - Holistische Darmtherapie, Ihre Holistische Darmtherapeutin. Entdecken Sie Tipps und Programme zur Verbesserung Ihrer Gesundheit und Ihres Wohlbefindens. Starten Sie Ihre Reise zu einem gesünderen Lebensstil noch heute!'
-  robots:
-    index: true
-    follow: true
-  openGraph:
-    site_name: Wohlfühlgesundheit - Holistische Darmtherapie
-    images:
-      - url: '~/assets/images/default.png'
-        width: 1200
-        height: 628
-    type: website
-  twitter:
-    handle: '@onwidget'
-    site: '@onwidget'
-    cardType: summary_large_image
-
-ui:
-  theme: 'system' # "system" | "light" | "dark"
-```
+Die Hauptkonfigurationsdatei befindet sich unter `./src/config/site.yaml` und enthält Site-Metadaten, SEO-Einstellungen und UI-Konfiguration.
 
 ## Anpassungen
 
@@ -148,193 +55,32 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 
 ### Inhalte
 
-- **Seiten**: `src/pages/` - Alle Astro-Seiten (index, über-mich, termin-buchen, kontakt, etc.)
+- **Seiten**: `src/pages/` - Alle Astro-Seiten
 - **Komponenten**: `src/components/` - Wiederverwendbare Komponenten
-  - `common/` - Gemeinsame Komponenten (Header, Footer, Logos)
-  - `ui/` - UI-Komponenten (Button, Forms, etc.)
-  - `widgets/` - Komplexe Widgets (Hero, Features, etc.)
 - **Konfiguration**: `src/config/` - Site- und Navigation-Konfiguration
-- **API**: `public/api/` - PHP Backend für Formulare und Zoom Integration
-
-## Deployment
-
-### Automatisches Deployment (Push-to-Deploy)
-
-Das Projekt nutzt **GitHub Actions** für automatisches Deployment auf IONOS:
-
-- **Production** (main Branch) → `wohlfuehlgesundheit.de`
-- **Test** (andere Branches) → `test.wohlfuehlgesundheit.de`
-
-**Setup-Anleitung**: Siehe [DEPLOYMENT.md](./DEPLOYMENT.md) für Details zur Einrichtung der FTP-Zugangsdaten und GitHub Secrets.
-
-### Manuelles Deployment
-
-1. Produktionsbuild erstellen:
-
-   ```bash
-   npm run build
-   ```
-
-2. Der `dist/` Ordner enthält alle statischen Dateien für das Deployment
 
 ## Technische Details
 
 ### Frontend
 
-- **Framework**: Astro 5.x (Static Site Generator)
-- **Styling**: Tailwind CSS 3.x mit Typography Plugin
+- **Framework**: Astro (Static Site Generator)
+- **Styling**: Tailwind CSS mit Typography Plugin
 - **Programmiersprache**: TypeScript
-- **Icons**: Astro Icon (Tabler Icons & Flat Color Icons)
-- **Schriftarten**:
-  - Noto Serif Display (Variable Font)
-  - Quicksand (Variable Font)
+- **Schriftarten**: Noto Serif Display, Quicksand (Variable Fonts)
 
-### Backend & APIs
+### Backend
 
-Die Website nutzt ein Custom PHP Backend für die Formular-Verarbeitung und externe Integrationen:
-
-- **PHP API** (`public/api/`)
-  - **anamnese-booking.php**: Hauptendpoint für Anamnesebogen & Zoom-Buchung
-  - **contact-form.php**: Kontaktformular-Handler
-  - **bootstrap.php**: Zentrale Initialisierung & Dependency Injection
-  - **config.php**: API-Konfiguration (E-Mail, Zoom, etc.)
-  - **env-loader.php**: Umgebungsvariablen & Secrets Management
-  - **security.php**: CSRF-Protection, Rate Limiting, Input Validation
-  - **phpmailer-helper.php**: E-Mail-Versand über PHPMailer
-
-- **Zoom Integration**:
-  - Server-to-Server OAuth 2.0 Authentifizierung
-  - Automatische Meeting-Erstellung via Zoom API
-  - E-Mail-Benachrichtigungen mit Zoom-Zugangsdaten
-  - Terminverwaltung & Kalender-Integration (ICS)
-  - Warteraum-Funktion für erhöhte Sicherheit
-
-- **Sicherheitsfeatures**:
-  - CSRF-Token-Validierung für alle Forms
-  - Rate Limiting gegen Spam & Brute-Force
-  - Input Sanitization & Validation
-  - Security Headers (CSP, HSTS, X-Frame-Options)
-  - .htaccess Hardening
-
-### Integrationen & Plugins
-
-- **@astrojs/sitemap**: XML-Sitemap-Generierung
-- **@astrojs/rss**: RSS-Feed-Support
-- **@astrojs/partytown**: Optimierung von Third-Party-Scripts
-- **@jop-software/astro-cookieconsent**: DSGVO-konforme Cookie-Verwaltung
-- **@astrolib/analytics**: Analytics-Integration
-- **@astrolib/seo**: SEO-Optimierung
-- **astro-compress**: Asset-Komprimierung (CSS, HTML, JS)
-- **astro-embed**: Embed-Support für externe Inhalte
-- **astro-emoji**: Emoji-Support
-
-### Analytics & SEO
-
-- **Google Analytics**: G-TT6VB0HM46
-- **Google Site Verification**: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
-- **OpenGraph & Twitter Cards**: Vollständige Social-Media-Integration
-- **Robots.txt**: Suchmaschinen-Steuerung
+- PHP Backend für Formular-Verarbeitung
+- E-Mail-Benachrichtigungen
+- DSGVO-konforme Datenschutzfeatures
 
 ### Besondere Features
 
-#### 1. Zoom-Booking-System
-
-Vollautomatisches Terminbuchungssystem mit:
-
-- Zoom-Meeting-Erstellung via API
-- Automatische E-Mail-Benachrichtigungen (HTML für Kunden, Text für Admin)
-- Terminvalidierung und Zeitzonenmanagement (Europe/Berlin)
-- Warteraum-Funktion für mehr Sicherheit
-- Flexible Terminlängen (20/40 Minuten)
-
-#### 2. Umfangreicher Anamnesebogen
-
-Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/anamnese-form/`):
-
-1. **PersonalInfo.astro**: Persönliche Grunddaten
-2. **PersonalData.astro**: Erweiterte persönliche Informationen
-3. **MedicalHistory.astro**: Medizinische Vorgeschichte & Diagnosen
-4. **HealthQuestions.astro**: Gesundheitsspezifische Fragen
-5. **NutritionLifestyle.astro**: Ernährungs- & Lifestyle-Analyse
-6. **Digestion.astro**: Verdauungssystem & Beschwerden
-7. **Expectations.astro**: Erwartungen & Zielsetzungen
-8. **Readiness.astro**: Bereitschafts-Assessment für Therapie
-9. **ZoomBooking.astro**: Terminbuchung & Zoom-Meeting-Auswahl
-10. **Consent.astro**: DSGVO-konforme Einwilligungen & Datenschutz
-
-**Features**:
-
-- Progressive Form mit Fortschrittsanzeige
-- Client-seitige Validierung
-- Auto-Save Funktionalität (LocalStorage)
-- Responsive Design für mobile & Desktop
-- Direkte Integration mit Zoom-API für Terminbuchung
-
-#### 3. Dark Mode
-
-- System-Theme-Erkennung
-- Manueller Light/Dark Mode Toggle
-- Persistente Theme-Speicherung
-
-#### 4. Cookie Consent Management
-
-- DSGVO-konform
-- Kategorien: Notwendig, Statistik, Marketing
-- Vollständig auf Deutsch lokalisiert
-- Anpassbare Einstellungen
-
-#### 5. Performance-Optimierungen
-
-- Statische Site-Generierung für beste Performance
-- Asset-Komprimierung (HTML, CSS, JS)
-- Lazy Loading für Bilder
-- CSS Code-Splitting
-- Optimierte Font-Loading-Strategie
-
-## Seiten
-
-Die Website umfasst folgende Hauptseiten (`src/pages/`):
-
-- **index.astro**: Startseite mit Hero, Features, FAQs
-- **ueber-mich.astro**: Über Stefanie Leidel & ihre Qualifikationen
-- **angebot.astro**: Leistungen & Angebote der holistischen Darmtherapie
-- **termin-buchen.astro**: Anamnesebogen & Zoom-Terminbuchung
-- **kontakt.astro**: Kontaktformular
-- **danke.astro**: Danke-Seite nach erfolgreicher Formular-Absendung
-- **404.astro**: Custom 404-Fehlerseite
-
-Zusätzliche rechtliche Seiten (aus Navigation):
-
-- Impressum, Datenschutz, AGB, Widerrufsbelehrung
-
-## Custom Integration
-
-Das Projekt nutzt eine Custom Astro Integration (`integrations/astrowind/`):
-
-- **Zweck**: Lädt die Site-Konfiguration aus `src/config/site.yaml` und stellt sie als virtuelle Module bereit
-- **Features**:
-  - Hot-Reload bei Änderungen an `site.yaml`
-  - Automatische Sitemap-Integration in robots.txt
-  - Config-Bereitstellung über Vite Virtual Modules
-  - Zugriff auf SITE, I18N, METADATA, UI, ANALYTICS Konfiguration
-
-### Deployment
-
-**Voraussetzungen**:
-
-- **Node.js**: v18+ für Astro Build
-- **PHP**: 7.4+ für Backend-API
-- **Composer**: Für PHP-Dependencies
-- **Webserver**: Apache/Nginx mit PHP-Support
-- **HTTPS**: Erforderlich für sichere Datenübertragung (Formulare, Zoom-API)
-
-**Build & Deployment**:
-
-1. Dependencies installieren: `npm install` und `composer install`
-2. Build erstellen: `npm run build`
-3. `dist/` Ordner auf Webserver deployen
-4. Sicherstellen dass `public/api/` PHP-Dateien ausführbar sind
-5. `.env` Datei mit Credentials konfigurieren (Zoom, E-Mail, etc.)
+- Online-Terminbuchungssystem
+- Umfangreicher Anamnesebogen
+- Dark Mode Support
+- DSGVO-konforme Cookie-Verwaltung
+- Performance-Optimierungen
 
 ## Lizenz
 
