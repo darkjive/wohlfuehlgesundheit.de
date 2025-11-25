@@ -8,8 +8,9 @@
  * @version 1.0
  */
 
-require_once __DIR__ . '/env-loader.php';
-require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/config.php';           // Configuration constants
+require_once __DIR__ . '/env-loader.php';       // Environment variable loader
+require_once __DIR__ . '/security.php';         // Security functions
 
 // Load environment variables (auto-detects path)
 loadEnv();
