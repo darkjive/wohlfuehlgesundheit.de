@@ -518,7 +518,7 @@ function sendUserConfirmationEmail($formData, $meetingData) {
 
                 <div class='footer'>
                     <p>Bei Fragen oder Änderungswünschen kontaktiere mich bitte unter:<br>
-                    <a href='mailto:{$adminEmail}'>{$adminEmail}</a></p>
+                    <a href='mailto:{$adminEmail}'>steffi@wohlfühlgesundheit.de</a></p>
                 </div>
             </div>
         </div>
