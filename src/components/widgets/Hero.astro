@@ -27,14 +27,16 @@ const {
     <Logo2 />
     <div class="">
       <div class="mx-auto max-w-5xl pb-10 text-center md:pb-16">
-        {tagline && (
-          <p
-            class="text-base uppercase tracking-wide text-gray-400 dark:text-gray-300"
-            data-animate="fadeIn"
-            data-animate-duration="800"
-            set:html={tagline}
-          />
-        )}
+        {
+          tagline && (
+            <p
+              class="text-base uppercase tracking-wide text-gray-400 dark:text-gray-300"
+              data-animate="fadeIn"
+              data-animate-duration="800"
+              set:html={tagline}
+            />
+          )
+        }
         {
           title && (
             <h1
@@ -47,15 +49,17 @@ const {
           )
         }
         <div class="mx-auto max-w-3xl">
-          {subtitle && (
-            <p
-              class="mb-6 text-xl text-muted dark:text-slate-100"
-              data-animate="fadeIn"
-              data-animate-duration="800"
-              data-animate-delay="400"
-              set:html={subtitle}
-            />
-          )}
+          {
+            subtitle && (
+              <p
+                class="mb-6 text-xl text-muted dark:text-slate-100"
+                data-animate="fadeIn"
+                data-animate-duration="800"
+                data-animate-delay="400"
+                set:html={subtitle}
+              />
+            )
+          }
           {
             actions && (
               <div

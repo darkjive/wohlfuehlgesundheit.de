@@ -39,12 +39,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       inputs.map(
         ({ type = 'text', name, label = '', autocomplete = 'on', placeholder = '' }, index) =>
           name && (
-            <div
-              class="mb-6"
-              data-animate="fadeIn"
-              data-animate-duration="600"
-              data-animate-delay={index * 100}
-            >
+            <div class="mb-6" data-animate="fadeIn" data-animate-duration="600" data-animate-delay={index * 100}>
               {label && (
                 <label for={name} class="mb-3 block text-base font-medium">
                   {label}
@@ -66,11 +61,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 
   {
     textarea && (
-      <div
-        data-animate="fadeIn"
-        data-animate-duration="600"
-        data-animate-delay={(inputs?.length || 0) * 100}
-      >
+      <div data-animate="fadeIn" data-animate-duration="600" data-animate-delay={(inputs?.length || 0) * 100}>
         <label for="textarea" class="mb-3 block text-base font-medium">
           {textarea.label}
         </label>

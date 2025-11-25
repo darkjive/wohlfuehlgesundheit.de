@@ -98,17 +98,14 @@ function animateElement(element: HTMLElement): void {
 /**
  * Hilfsfunktion zum manuellen Animieren eines Elements
  */
-export function animateOnScroll(
-  selector: string,
-  options: ScrollAnimationOptions = {}
-): void {
+export function animateOnScroll(selector: string, options: ScrollAnimationOptions = {}): void {
   const mergedOptions = { ...DEFAULT_OPTIONS, ...options };
   const elements = document.querySelectorAll<HTMLElement>(selector);
 
   elements.forEach((element, index) => {
     element.dataset.animate = mergedOptions.animationIn;
     element.dataset.animateDuration = String(mergedOptions.duration);
-    element.dataset.animateDelay = String(mergedOptions.delay! + (index * 100)); // Gestaffelte Verzögerung
+    element.dataset.animateDelay = String(mergedOptions.delay! + index * 100); // Gestaffelte Verzögerung
     element.dataset.animateOnce = String(mergedOptions.once);
   });
 
