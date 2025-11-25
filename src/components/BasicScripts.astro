@@ -2,8 +2,23 @@
 import { UI } from 'astrowind:config';
 ---
 
-<!-- anime.js v4 -->
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/animejs/4.2.0/anime.min.js"></script>
+<!-- anime.js v4 - load asynchronously but before other scripts -->
+<script>
+  // Dynamically load anime.js with proper error handling
+  (function() {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/animejs/4.2.0/anime.min.js';
+    script.async = false; // Load in order
+    script.onload = function() {
+      window.animeLoaded = true;
+      window.dispatchEvent(new Event('anime-loaded'));
+    };
+    script.onerror = function() {
+      console.error('Failed to load anime.js from CDN');
+    };
+    document.head.appendChild(script);
+  })();
+</script>
 
 <style>
   /* Initial state for animated elements */
@@ -204,22 +219,38 @@ import { UI } from 'astrowind:config';
   // Store cleanup function globally
   let cleanupAnimations: (() => void) | null = null;
 
-  function waitForAnime(callback: () => void, maxAttempts = 50) {
-    let attempts = 0;
+  function waitForAnime(callback: () => void) {
+    if (typeof anime !== 'undefined') {
+      callback();
+      return;
+    }
 
-    const checkAnime = () => {
-      attempts++;
-
+    // Listen for the anime-loaded event
+    const onAnimeLoaded = () => {
+      window.removeEventListener('anime-loaded', onAnimeLoaded);
       if (typeof anime !== 'undefined') {
         callback();
-      } else if (attempts < maxAttempts) {
-        setTimeout(checkAnime, 100);
       } else {
-        console.warn('anime.js failed to load after multiple attempts');
+        console.warn('anime.js loaded event fired but anime is still undefined');
       }
     };
 
-    checkAnime();
+    window.addEventListener('anime-loaded', onAnimeLoaded);
+
+    // Fallback: check periodically for up to 10 seconds
+    let attempts = 0;
+    const maxAttempts = 100;
+    const checkInterval = setInterval(() => {
+      attempts++;
+      if (typeof anime !== 'undefined') {
+        clearInterval(checkInterval);
+        window.removeEventListener('anime-loaded', onAnimeLoaded);
+        callback();
+      } else if (attempts >= maxAttempts) {
+        clearInterval(checkInterval);
+        console.warn('anime.js failed to load after 10 seconds');
+      }
+    }, 100);
   }
 
   function initAnimations() {
