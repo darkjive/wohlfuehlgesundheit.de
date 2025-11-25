@@ -16,7 +16,7 @@ import jopSoftwarecookieconsent from '@jop-software/astro-cookieconsent';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const hasExternalScripts = false;
+const hasExternalScripts = true;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
 
