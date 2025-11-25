@@ -20,7 +20,7 @@ export interface ScrollAnimationOptions {
 }
 
 const DEFAULT_OPTIONS: ScrollAnimationOptions = {
-  animationIn: 'fadeInUp',
+  animationIn: 'fadeIn',
   duration: 1000,
   delay: 0,
   threshold: 0.1,
