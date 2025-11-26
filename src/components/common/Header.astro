@@ -60,7 +60,7 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
     ]}
   >
     <div class:list={[{ 'md:flex-1': position === 'center' }]}>
-      <a class="flex items-center" href={getHomePermalink()}>
+      <a aria-label="Startseite" class="flex items-center" href={getHomePermalink()}>
         <Logo />
       </a>
     </div>
