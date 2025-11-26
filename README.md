@@ -15,17 +15,9 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 │       └── utils/
 ├── public/
 │   ├── api/               # PHP-Backend-APIs
-│   │   ├── anamnese-booking.php    # Anamnesebogen & Zoom-Integration
-│   │   ├── contact-form.php        # Kontaktformular-Handler
-│   │   ├── bootstrap.php           # API-Bootstrap
-│   │   ├── config.php              # API-Konfiguration
-│   │   ├── env-loader.php          # Environment-Loader
-│   │   ├── get-csrf-token.php      # CSRF-Token-Generator
-│   │   ├── phpmailer-helper.php    # E-Mail-Helper
-│   │   └── security.php            # Sicherheitsfunktionen
 │   ├── vendor/            # PHP-Composer-Abhängigkeiten
-│   ├── _headers           # Sicherheitsheader
-│   ├── .htaccess          # Apache-Konfiguration
+│   ├── _headers           # HTTP-Header
+│   ├── .htaccess          # Server-Konfiguration
 │   └── robots.txt
 ├── src/
 │   ├── assets/
@@ -242,13 +234,10 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 Die Website nutzt ein benutzerdefiniertes PHP-Backend für die Formular-Verarbeitung und externe Integrationen:
 
 - **PHP API** (`public/api/`):
-  - **anamnese-booking.php**: Haupt-Endpoint für Anamnesebogen & Zoom-Buchung
-  - **contact-form.php**: Kontaktformular-Handler
-  - **bootstrap.php**: Zentrale Initialisierung & Dependency Injection
-  - **config.php**: API-Konfiguration (E-Mail, Zoom, etc.)
-  - **env-loader.php**: Umgebungsvariablen & Secrets Management
-  - **security.php**: CSRF-Protection, Rate Limiting, Input Validation
-  - **phpmailer-helper.php**: E-Mail-Versand über PHPMailer
+  - Anamnesebogen & Zoom-Buchung
+  - Kontaktformular-Verarbeitung
+  - E-Mail-Versand
+  - Sichere Konfigurationsverwaltung
 
 - **Zoom-Integration**:
   - Server-to-Server OAuth 2.0 Authentifizierung
@@ -258,11 +247,9 @@ Die Website nutzt ein benutzerdefiniertes PHP-Backend für die Formular-Verarbei
   - Warteraum-Funktion für erhöhte Sicherheit
 
 - **Sicherheitsfeatures**:
-  - CSRF-Token-Validierung für alle Forms
-  - Rate Limiting gegen Spam & Brute-Force
-  - Input Sanitization & Validation
-  - Security Headers (CSP, HSTS, X-Frame-Options)
-  - .htaccess Hardening
+  - Umfassende Formular-Validierung
+  - Spam-Schutz
+  - Sichere Datenübertragung
 
 ### Integrationen & Plugins
 
