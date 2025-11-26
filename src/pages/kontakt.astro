@@ -5,17 +5,18 @@ import ContactForm from '~/components/widgets/ContactForm.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
-  title: 'Kontakt',
+  title: 'Kontakt – Darmgesundheit Beratung | Stefanie Leidel',
+  description: 'Kontaktiere mich für eine individuelle Darmgesundheit Beratung. Ich beantworte gerne deine Fragen zu holistischer Darmtherapie, Ernährungsberatung und deinem Weg zu mehr Wohlbefinden.',
 };
 ---
 
 <Layout metadata={metadata}>
-  <HeroSimple tagline="Kontakt" title="Du hast Fragen?" />
+  <HeroSimple tagline="Kontakt zur Darmgesundheit Beratung" title="Du hast Fragen zur Darmgesundheit? Schreib mir!" />
 
   <ContactForm
     id="form"
-    title="Benutze gerne das folgende Formular"
-    subtitle="Für schnellere Antworten, schau in meinen FAQ-Bereich. Möglicherweise findest Du dort die Antwort, nach der Du suchst! Wenn nicht, frage gerne nach."
+    title="Schreib mir eine Nachricht – Ich freue mich auf dich!"
+    subtitle="Du hast Fragen zur Darmgesundheit Beratung, zur holistischen Darmtherapie oder zur Ernährungsberatung? Du möchtest wissen, wie ich dich unterstützen kann? Nutze gerne das folgende Kontaktformular. Für schnellere Antworten schau auch gerne in meinen FAQ-Bereich – möglicherweise findest du dort bereits die Antwort, nach der du suchst!"
     inputs={[
       {
         type: 'text',
@@ -32,14 +33,14 @@ const metadata = {
       label: 'Nachricht',
     }}
     disclaimer={{
-      label: 'Durch das Absenden dieses Kontaktformulars stimmst du der Erhebung Deiner persönlichen Daten zu.',
+      label: 'Durch das Absenden dieses Kontaktformulars stimmst du der Erhebung deiner persönlichen Daten gemäß Datenschutzerklärung zu.',
     }}
-    description="Ich antworte in der Regel innerhalb von 24 Stunden."
+    description="Ich antworte in der Regel innerhalb von 24 Stunden. Ich freue mich darauf, von dir zu hören und dich auf deinem Weg zu mehr Darmgesundheit und Wohlbefinden zu begleiten!"
   />
   <!-- Call To Action **************** -->
   <CallToAction
-    title="Bereit für den ersten Schritt?"
-    subtitle="Starte jetzt deine Reise zu mehr Wohlbefinden mit einer holistischen Darmtherapie."
+    title="Bereit für den ersten Schritt zu mehr Darmgesundheit?"
+    subtitle="Starte jetzt deine Reise zu mehr Wohlbefinden, Energie und Lebensqualität mit meiner holistischen Darmtherapie und ganzheitlichen Ernährungsberatung. Ich freue mich darauf, dich kennenzulernen!"
     actions={[
       {
         variant: 'primary',
