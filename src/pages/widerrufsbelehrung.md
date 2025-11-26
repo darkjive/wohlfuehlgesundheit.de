@@ -1,5 +1,5 @@
 ---
-title: 'Widerrufsbelehrung'
+title: 'Widerruf'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 

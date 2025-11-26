@@ -1,5 +1,5 @@
 ---
-title: 'Datenschutzerklärung'
+title: 'Datenschutz'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
