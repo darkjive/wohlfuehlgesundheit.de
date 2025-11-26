@@ -28,16 +28,6 @@ const {
     <div class="">
       <div class="mx-auto max-w-5xl pb-10 text-center md:pb-16">
         {
-          tagline && (
-            <p
-              class="text-base uppercase tracking-wide text-gray-400 dark:text-gray-300"
-              data-animate="fadeIn"
-              data-animate-duration="800"
-              set:html={tagline}
-            />
-          )
-        }
-        {
           title && (
             <h1
               class="leading-tighter mb-4 font-heading text-[3em]/10 font-bold tracking-tighter dark:text-gray-200 md:text-6xl"
@@ -45,6 +35,16 @@ const {
               data-animate-duration="1000"
               data-animate-delay="200"
               set:html={title}
+            />
+          )
+        }
+        {
+          tagline && (
+            <p
+              class="sm:text-1xl font-sans text-[1.15rem] font-thin uppercase tracking-wide dark:text-white md:text-3xl"
+              data-animate="fadeIn"
+              data-animate-duration="800"
+              set:html={tagline}
             />
           )
         }
