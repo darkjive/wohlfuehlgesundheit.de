@@ -44,7 +44,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
               {label && (
                 <label for={name} class="mb-3 block text-base font-medium">
                   {label}
-                  {type === 'email' && <span class="text-xl text-red-500">*</span>}
+                  {type === 'email' && <span class="text-base text-red-500">*</span>}
                 </label>
               )}
               <input
@@ -65,7 +65,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
     textarea && (
       <div data-animate="fadeIn" data-animate-duration="600" data-animate-delay={(inputs?.length || 0) * 100}>
         <label for="textarea" class="mb-3 block text-base font-medium">
-          {textarea.label} <span class="text-xl text-red-500">*</span>
+          {textarea.label} <span class="text-base text-red-500">*</span>
         </label>
         <textarea
           id="textarea"
@@ -128,7 +128,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
           </span>
         </Button>
         <p class="mt-3 text-center text-base text-gray-300">
-          <span class="text-xl text-red-500">*</span> Pflichtfelder
+          <span class="text-base text-red-500">*</span> Pflichtfelder
         </p>
       </div>
     )

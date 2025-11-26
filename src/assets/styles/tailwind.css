@@ -45,8 +45,7 @@
   /* FAQ Toggle Icon */
   .faq-icon::before {
     content: '+';
-    font-size: 1.5rem;
-    font-weight: 300;
+    @apply text-2xl font-light;
   }
 
   .faq-item[open] .faq-icon::before {
