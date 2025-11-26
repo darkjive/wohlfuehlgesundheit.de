@@ -3,7 +3,7 @@ title: 'Impressum'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Letzte Aktualisierung: 30. August 2025_  
+_Letzte Aktualisierung: 30. August 2025_
 
 ## Anbieter
 
