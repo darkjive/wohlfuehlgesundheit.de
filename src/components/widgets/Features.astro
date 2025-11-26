@@ -9,26 +9,54 @@ const {
   subtitle = await Astro.slots.render('subtitle'),
   tagline = await Astro.slots.render('tagline'),
   items = [],
-  columns = 2,
+  columns,
   defaultIcon,
+  variant = 'default', // 'default' or 'compact'
+  isBeforeContent,
+  isAfterContent,
 
   id,
   isDark = false,
   classes = {},
   bg = await Astro.slots.render('bg'),
 } = Astro.props;
----
 
-<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-5xl ${classes?.container ?? ''}`} bg={bg}>
-  <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
-  <ItemGrid
-    items={items}
-    columns={columns}
-    defaultIcon={defaultIcon}
-    classes={{
+// Variant-specific defaults
+const isCompact = variant === 'compact';
+const defaultColumns = isCompact ? undefined : 2;
+const containerMaxWidth = isCompact ? '' : 'max-w-5xl';
+const itemGridClasses = isCompact
+  ? {
+      container: 'mt-12',
+      panel: 'max-w-full sm:max-w-md',
+      title: 'text-lg font-semibold',
+      description: 'mt-0.5',
+      icon: 'flex-shrink-0 mt-1 text-primary w-6 h-6',
+    }
+  : {
       container: '',
       title: 'md:text-[1.3rem]',
       icon: 'text-white bg-primary rounded-full w-10 h-10 p-2 md:w-12 md:h-12 md:p-3 mr-4 rtl:ml-4 rtl:mr-0',
+    };
+
+const paddingClasses = isCompact
+  ? `${isBeforeContent ? 'md:pb-8 lg:pb-12' : ''} ${isAfterContent ? 'pt-0 md:pt-0 lg:pt-0' : ''}`
+  : '';
+---
+
+<WidgetWrapper
+  id={id}
+  isDark={isDark}
+  containerClass={`${containerMaxWidth} ${paddingClasses} ${classes?.container ?? ''}`}
+  bg={bg}
+>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
+  <ItemGrid
+    items={items}
+    columns={columns ?? defaultColumns}
+    defaultIcon={defaultIcon}
+    classes={{
+      ...itemGridClasses,
       ...((classes?.items as Record<string, never>) ?? {}),
     }}
   />

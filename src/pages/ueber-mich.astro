@@ -3,7 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
 import Content from '~/components/ui/Content.astro';
-import Features3 from '~/components/widgets/Features3.astro';
+import Features from '~/components/widgets/Features.astro';
 import Testimonials from '~/components/widgets/Testimonials.astro';
 import Quote from '~/components/widgets/Quote.astro';
 import Steps from '~/components/widgets/Steps.astro';
@@ -157,9 +157,10 @@ const metadata = {
     </div>
   </section>
 
-  <!-- Features3 Widget ************** -->
+  <!-- Features Widget ************** -->
 
-  <Features3
+  <Features
+    variant="compact"
     title="Fähigkeiten"
     classes={{ container: 'bg-green-50 dark:bg-primary' }}
     subtitle="Ganzheitliche Darmgesundheit, Ernährungsberatung und individuelle Gesundheitspläne."
