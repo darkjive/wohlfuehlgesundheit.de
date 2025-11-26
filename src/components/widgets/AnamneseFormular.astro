@@ -168,14 +168,9 @@ import Consent from './anamnese-form/Consent.astro';
       { required: true, message: 'Bitte gib deinen Nachnamen ein.' },
       { minLength: 2, message: 'Der Nachname muss mindestens 2 Zeichen lang sein.' },
     ],
-    adresse: [{ required: true, message: 'Bitte gib deine Adresse ein.' }],
+    // Adresse, PLZ, Ort sind optional (Datenschutz)
     plz: [
-      { required: true, message: 'Bitte gib deine PLZ ein.' },
       { pattern: ValidationPatterns.germanZip, message: 'Bitte gib eine gültige 5-stellige PLZ ein.' },
-    ],
-    ort: [
-      { required: true, message: 'Bitte gib deinen Ort ein.' },
-      { minLength: 2, message: 'Der Ort muss mindestens 2 Zeichen lang sein.' },
     ],
     telefon: [
       { required: true, message: 'Bitte gib deine Telefonnummer ein.' },
@@ -220,22 +215,24 @@ import Consent from './anamnese-form/Consent.astro';
   // Load CSRF token on page load
   let csrfToken = '';
 
-  async function loadCSRFToken() {
+  async function loadCSRFToken(): Promise<string> {
     try {
       const response = await fetch('/api/get-csrf-token.php');
       const data = await response.json();
       if (data.success && data.token) {
-        csrfToken = data.token;
+        return data.token;
       } else {
         console.error('Failed to load CSRF token');
+        return '';
       }
     } catch (error) {
       console.error('Error loading CSRF token:', error);
+      return '';
     }
   }
 
   // Load token when page loads
-  loadCSRFToken();
+  loadCSRFToken().then(token => csrfToken = token);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -258,15 +255,17 @@ import Consent from './anamnese-form/Consent.astro';
     // Collect form data
     const formData = new FormData(form);
 
-    // Add CSRF token
+    // Add CSRF token - reload if not available
+    if (!csrfToken) {
+      csrfToken = await loadCSRFToken();
+    }
+
     if (csrfToken) {
       formData.append('csrf_token', csrfToken);
     } else {
-      // Try to reload token if not available
-      await loadCSRFToken();
-      if (csrfToken) {
-        formData.append('csrf_token', csrfToken);
-      }
+      errorText.textContent = 'Sicherheitstoken konnte nicht geladen werden. Bitte lade die Seite neu.';
+      errorMessage.classList.remove('hidden');
+      return;
     }
 
     try {
@@ -286,7 +285,7 @@ import Consent from './anamnese-form/Consent.astro';
         form.reset();
 
         // Reload CSRF token for next submission
-        loadCSRFToken();
+        loadCSRFToken().then(token => csrfToken = token);
 
         // Scroll to success message
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -296,7 +295,7 @@ import Consent from './anamnese-form/Consent.astro';
         errorMessage.classList.remove('hidden');
 
         // Reload CSRF token
-        loadCSRFToken();
+        loadCSRFToken().then(token => csrfToken = token);
 
         // Scroll to error message
         errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });

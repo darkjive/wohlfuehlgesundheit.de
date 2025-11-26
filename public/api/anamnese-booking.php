@@ -366,9 +366,10 @@ function getZoomAccessToken() {
 function createZoomMeeting($accessToken, $formData) {
     $url = 'https://api.zoom.us/v2/users/me/meetings';
 
-    // Combine date and time
+    // Combine date and time with proper timezone handling
     $dateTime = $formData['datum'] . ' ' . $formData['uhrzeit'];
-    $startTime = date('Y-m-d\TH:i:s', strtotime($dateTime));
+    $dt = new DateTime($dateTime, new DateTimeZone('Europe/Berlin'));
+    $startTime = $dt->format('Y-m-d\TH:i:s');
 
     // Meeting topic
     $topic = 'Erstgespräch: ' . $formData['vorname'] . ' ' . $formData['nachname'];
