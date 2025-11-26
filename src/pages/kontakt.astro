@@ -1,7 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import ContactUs from '~/components/widgets/Contact.astro';
+import HeroSimple from '~/components/widgets/HeroSimple.astro';
+import ContactForm from '~/components/widgets/ContactForm.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
@@ -10,9 +10,9 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <HeroText tagline="Kontakt" title="Du hast Fragen?" />
+  <HeroSimple tagline="Kontakt" title="Du hast Fragen?" />
 
-  <ContactUs
+  <ContactForm
     id="form"
     title="Benutze gerne das folgende Formular"
     subtitle="Für schnellere Antworten, schau in meinen FAQ-Bereich. Möglicherweise findest Du dort die Antwort, nach der Du suchst! Wenn nicht, frage gerne nach."
