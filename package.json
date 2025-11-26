@@ -26,7 +26,6 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "@astrolib/analytics": "^0.6.1",
     "@astrolib/seo": "^1.0.0-beta.8",
