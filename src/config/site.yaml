@@ -9,7 +9,7 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default:
+    default: 'Wohlfühlgesundheit - Holistische Darmtherapie'
     template: '%s | Wohlfühlgesundheit - Holistische Darmtherapie'
   description: 'Wohlfühlgesundheit - Holistische Darmtherapie, Deine Holistische Darmtherapeutin. Entdecke Tipps und Programme zur Verbesserung deiner Gesundheit und deines Wohlbefindens. Starte deine Reise zu einem gesünderen Lebensstil noch heute!'
   robots:
