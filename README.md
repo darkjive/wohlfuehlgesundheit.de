@@ -254,7 +254,6 @@ Die Website nutzt ein benutzerdefiniertes PHP-Backend für die Formular-Verarbei
 ### Integrationen & Plugins
 
 - `@astrojs/sitemap`: XML-Sitemap-Generierung
-- `@astrojs/rss`: RSS-Feed-Support
 - `@astrojs/partytown`: Optimierung von Third-Party-Scripts
 - `@jop-software/astro-cookieconsent`: DSGVO-konforme Cookie-Verwaltung
 - `@astrolib/analytics`: Analytics-Integration
