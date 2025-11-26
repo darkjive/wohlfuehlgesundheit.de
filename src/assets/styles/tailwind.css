@@ -40,6 +40,17 @@
   .btn-tertiary {
     @apply btn border-none text-muted shadow-none hover:text-gray-900 dark:text-gray-400 dark:hover:text-white;
   }
+
+  /* FAQ Toggle Icon */
+  .faq-icon::before {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+
+  .faq-item[open] .faq-icon::before {
+    content: '−';
+  }
 }
 
 #header.scroll > div:first-child {
