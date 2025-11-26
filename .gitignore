@@ -17,7 +17,7 @@ pnpm-debug.log*
 .env.production
 .env.local
 .env.*.local
-api/.env
+public/api/.env
 
 # macOS-specific files
 .DS_Store
@@ -33,12 +33,9 @@ tmp.md
 tmp
 
 # security files
-.htaccess
-.htpasswd
-public/_sec/.htpasswd
-
-# rate limiting data (file-based)
-public/_rate_limit/
+public/api/.htaccess
+public/.htaccess
+public/.htpasswd
 
 # PHP dependencies (Composer)
 public/vendor/
