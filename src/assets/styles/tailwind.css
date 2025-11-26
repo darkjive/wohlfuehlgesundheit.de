@@ -111,7 +111,7 @@
 
 /* Prose Dark Mode - Bullet Points */
 .dark .prose {
-  --tw-prose-bullets: #ffffff;
+  --tw-prose-invert-bullets: #ffffff;
 }
 
 /* Navigation */
