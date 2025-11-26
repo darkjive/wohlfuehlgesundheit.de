@@ -37,7 +37,7 @@ Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginn
 
 ## Muster-Widerrufsformular
 
-_(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)_
+_(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)_  
 
 An:
 

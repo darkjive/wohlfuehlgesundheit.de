@@ -3,7 +3,7 @@ title: 'Datenschutzerklärung'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Letzte Aktualisierung: 05. Januar 2025_
+_Letzte Aktualisierung: 05. Januar 2025_  
 
 ## 1. Verantwortliche Stelle
 
