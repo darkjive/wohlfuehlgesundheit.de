@@ -6,6 +6,7 @@ import Content from '~/components/ui/Content.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Quote from '~/components/widgets/Quote.astro';
+import Complaints from '~/components/widgets/Complaints.astro';
 
 const metadata = {
   title: 'Start',
@@ -56,85 +57,87 @@ const metadata = {
     </Fragment>
   </Hero>
 
-  <!-- Beschwerden Section *************** -->
-  <section class="bg-white py-12 dark:bg-primary dark:bg-none md:py-16 lg:py-20">
-    <div class="mx-auto max-w-6xl px-4 md:px-6">
-      <div class="mb-8 text-center">
-        <h2 class="leading-tighter text-heading mb-4 font-heading text-3xl font-bold tracking-tighter md:text-5xl">
-          Plagst Du dich auch mit...?
-        </h2>
-      </div>
-
-      <div class="mb-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Müdigkeit, Abgeschlagenheit</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">
-            Verdauungsbeschwerden wie Verstopfung, Durchfall, Blähbauch
-          </p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">
-            Hauterkrankungen wie Neurodermitis, Rosazea, Schuppenflechte
-          </p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Allergien</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">
-            Nahrungsmittelunverträglichkeiten (Laktose, Fruktose, Gluten, Histamin)
-          </p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Zöliakie</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Diabetes mellitus Typ 2</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Hashimoto Thyreoiditis</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Psychische Belastungen, Depressionen</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Reizdarmsyndrom</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">CED (Morbus Crohn, Colitis ulcerosa)</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">SIBO (Dünndarmfehlbesiedlung)</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Pilze und Parasiten</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Rheumatoide Arthritis</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Endometriose</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">PCOS</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">Geschwächtes Immunsystem</p>
-        </div>
-        <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
-          <p class="text-base text-gray-700 dark:text-gray-300">ADHS</p>
-        </div>
-      </div>
-      <div class="mb-8 text-center">
-        <p class="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-300">
-          All das können Anzeichen für ein Ungleichgewicht im Darm sein. Dies liegt oft an unserer ungesunden Ernährung,
-          den Umweltgiften und dem Stress, dem wir ausgesetzt sind.
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- Complaints/Symptoms Section *************** -->
+  <Complaints
+    id="symptoms"
+    title="Plagst Du dich auch mit...?"
+    columns={4}
+    items={[
+      {
+        title: 'Müdigkeit, Abgeschlagenheit',
+        icon: 'tabler:battery',
+      },
+      {
+        title: 'Verdauungsbeschwerden wie Verstopfung, Durchfall, Blähbauch',
+        icon: 'tabler:pill',
+      },
+      {
+        title: 'Hauterkrankungen wie Neurodermitis, Rosazea, Schuppenflechte',
+        icon: 'tabler:droplet',
+      },
+      {
+        title: 'Allergien',
+        icon: 'tabler:virus',
+      },
+      {
+        title: 'Nahrungsmittelunverträglichkeiten (Laktose, Fruktose, Gluten, Histamin)',
+        icon: 'tabler:apple',
+      },
+      {
+        title: 'Zöliakie',
+        icon: 'tabler:plant',
+      },
+      {
+        title: 'Diabetes mellitus Typ 2',
+        icon: 'tabler:heart-rate-monitor',
+      },
+      {
+        title: 'Hashimoto Thyreoiditis',
+        icon: 'tabler:activity',
+      },
+      {
+        title: 'Psychische Belastungen, Depressionen',
+        icon: 'tabler:mood-sad',
+      },
+      {
+        title: 'Reizdarmsyndrom',
+        icon: 'tabler:circle-dotted',
+      },
+      {
+        title: 'CED (Morbus Crohn, Colitis ulcerosa)',
+        icon: 'tabler:report-medical',
+      },
+      {
+        title: 'SIBO (Dünndarmfehlbesiedlung)',
+        icon: 'tabler:virus-search',
+      },
+      {
+        title: 'Pilze und Parasiten',
+        icon: 'tabler:bug',
+      },
+      {
+        title: 'Rheumatoide Arthritis',
+        icon: 'tabler:bone',
+      },
+      {
+        title: 'Endometriose',
+        icon: 'tabler:gender-female',
+      },
+      {
+        title: 'PCOS',
+        icon: 'tabler:gender-female',
+      },
+      {
+        title: 'Geschwächtes Immunsystem',
+        icon: 'tabler:shield-off',
+      },
+      {
+        title: 'ADHS',
+        icon: 'tabler:brain',
+      },
+    ]}
+    footerText="All das können Anzeichen für ein Ungleichgewicht im Darm sein. Dies liegt oft an unserer ungesunden Ernährung, den Umweltgiften und dem Stress, dem wir ausgesetzt sind."
+  />
 
   <!-- Features Widget *************** -->
   <Features

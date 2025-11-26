@@ -292,3 +292,10 @@ export interface Content extends Omit<Headline, 'classes'>, Widget {
 export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {}
 
 export interface Booking extends Omit<Headline, 'classes'>, Form, Widget {}
+
+export interface Complaints extends Omit<Headline, 'classes'>, Widget {
+  items?: Array<Item>;
+  columns?: number;
+  defaultIcon?: string;
+  footerText?: string;
+}

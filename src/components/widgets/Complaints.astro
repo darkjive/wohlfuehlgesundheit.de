@@ -1,0 +1,74 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import { Icon } from 'astro-icon/components';
+import type { Complaints as Props } from '~/types';
+import { twMerge } from 'tailwind-merge';
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline = await Astro.slots.render('tagline'),
+  items = [],
+  columns = 4,
+  defaultIcon = 'tabler:heart-pulse',
+  footerText,
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
+
+  {
+    items && (
+      <div
+        class={twMerge(
+          `mx-auto grid gap-4 ${
+            columns === 4
+              ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+              : columns === 3
+                ? 'sm:grid-cols-2 lg:grid-cols-3'
+                : columns === 2
+                  ? 'sm:grid-cols-2'
+                  : ''
+          }`,
+          classes?.grid
+        )}
+      >
+        {items.map(({ title, icon, classes: itemClasses = {} }, index) => (
+          <div data-animate="fadeIn" data-animate-duration="600" data-animate-delay={index * 100}>
+            <div
+              class={twMerge(
+                'flex h-full flex-col items-center rounded-lg bg-green-50 p-6 text-center transition-all hover:shadow-md dark:bg-dark',
+                itemClasses?.panel
+              )}
+            >
+              {(icon || defaultIcon) && (
+                <Icon
+                  name={icon || defaultIcon}
+                  class={twMerge('mb-3 h-8 w-8 text-primary dark:text-white', itemClasses?.icon)}
+                />
+              )}
+              {title && (
+                <p class={twMerge('text-base text-gray-700 dark:text-gray-300', itemClasses?.title)}>{title}</p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    footerText && (
+      <div class="mb-8 mt-10 text-center" data-animate="fadeIn" data-animate-duration="800" data-animate-delay="200">
+        <p class="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-300">{footerText}</p>
+      </div>
+    )
+  }
+</WidgetWrapper>
