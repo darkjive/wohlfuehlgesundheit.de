@@ -3,7 +3,7 @@ title: 'Widerrufsbelehrung'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
-_Letzte Aktualisierung: 05. Januar 2025_
+_Letzte Aktualisierung: 05. Januar 2025_  
 
 ## Widerrufsrecht
 
@@ -49,7 +49,7 @@ E-Mail: [steffi@wohlfühlgesundheit.de](mailto:steffi@wohlfühlgesundheit.de)
 
 Hiermit widerrufe(n) ich/wir (\*) den von mir/uns (\*) abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung:
 
-**Holistische Darmtherapie - 3 Sitzungen Komplett-Paket**
+**Holistische Darmtherapie - 3 Sitzungen Komplett-Paket**  
 
 - Bestellt am (\*): \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 - Name des/der Verbraucher(s): \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
