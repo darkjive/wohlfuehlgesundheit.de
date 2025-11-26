@@ -1,13 +1,14 @@
 ---
 import type { Form as Props } from '~/types';
 import Button from '~/components/ui/Button.astro';
+import Emoji from 'astro-emoji';
 const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = Astro.props;
 ---
 
 <!-- Success Message -->
 <div id="contact-success-message" class="mb-6 hidden rounded-lg bg-green-50 p-8 shadow-md">
   <div class="text-center">
-    <p class="mb-4 text-2xl">💖 💖 💖</p>
+    <p class="mb-4 text-2xl"><Emoji symbol="💖 💖 💖" label="Heart" /></p>
     <h3 class="mb-4 text-3xl font-bold text-green-800 md:text-4xl">Danke, das hat geklappt!</h3>
     <p class="text-green-700" id="contact-success-text"></p>
   </div>

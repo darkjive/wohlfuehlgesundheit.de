@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
   title: 'Kontakt',
@@ -34,5 +35,18 @@ const metadata = {
       label: 'Durch das Absenden dieses Kontaktformulars stimmst du der Erhebung Deiner persönlichen Daten zu.',
     }}
     description="Ich antworte in der Regel innerhalb von 24 Stunden."
+  />
+  <!-- Call To Action **************** -->
+  <CallToAction
+    title="Bereit für den ersten Schritt?"
+    subtitle="Starte jetzt deine Reise zu mehr Wohlbefinden mit einer holistischen Darmtherapie."
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Termin vereinbaren',
+        href: '/termin-buchen',
+      },
+    ]}
+    bg={`<div class="absolute inset-0 bg-green-100 dark:bg-transparent dark:bg-none bg-cover bg-[url(~/assets/images/kristine-cinate-QvjL4y7SF9k-unsplash.jpg)]"></div>`}
   />
 </Layout>

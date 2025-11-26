@@ -9,6 +9,7 @@ import Quote from '~/components/widgets/Quote.astro';
 import Steps from '~/components/widgets/Steps.astro';
 import Image from '~/components/common/Image.astro';
 import ImageSwap from '~/components/common/ImageSwap.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
 
 import certImage from '~/assets/images/INA_Cert2025.jpg';
 import certImage2 from '~/assets/images/Teilnahmebestaetigung_Leidel.jpg';
@@ -207,5 +208,19 @@ const metadata = {
         // },
       },
     ]}
+  />
+
+  <!-- Call To Action **************** -->
+  <CallToAction
+    title="Bereit für den ersten Schritt?"
+    subtitle="Starte jetzt deine Reise zu mehr Wohlbefinden mit einer holistischen Darmtherapie."
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Termin vereinbaren',
+        href: '/termin-buchen',
+      },
+    ]}
+    bg={`<div class="absolute inset-0 bg-green-100 dark:bg-transparent dark:bg-none bg-cover bg-[url(~/assets/images/kristine-cinate-QvjL4y7SF9k-unsplash.jpg)]"></div>`}
   />
 </Layout>
