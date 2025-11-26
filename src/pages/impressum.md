@@ -67,7 +67,7 @@ Drew Hays
 Moritz Lüdtke  
 [https://unsplash.com/de/fotos/ein-verschwommenes-foto-einer-pflanze-mit-verschwommenem-hintergrund-hA_WcioMg7Q]
 
-Kristine Cinate  
+Kristine Cinate
 
 [https://unsplash.com/de/fotos/weiss-gelb-blattriges-blumenfeld-tagsuber-QvjL4y7SF9k]
 
