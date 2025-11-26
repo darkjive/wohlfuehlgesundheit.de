@@ -9,7 +9,7 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 ```text
 /
 ├── integrations/          # Benutzerdefinierte Astro-Integrationen
-│   └── astrowind/         # AstroWind-Template-Integration
+│   └── wohlfuehlgesundheit/  # Eigene Config-Integration
 │       ├── index.ts
 │       ├── types.d.ts
 │       └── utils/
@@ -371,7 +371,7 @@ Die Website nutzt Astro's native View Transitions API:
 
 ## Custom Integration
 
-Das Projekt nutzt eine benutzerdefinierte Astro-Integration (`integrations/astrowind/`):
+Das Projekt nutzt eine benutzerdefinierte Astro-Integration (`integrations/wohlfuehlgesundheit/`):
 
 - **Zweck**: Lädt die Site-Konfiguration aus `src/config/site.yaml` und stellt sie als virtuelle Module bereit
 - **Features**:
@@ -392,4 +392,4 @@ Das Projekt nutzt eine benutzerdefinierte Astro-Integration (`integrations/astro
 
 ## Lizenz
 
-Dieses Projekt basiert auf dem **AstroWind Template** und steht unter der **MIT-Lizenz**.
+Dieses Projekt steht unter der **MIT-Lizenz**.
