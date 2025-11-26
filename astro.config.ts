@@ -164,6 +164,20 @@ export default defineConfig({
           chunkFileNames: 'assets/[name].[hash].js',
           entryFileNames: 'assets/[name].[hash].js',
         },
+        onwarn(warning, warn) {
+          // Suppress known Astro internal warning - can be removed once PR #14876 is merged
+          // See: https://github.com/withastro/astro/issues/14752
+          if (
+            warning.code === 'UNUSED_EXTERNAL_IMPORT' &&
+            warning.exporter === '@astrojs/internal-helpers/remote' &&
+            warning.names?.some((name) =>
+              ['matchHostname', 'matchPathname', 'matchPort', 'matchProtocol'].includes(name)
+            )
+          ) {
+            return;
+          }
+          warn(warning);
+        },
       },
     },
 
