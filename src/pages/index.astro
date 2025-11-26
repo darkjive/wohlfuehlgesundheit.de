@@ -63,13 +63,9 @@ const metadata = {
         <h2 class="leading-tighter text-heading mb-4 font-heading text-3xl font-bold tracking-tighter md:text-5xl">
           Plagst Du dich auch mit...?
         </h2>
-        <p class="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-300">
-          All das können Anzeichen für ein Ungleichgewicht im Darm sein. Dies liegt oft an unserer ungesunden Ernährung,
-          den Umweltgiften und dem Stress, dem wir ausgesetzt sind.
-        </p>
       </div>
 
-      <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-10">
         <div class="dark:bg-dark rounded-lg bg-green-50 p-4">
           <p class="text-base text-gray-700 dark:text-gray-300">Müdigkeit, Abgeschlagenheit</p>
         </div>
@@ -131,32 +127,16 @@ const metadata = {
           <p class="text-base text-gray-700 dark:text-gray-300">ADHS</p>
         </div>
       </div>
+            <div class="mb-8 text-center">
+        <p class="mx-auto max-w-3xl text-lg text-gray-600 dark:text-gray-300">
+          All das können Anzeichen für ein Ungleichgewicht im Darm sein. Dies liegt oft an unserer ungesunden Ernährung,
+          den Umweltgiften und dem Stress, dem wir ausgesetzt sind.
+        </p>
+      </div>
+
     </div>
   </section>
 
-  <!-- Features Widget *************** -->
-
-  <!-- Quote Widget: Inspirierendes Zitat mit Hintergrundbild -->
-  <Quote
-    quote="Eure Nahrungsmittel sollen eure Heilmittel und eure Heilmittel eure Nahrungsmittel sein."
-    author="Hippokrates"
-  >
-    <Fragment slot="bg">
-      <div
-        class="absolute inset-0 bg-[url(~/assets/images/hippokrates.jpg)] bg-right bg-no-repeat dark:bg-transparent dark:bg-none md:bg-[url(~/assets/images/hippokrates-large.jpg)] md:bg-right md:bg-no-repeat"
-      >
-      </div>
-    </Fragment>
-
-    <Fragment slot="content">
-      <div class="text-right md:ml-auto md:max-w-2xl">
-        <p class="text-xl italic tracking-tight md:text-2xl">
-          Eure Nahrungsmittel sollen eure Heilmittel und eure Heilmittel eure Nahrungsmittel sein.
-        </p>
-        <p class="mt-2 text-gray-500">(Hippokrates)</p>
-      </div>
-    </Fragment>
-  </Quote>
   <!-- Features Widget *************** -->
   <Features
     id="features"
@@ -297,10 +277,28 @@ const metadata = {
       <div class="absolute inset-0 bg-[#fde4e6] dark:bg-transparent"></div>
     </Fragment>
   </Content>
-  <!-- Variante 4: Standard 16:9 Aspect Ratio statt 16:6 
-<div class="aspect-w-16 aspect-h-9 w-full max-w-3xl mx-auto my-12 rounded-lg overflow-hidden shadow-lg">
-  <YouTube id="bdhufTI8D3A" title="Das Verdauungssystem" />
-</div>  -->
+    <!-- Quote Widget: Inspirierendes Zitat mit Hintergrundbild -->
+  <Quote
+    quote="Eure Nahrungsmittel sollen eure Heilmittel und eure Heilmittel eure Nahrungsmittel sein."
+    author="Hippokrates"
+  >
+    <Fragment slot="bg">
+      <div
+        class="absolute inset-0 bg-[url(~/assets/images/hippokrates.jpg)] bg-right bg-no-repeat dark:bg-transparent dark:bg-none md:bg-[url(~/assets/images/hippokrates-large.jpg)] md:bg-right md:bg-no-repeat"
+      >
+      </div>
+    </Fragment>
+
+    <Fragment slot="content">
+      <div class="text-right md:ml-auto md:max-w-2xl">
+        <p class="text-xl italic tracking-tight md:text-2xl">
+          Eure Nahrungsmittel sollen eure Heilmittel und eure Heilmittel eure Nahrungsmittel sein.
+        </p>
+        <p class="mt-2 text-gray-500">(Hippokrates)</p>
+      </div>
+    </Fragment>
+  </Quote>
+
   <!-- FAQs Widget ******************* -->
   <FAQs
     id="faq"
@@ -418,6 +416,6 @@ const metadata = {
         href: '/termin-buchen',
       },
     ]}
-    bg={`<div class="absolute inset-0 bg-green-100 dark:bg-transparent dark:bg-none bg-cover bg-[url(~/assets/images/kristine-cinate-QvjL4y7SF9k-unsplash.jpg)]"></div>`}
+    bg={`<div class="absolute inset-0 dark:bg-[url(~/assets/images/moritz-ludtke-hA_WcioMg7Q-unsplash.jpg)] bg-cover bg-[url(~/assets/images/kristine-cinate-QvjL4y7SF9k-unsplash.jpg)]"></div>`}
   />
 </Layout>
