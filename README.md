@@ -1,4 +1,3 @@
-
 # Holistische Darmtherapie – Website-Projekt
 
 Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und **Tailwind CSS**.
@@ -98,19 +97,19 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 
 ### Befehle
 
-| Befehl               | Aktion                                                         |
-|----------------------|---------------------------------------------------------------|
-| `npm install`        | Installiert Abhängigkeiten                                    |
-| `npm start`          | **Empfohlen**: Startet PHP + Astro Dev-Server (localhost:4321) |
-| `npm run dev:full`   | Gleich wie `npm start` – startet beide Server                |
-| `npm run dev`        | Startet nur Astro Dev-Server (localhost:4321) – **ohne PHP** |
-| `npm run dev:php`    | Startet nur PHP Dev-Server (localhost:8000)                   |
-| `npm run build`      | Erstellt die produktionsreife Website in `./dist/`            |
-| `npm run preview`    | Vorschau der gebauten Website vor dem Deployment              |
-| `npm run check`      | Überprüft das Projekt auf Fehler                              |
-| `npm run fix`        | Führt ESLint aus und formatiert Code mit Prettier            |
-| `npm run astro ...`  | Führt Astro-CLI-Befehle aus                                   |
-| `npm run deploy`     | Führt Deployment-Befehle aus                                  |
+| Befehl              | Aktion                                                         |
+| ------------------- | -------------------------------------------------------------- |
+| `npm install`       | Installiert Abhängigkeiten                                     |
+| `npm start`         | **Empfohlen**: Startet PHP + Astro Dev-Server (localhost:4321) |
+| `npm run dev:full`  | Gleich wie `npm start` – startet beide Server                  |
+| `npm run dev`       | Startet nur Astro Dev-Server (localhost:4321) – **ohne PHP**   |
+| `npm run dev:php`   | Startet nur PHP Dev-Server (localhost:8000)                    |
+| `npm run build`     | Erstellt die produktionsreife Website in `./dist/`             |
+| `npm run preview`   | Vorschau der gebauten Website vor dem Deployment               |
+| `npm run check`     | Überprüft das Projekt auf Fehler                               |
+| `npm run fix`       | Führt ESLint aus und formatiert Code mit Prettier              |
+| `npm run astro ...` | Führt Astro-CLI-Befehle aus                                    |
+| `npm run deploy`    | Führt Deployment-Befehle aus                                   |
 
 ---
 
@@ -188,7 +187,7 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 ### Inhalte
 
 - **Seiten**:
- `src/pages/` – Alle Astro-Seiten (index, über-mich, termin-buchen, kontakt, etc.)
+  `src/pages/` – Alle Astro-Seiten (index, über-mich, termin-buchen, kontakt, etc.)
 - **Komponenten**: `src/components/` – Wiederverwendbare Komponenten
   - `common/` – Gemeinsame Komponenten (Header, Footer, Logos)
   - `ui/` – UI-Komponenten (Button, Forms, etc.)
