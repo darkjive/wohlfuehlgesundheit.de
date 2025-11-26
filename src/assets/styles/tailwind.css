@@ -109,6 +109,11 @@
   @apply dark:border-gray-100 dark:ring-gray-200;
 }
 
+/* Prose Dark Mode - Bullet Points */
+.dark .prose {
+  --tw-prose-bullets: #ffffff;
+}
+
 /* Navigation */
 @media (max-width: 767px) {
   nav ul {
