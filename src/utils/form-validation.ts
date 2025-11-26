@@ -35,7 +35,7 @@ export const ValidationPatterns = {
 };
 
 /**
- * Default error messages in German (Du-Form)
+ * Default error messages in German (informal "Du" form)
  */
 export const DefaultMessages = {
   required: 'Bitte fülle dieses Feld aus.',
