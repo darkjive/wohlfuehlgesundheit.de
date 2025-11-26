@@ -380,11 +380,13 @@ Das Projekt nutzt eine Custom Astro Integration (`integrations/astrowind/`):
 Eine umfassende Code-Analyse wurde durchgeführt mit folgenden Ergebnissen:
 
 **Behobene Fehler:**
+
 - ✅ Zeitzone-Konvertierung in Zoom-Meeting Erstellung (PHP)
 - ✅ CSRF Token Race Condition im Frontend
 - ✅ Frontend/Backend Inkonsistenz bei Pflichtfeldern
 
 **Code-Statistiken:**
+
 - 45 Components (alle genutzt)
 - 18 TypeScript Interfaces (genutzt)
 - 19 ungenutzte Interfaces (empfohlen zu löschen)
@@ -397,6 +399,7 @@ Detaillierter Bericht: [`CODE_ANALYSE_BERICHT.md`](./CODE_ANALYSE_BERICHT.md)
 ### Browser-Kompatibilität
 
 ✅ **Vollständig kompatibel** mit allen modernen Browsern:
+
 - Chrome/Edge 61+
 - Firefox 52+
 - Safari 12.1+

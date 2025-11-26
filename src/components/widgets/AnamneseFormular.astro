@@ -169,9 +169,7 @@ import Consent from './anamnese-form/Consent.astro';
       { minLength: 2, message: 'Der Nachname muss mindestens 2 Zeichen lang sein.' },
     ],
     // Adresse, PLZ, Ort sind optional (Datenschutz)
-    plz: [
-      { pattern: ValidationPatterns.germanZip, message: 'Bitte gib eine gültige 5-stellige PLZ ein.' },
-    ],
+    plz: [{ pattern: ValidationPatterns.germanZip, message: 'Bitte gib eine gültige 5-stellige PLZ ein.' }],
     telefon: [
       { required: true, message: 'Bitte gib deine Telefonnummer ein.' },
       { pattern: ValidationPatterns.phone, message: 'Bitte gib eine gültige Telefonnummer ein.' },
@@ -232,7 +230,7 @@ import Consent from './anamnese-form/Consent.astro';
   }
 
   // Load token when page loads
-  loadCSRFToken().then(token => csrfToken = token);
+  loadCSRFToken().then((token) => (csrfToken = token));
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -285,7 +283,7 @@ import Consent from './anamnese-form/Consent.astro';
         form.reset();
 
         // Reload CSRF token for next submission
-        loadCSRFToken().then(token => csrfToken = token);
+        loadCSRFToken().then((token) => (csrfToken = token));
 
         // Scroll to success message
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -295,7 +293,7 @@ import Consent from './anamnese-form/Consent.astro';
         errorMessage.classList.remove('hidden');
 
         // Reload CSRF token
-        loadCSRFToken().then(token => csrfToken = token);
+        loadCSRFToken().then((token) => (csrfToken = token));
 
         // Scroll to error message
         errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
