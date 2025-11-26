@@ -4,6 +4,6 @@
 /// <reference types="vite/client" />
 /// <reference types="../vendor/integration/types.d.ts" />
 
-// Font module declarations for side-effect imports
+// Font-Modul-Deklarationen für Nebeneffekt-Imports
 declare module '@fontsource-variable/*';
 declare module '@fontsource/*';

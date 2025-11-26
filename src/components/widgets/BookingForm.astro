@@ -141,14 +141,14 @@ import Emoji from 'astro-emoji';
     type ValidationRules,
   } from '~/utils/form-validation';
 
-  // Set minimum date to tomorrow
+  // Setze minimales Datum auf morgen
   const datumInput = document.getElementById('datum') as HTMLInputElement;
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const minDate = tomorrow.toISOString().split('T')[0];
   datumInput.setAttribute('min', minDate);
 
-  // Form submission handler
+  // Formular-Submit-Handler
   const form = document.getElementById('booking-form') as HTMLFormElement;
   const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
   const buttonText = document.getElementById('button-text') as HTMLSpanElement;
@@ -158,9 +158,9 @@ import Emoji from 'astro-emoji';
   const successText = document.getElementById('success-text') as HTMLParagraphElement;
   const errorText = document.getElementById('error-text') as HTMLParagraphElement;
 
-  // Define comprehensive validation rules for anamnese form
+  // Definiere umfassende Validierungsregeln für Anamnesebogen
   const validationRules: ValidationRules = {
-    // Personal Data (required fields)
+    // Persönliche Daten (Pflichtfelder)
     vorname: [
       { required: true, message: 'Bitte gib deinen Vornamen ein.' },
       { minLength: 2, message: 'Der Vorname muss mindestens 2 Zeichen lang sein.' },
@@ -181,7 +181,7 @@ import Emoji from 'astro-emoji';
       { pattern: ValidationPatterns.email, message: 'Bitte gib eine gültige E-Mail-Adresse ein.' },
     ],
 
-    // Personal Info (optional but validated if filled)
+    // Persönliche Informationen (optional, aber validiert wenn ausgefüllt)
     alter: [
       { min: 1, message: 'Das Alter muss mindestens 1 sein.' },
       { max: 150, message: 'Bitte gib ein realistisches Alter ein.' },
@@ -195,23 +195,23 @@ import Emoji from 'astro-emoji';
       { max: 500, message: 'Bitte gib ein realistisches Gewicht ein.' },
     ],
 
-    // Zoom Booking (required fields)
+    // Zoom-Buchung (Pflichtfelder)
     datum: [{ required: true, message: 'Bitte wähle ein Datum für den Termin.' }],
     uhrzeit: [{ required: true, message: 'Bitte wähle eine Uhrzeit für den Termin.' }],
     dauer: [{ required: true, message: 'Bitte wähle eine Gesprächsdauer.' }],
 
-    // Consent (required)
+    // Einwilligung (Pflichtfeld)
     datenschutz: [{ required: true, message: 'Bitte akzeptiere die Datenschutzerklärung.' }],
   };
 
-  // Setup real-time validation
+  // Richte Echtzeit-Validierung ein
   setupFormValidation(form, validationRules, {
     validateOnBlur: true,
     validateOnInput: true,
     showValidIndicator: true,
   });
 
-  // Load CSRF token on page load
+  // Lade CSRF-Token beim Seitenaufruf
   let csrfToken = '';
 
   async function loadCSRFToken(): Promise<string> {
@@ -230,31 +230,31 @@ import Emoji from 'astro-emoji';
     }
   }
 
-  // Load token when page loads
+  // Lade Token beim Seitenaufruf
   loadCSRFToken().then((token) => (csrfToken = token));
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Validate form before submission
+    // Validiere Formular vor dem Absenden
     const validationResult = validateFormOnSubmit(form, validationRules);
     if (!validationResult.isValid) {
       return;
     }
 
-    // Hide previous messages
+    // Verstecke vorherige Nachrichten
     successMessage.classList.add('hidden');
     errorMessage.classList.add('hidden');
 
-    // Disable button and show spinner
+    // Deaktiviere Button und zeige Spinner
     submitButton.disabled = true;
     buttonText.classList.add('hidden');
     buttonSpinner.classList.remove('hidden');
 
-    // Collect form data
+    // Sammle Formulardaten
     const formData = new FormData(form);
 
-    // Add CSRF token - reload if not available
+    // Füge CSRF-Token hinzu - lade neu falls nicht verfügbar
     if (!csrfToken) {
       csrfToken = await loadCSRFToken();
     }
@@ -276,31 +276,31 @@ import Emoji from 'astro-emoji';
       const result = await response.json();
 
       if (result.success) {
-        // Show success message
+        // Zeige Erfolgsmeldung
         successText.textContent = result.message || 'Vielen Dank! Dein Anamnesebogen wurde erfolgreich übermittelt.';
         successMessage.classList.remove('hidden');
 
-        // Reset form
+        // Setze Formular zurück
         form.reset();
 
-        // Reload CSRF token for next submission
+        // Lade CSRF-Token für nächste Absendung neu
         loadCSRFToken().then((token) => (csrfToken = token));
 
-        // Scroll to success message
+        // Scrolle zur Erfolgsmeldung
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
-        // Show error message
+        // Zeige Fehlermeldung
         errorText.textContent = result.message || 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
         errorMessage.classList.remove('hidden');
 
-        // Reload CSRF token
+        // Lade CSRF-Token neu
         loadCSRFToken().then((token) => (csrfToken = token));
 
-        // Scroll to error message
+        // Scrolle zur Fehlermeldung
         errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     } catch (error) {
-      // Show error message
+      // Zeige Fehlermeldung
       errorText.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
       errorMessage.classList.remove('hidden');
       errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });

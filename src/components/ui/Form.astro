@@ -147,7 +147,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
     type ValidationRules,
   } from '~/utils/form-validation';
 
-  // Contact Form Handler with CSRF Protection and Caching
+  // Kontaktformular-Handler mit CSRF-Schutz und Caching
   (function () {
     const contactForm = document.getElementById('contact-form') as HTMLFormElement | null;
     const submitButton = document.getElementById('contact-submit-button') as HTMLButtonElement | null;
@@ -158,7 +158,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
     const successText = document.getElementById('contact-success-text') as HTMLParagraphElement | null;
     const errorText = document.getElementById('contact-error-text') as HTMLParagraphElement | null;
 
-    // Early exit if required elements are missing
+    // Frühzeitiger Abbruch, falls erforderliche Elemente fehlen
     if (
       !contactForm ||
       !submitButton ||
@@ -173,7 +173,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       return;
     }
 
-    // Define validation rules
+    // Definiere Validierungsregeln
     const validationRules: ValidationRules = {
       name: [
         { required: true, message: 'Bitte gib deinen Namen ein.' },
@@ -190,14 +190,14 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       disclaimer: [{ required: true, message: 'Bitte akzeptiere die Datenschutzerklärung.' }],
     };
 
-    // Setup real-time validation
+    // Richte Echtzeit-Validierung ein
     setupFormValidation(contactForm, validationRules, {
       validateOnBlur: true,
       validateOnInput: true,
       showValidIndicator: true,
     });
 
-    // Load CSRF token on page load
+    // Lade CSRF-Token beim Seitenaufruf
     let csrfToken = '';
 
     async function loadCSRFToken() {
@@ -214,35 +214,35 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
       }
     }
 
-    // Load token when page loads
+    // Lade Token beim Seitenaufruf
     loadCSRFToken();
 
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Validate form before submission
+      // Validiere Formular vor dem Absenden
       const validationResult = validateFormOnSubmit(contactForm, validationRules);
       if (!validationResult.isValid) {
         return;
       }
 
-      // Hide previous messages
+      // Verstecke vorherige Nachrichten
       successMessage.classList.add('hidden');
       errorMessage.classList.add('hidden');
 
-      // Disable button and show spinner
+      // Deaktiviere Button und zeige Spinner
       submitButton.disabled = true;
       buttonText.classList.add('hidden');
       buttonSpinner.classList.remove('hidden');
 
-      // Collect form data
+      // Sammle Formulardaten
       const formData = new FormData(contactForm);
 
-      // Add CSRF token
+      // Füge CSRF-Token hinzu
       if (csrfToken) {
         formData.append('csrf_token', csrfToken);
       } else {
-        // Try to reload token if not available
+        // Versuche Token neu zu laden, falls nicht verfügbar
         await loadCSRFToken();
         if (csrfToken) {
           formData.append('csrf_token', csrfToken);
@@ -258,38 +258,38 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
         const result = await response.json();
 
         if (result.success) {
-          // Show success message
+          // Zeige Erfolgsmeldung
           successText.textContent = result.message || 'Vielen Dank für deine Nachricht!';
           successMessage.classList.remove('hidden');
 
-          // Reset form
+          // Setze Formular zurück
           contactForm.reset();
 
-          // Reload CSRF token for next submission
+          // Lade CSRF-Token für nächste Absendung neu
           loadCSRFToken();
 
-          // Scroll to success message
+          // Scrolle zur Erfolgsmeldung
           successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
-          // Show error message
+          // Zeige Fehlermeldung
           errorText.textContent = result.message || 'Ein Fehler ist aufgetreten. Bitte versuche es später erneut.';
           errorMessage.classList.remove('hidden');
 
-          // Reload CSRF token
+          // Lade CSRF-Token neu
           loadCSRFToken();
 
-          // Scroll to error message
+          // Scrolle zur Fehlermeldung
           errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       } catch (error) {
-        // Show error message
+        // Zeige Fehlermeldung
         errorText.textContent = 'Verbindungsfehler. Bitte überprüfe deine Internetverbindung und versuche es erneut.';
         errorMessage.classList.remove('hidden');
         errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         console.error('Form submission error:', error);
       } finally {
-        // Re-enable button and hide spinner
+        // Aktiviere Button wieder und verstecke Spinner
         submitButton.disabled = false;
         buttonText.classList.remove('hidden');
         buttonSpinner.classList.add('hidden');

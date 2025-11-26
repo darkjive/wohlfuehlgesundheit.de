@@ -143,7 +143,7 @@ export default defineConfig({
       },
     },
 
-    // Proxy API requests to PHP dev server
+    // Proxye API-Anfragen zum PHP-Dev-Server
     server: {
       proxy: {
         '/api': {

@@ -62,9 +62,9 @@ export default ({ config: _themeConfig = 'src/config/site.yaml' } = {}): AstroIn
         if (typeof _themeConfig === 'string') {
           addWatchFile(new URL(_themeConfig, config.root));
 
-          buildLogger.info(`Wohlfuehlgesundheit \`${_themeConfig}\` has been loaded.`);
+          buildLogger.info(`Wohlfuehlgesundheit \`${_themeConfig}\` wurde geladen.`);
         } else {
-          buildLogger.info(`Wohlfuehlgesundheit config has been loaded.`);
+          buildLogger.info(`Wohlfuehlgesundheit Konfiguration wurde geladen.`);
         }
       },
       'astro:config:done': async ({ config }) => {
@@ -73,7 +73,7 @@ export default ({ config: _themeConfig = 'src/config/site.yaml' } = {}): AstroIn
 
       'astro:build:done': async ({ logger }) => {
         const buildLogger = logger.fork('wohlfuehlgesundheit');
-        buildLogger.info('Updating `robots.txt` with `sitemap-index.xml` ...');
+        buildLogger.info('Aktualisiere `robots.txt` mit `sitemap-index.xml` ...');
 
         try {
           const outDir = cfg.outDir;

@@ -61,7 +61,7 @@ const { defaultSrc, hoverSrc, alt, class: className, loading = 'lazy', width, he
 </style>
 
 <script>
-  // Mobile touch handling
+  // Mobile Touch-Behandlung
   const isTouchDevice = () => {
     return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   };
@@ -73,7 +73,7 @@ const { defaultSrc, hoverSrc, alt, class: className, loading = 'lazy', width, he
       let isToggled = false;
 
       container.addEventListener('touchstart', (e) => {
-        // Toggle state on touch
+        // Schalte Zustand bei Touch um
         isToggled = !isToggled;
 
         if (isToggled) {
@@ -82,11 +82,11 @@ const { defaultSrc, hoverSrc, alt, class: className, loading = 'lazy', width, he
           container.classList.remove('touched');
         }
 
-        // Prevent default to avoid triggering hover on touch devices
+        // Verhindere Standard, um Hover auf Touch-Geräten zu vermeiden
         e.preventDefault();
       });
 
-      // Remove touched state when clicking outside
+      // Entferne Touch-Zustand beim Klick außerhalb
       document.addEventListener('touchstart', (e) => {
         if (!container.contains(e.target as Node)) {
           container.classList.remove('touched');

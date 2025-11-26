@@ -1,6 +1,6 @@
 /**
- * Modern Form Validation Utility
- * Provides real-time form validation with visual feedback
+ * Moderne Formular-Validierungs-Utility
+ * Bietet Echtzeit-Validierung mit visuellem Feedback
  */
 
 export interface ValidationRule {
@@ -24,7 +24,7 @@ export interface ValidationResult {
 }
 
 /**
- * Predefined validation patterns
+ * Vordefinierte Validierungsmuster
  */
 export const ValidationPatterns = {
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -51,36 +51,36 @@ export const DefaultMessages = {
 };
 
 /**
- * Validate a single field
+ * Validiere ein einzelnes Feld
  */
 export function validateField(value: string, rules: ValidationRule[]): string | null {
   for (const rule of rules) {
-    // Required check
+    // Pflichtfeld-Prüfung
     if (rule.required && !value.trim()) {
       return rule.message || DefaultMessages.required;
     }
 
-    // Skip other validations if value is empty and not required
+    // Überspringe andere Validierungen, wenn Wert leer und nicht erforderlich
     if (!value.trim() && !rule.required) {
       continue;
     }
 
-    // Min length check
+    // Mindestlängen-Prüfung
     if (rule.minLength !== undefined && value.length < rule.minLength) {
       return rule.message || DefaultMessages.minLength(rule.minLength);
     }
 
-    // Max length check
+    // Maximallängen-Prüfung
     if (rule.maxLength !== undefined && value.length > rule.maxLength) {
       return rule.message || DefaultMessages.maxLength(rule.maxLength);
     }
 
-    // Pattern check
+    // Muster-Prüfung
     if (rule.pattern && !rule.pattern.test(value)) {
       return rule.message || DefaultMessages.pattern;
     }
 
-    // Min value check (for numbers)
+    // Minimalwert-Prüfung (für Zahlen)
     if (rule.min !== undefined) {
       const numValue = parseFloat(value);
       if (isNaN(numValue) || numValue < rule.min) {
@@ -88,7 +88,7 @@ export function validateField(value: string, rules: ValidationRule[]): string | 
       }
     }
 
-    // Max value check (for numbers)
+    // Maximalwert-Prüfung (für Zahlen)
     if (rule.max !== undefined) {
       const numValue = parseFloat(value);
       if (isNaN(numValue) || numValue > rule.max) {
@@ -96,7 +96,7 @@ export function validateField(value: string, rules: ValidationRule[]): string | 
       }
     }
 
-    // Custom validation
+    // Benutzerdefinierte Validierung
     if (rule.custom && !rule.custom(value)) {
       return rule.message || DefaultMessages.custom;
     }
@@ -106,7 +106,7 @@ export function validateField(value: string, rules: ValidationRule[]): string | 
 }
 
 /**
- * Validate entire form
+ * Validiere gesamtes Formular
  */
 export function validateForm(formData: FormData, rules: ValidationRules): ValidationResult {
   const errors: { [key: string]: string } = {};
@@ -127,51 +127,51 @@ export function validateForm(formData: FormData, rules: ValidationRules): Valida
 }
 
 /**
- * Add visual feedback to form field
+ * Füge visuelles Feedback zum Formularfeld hinzu
  */
 export function updateFieldUI(field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, error: string | null) {
   const container = field.closest('div');
   if (!container) return;
 
-  // Remove existing error message
+  // Entferne existierende Fehlermeldung
   const existingError = container.querySelector('.validation-error');
   if (existingError) {
     existingError.remove();
   }
 
-  // Remove existing validation classes
+  // Entferne existierende Validierungsklassen
   field.classList.remove('field-valid', 'field-invalid');
 
   if (error) {
-    // Add error styling
+    // Füge Fehler-Styling hinzu
     field.classList.add('field-invalid');
 
-    // Create error message element
+    // Erstelle Fehlermeldungs-Element
     const errorElement = document.createElement('p');
     errorElement.className = 'validation-error mt-2 text-sm text-red-600 dark:text-red-400';
     errorElement.textContent = error;
     container.appendChild(errorElement);
   } else if (field.value.trim()) {
-    // Add valid styling only if field has value
+    // Füge Gültig-Styling nur hinzu, wenn Feld einen Wert hat
     field.classList.add('field-valid');
   }
 }
 
 /**
- * Update checkbox field UI
+ * Aktualisiere Checkbox-Feld UI
  */
 export function updateCheckboxUI(checkbox: HTMLInputElement, error: string | null) {
   const container = checkbox.closest('div')?.parentElement;
   if (!container) return;
 
-  // Remove existing error message
+  // Entferne existierende Fehlermeldung
   const existingError = container.querySelector('.validation-error');
   if (existingError) {
     existingError.remove();
   }
 
   if (error) {
-    // Create error message element
+    // Erstelle Fehlermeldungs-Element
     const errorElement = document.createElement('p');
     errorElement.className = 'validation-error mt-2 text-sm text-red-600 dark:text-red-400';
     errorElement.textContent = error;
@@ -180,7 +180,7 @@ export function updateCheckboxUI(checkbox: HTMLInputElement, error: string | nul
 }
 
 /**
- * Setup real-time validation for a form
+ * Richte Echtzeit-Validierung für Formular ein
  */
 export function setupFormValidation(
   form: HTMLFormElement,
@@ -193,7 +193,7 @@ export function setupFormValidation(
 ) {
   const { validateOnBlur = true, validateOnInput = false, showValidIndicator = true } = options;
 
-  // Handle regular input fields and select elements
+  // Behandle reguläre Eingabefelder und Select-Elemente
   for (const fieldName of Object.keys(rules)) {
     const field = form.querySelector(`[name="${fieldName}"]`) as
       | HTMLInputElement
@@ -203,7 +203,7 @@ export function setupFormValidation(
 
     if (!field) continue;
 
-    // Skip checkboxes (they're handled separately)
+    // Überspringe Checkboxen (werden separat behandelt)
     if (field instanceof HTMLInputElement && field.type === 'checkbox') continue;
 
     if (validateOnBlur) {
@@ -216,7 +216,7 @@ export function setupFormValidation(
     if (validateOnInput) {
       const eventType = field instanceof HTMLSelectElement ? 'change' : 'input';
       field.addEventListener(eventType, () => {
-        // Only show validation after first blur for inputs, always for selects
+        // Zeige Validierung nur nach erstem Blur für Inputs, immer für Selects
         if (
           field instanceof HTMLSelectElement ||
           field.classList.contains('field-invalid') ||
@@ -228,7 +228,7 @@ export function setupFormValidation(
       });
     }
 
-    // For select elements, also validate on change
+    // Für Select-Elemente, validiere auch bei Änderung
     if (field instanceof HTMLSelectElement) {
       field.addEventListener('change', () => {
         const error = validateField(field.value, rules[fieldName]);
@@ -236,7 +236,7 @@ export function setupFormValidation(
       });
     }
 
-    // Clear validation on focus
+    // Lösche Validierung bei Fokus
     field.addEventListener('focus', () => {
       if (!showValidIndicator) {
         field.classList.remove('field-valid');
@@ -244,7 +244,7 @@ export function setupFormValidation(
     });
   }
 
-  // Handle checkboxes
+  // Behandle Checkboxen
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach((checkbox) => {
     const fieldName = checkbox.getAttribute('name');
@@ -259,13 +259,13 @@ export function setupFormValidation(
 }
 
 /**
- * Validate form on submit
+ * Validiere Formular beim Absenden
  */
 export function validateFormOnSubmit(form: HTMLFormElement, rules: ValidationRules): ValidationResult {
   const formData = new FormData(form);
   const result = validateForm(formData, rules);
 
-  // Update UI for all fields
+  // Aktualisiere UI für alle Felder
   for (const [fieldName, error] of Object.entries(result.errors)) {
     const field = form.querySelector(`[name="${fieldName}"]`) as
       | HTMLInputElement
@@ -282,7 +282,7 @@ export function validateFormOnSubmit(form: HTMLFormElement, rules: ValidationRul
     }
   }
 
-  // Scroll to first error
+  // Scrolle zum ersten Fehler
   if (!result.isValid) {
     const firstErrorField = Object.keys(result.errors)[0];
     const field = form.querySelector(`[name="${firstErrorField}"]`);

@@ -90,16 +90,16 @@ export const getSizes = (width?: number, layout?: Layout): string | undefined =>
     return undefined;
   }
   switch (layout) {
-    // If screen is wider than the max size, image width is the max size,
-    // otherwise it's the width of the screen
+    // Wenn Bildschirm breiter als max. Größe, Bildbreite ist max. Größe,
+    // ansonsten ist es die Breite des Bildschirms
     case `constrained`:
       return `(min-width: ${width}px) ${width}px, 100vw`;
 
-    // Image is always the same width, whatever the size of the screen
+    // Bild hat immer die gleiche Breite, unabhängig von der Bildschirmgröße
     case `fixed`:
       return `${width}px`;
 
-    // Image is always the width of the screen
+    // Bild hat immer die Breite des Bildschirms
     case `fullWidth`:
       return `100vw`;
 
@@ -132,7 +132,7 @@ const getStyle = ({
     ['object-position', objectPosition],
   ];
 
-  // If background is a URL, set it to cover the image and not repeat
+  // Wenn Hintergrund eine URL ist, setze ihn so, dass er das Bild bedeckt und sich nicht wiederholt
   if (background?.startsWith('https:') || background?.startsWith('http:') || background?.startsWith('data:')) {
     styleEntries.push(['background-image', `url(${background})`]);
     styleEntries.push(['background-size', 'cover']);
@@ -200,10 +200,10 @@ const getBreakpoints = ({
   }
   if (layout === 'constrained') {
     return [
-      // Always include the image at 1x and 2x the specified width
+      // Füge immer das Bild in 1x und 2x der angegebenen Breite hinzu
       width,
       doubleWidth,
-      // Filter out any resolutions that are larger than the double-res image
+      // Filtere alle Auflösungen heraus, die größer als das Doppel-Auflösungsbild sind
       ...(breakpoints || config.deviceSizes).filter((w) => w < doubleWidth),
     ];
   }
@@ -301,7 +301,7 @@ export async function getImagesOptimized(
   sizes ||= getSizes(Number(width) || undefined, layout);
   aspectRatio = parseAspectRatio(aspectRatio);
 
-  // Calculate dimensions from aspect ratio
+  // Berechne Dimensionen aus Seitenverhältnis
   if (aspectRatio) {
     if (width) {
       if (height) {
@@ -312,14 +312,14 @@ export async function getImagesOptimized(
     } else if (height) {
       width = Number(height * aspectRatio);
     } else if (layout !== 'fullWidth') {
-      // Fullwidth images have 100% width, so aspectRatio is applicable
+      // Vollbreiten-Bilder haben 100% Breite, daher ist aspectRatio anwendbar
       console.error('When aspectRatio is set, either width or height must also be set');
       console.error('Image', image);
     }
   } else if (width && height) {
     aspectRatio = width / height;
   } else if (layout !== 'fullWidth') {
-    // Fullwidth images don't need dimensions
+    // Vollbreiten-Bilder benötigen keine Dimensionen
     console.error('Either aspectRatio or both width and height must be set');
     console.error('Image', image);
   }
