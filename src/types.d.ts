@@ -1,10 +1,6 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { HTMLAttributes, ImageMetadata } from 'astro/types';
 
-// Font module declarations for side-effect imports
-declare module '@fontsource-variable/*';
-declare module '@fontsource/*';
-
 export interface Post {
   /** A unique ID number that identifies a post. */
   id: string;
