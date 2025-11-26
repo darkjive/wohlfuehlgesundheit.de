@@ -23,7 +23,7 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
-  // Production Build-Optimierungen
+  // Production Build Optimizations
   compressHTML: true,
   build: {
     assets: '_astro',
@@ -153,13 +153,13 @@ export default defineConfig({
       },
     },
 
-    // Source-Map-Fehler beheben
+    // Fix source map errors
     build: {
-      sourcemap: false, // Source Maps für Production deaktivieren
+      sourcemap: false, // Disable source maps for production
       cssCodeSplit: true,
       rollupOptions: {
         output: {
-          // Asset-Namen optimieren
+          // Optimize asset names
           assetFileNames: 'assets/[name].[hash][extname]',
           chunkFileNames: 'assets/[name].[hash].js',
           entryFileNames: 'assets/[name].[hash].js',
@@ -167,7 +167,7 @@ export default defineConfig({
       },
     },
 
-    // CSS-Optimierungen
+    // CSS Optimizations
     css: {
       devSourcemap: false,
     },

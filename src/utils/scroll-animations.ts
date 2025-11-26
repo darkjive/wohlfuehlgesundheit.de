@@ -1,21 +1,21 @@
 /**
- * Scroll-Animationen mit animate.css und Intersection Observer
+ * Scroll animations with animate.css and Intersection Observer
  *
- * Dieses Utility ermöglicht sanfte Fade-In-Animationen beim Scrollen
+ * This utility enables smooth fade-in animations on scroll
  */
 
 export interface ScrollAnimationOptions {
-  /** Animation beim Einblenden (z.B. 'fadeInUp', 'fadeIn', 'fadeInLeft') */
+  /** Animation on reveal (e.g. 'fadeInUp', 'fadeIn', 'fadeInLeft') */
   animationIn?: string;
-  /** Animation-Dauer in Millisekunden */
+  /** Animation duration in milliseconds */
   duration?: number;
-  /** Verzögerung vor Animation-Start in Millisekunden */
+  /** Delay before animation start in milliseconds */
   delay?: number;
-  /** Schwellenwert für Intersection Observer (0-1) */
+  /** Threshold for Intersection Observer (0-1) */
   threshold?: number;
-  /** Root Margin für Intersection Observer */
+  /** Root margin for Intersection Observer */
   rootMargin?: string;
-  /** Animation nur einmal abspielen */
+  /** Play animation only once */
   once?: boolean;
 }
 
@@ -29,7 +29,7 @@ const DEFAULT_OPTIONS: ScrollAnimationOptions = {
 };
 
 /**
- * Initialisiert Scroll-Animationen für alle Elemente mit data-animate Attribut
+ * Initialize scroll animations for all elements with data-animate attribute
  */
 export function initScrollAnimations(): void {
   if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
@@ -53,7 +53,7 @@ export function initScrollAnimations(): void {
         const element = entry.target as HTMLElement;
         animateElement(element);
 
-        // Element aus Observer entfernen, wenn once=true
+        // Remove element from observer if once=true
         const once = element.dataset.animateOnce !== 'false';
         if (once) {
           observer.unobserve(element);
@@ -63,29 +63,29 @@ export function initScrollAnimations(): void {
   }, observerOptions);
 
   elements.forEach((element) => {
-    // Element initial unsichtbar machen
+    // Make element initially invisible
     element.style.opacity = '0';
     observer.observe(element);
   });
 }
 
 /**
- * Animiert ein einzelnes Element
+ * Animate a single element
  */
 function animateElement(element: HTMLElement): void {
   const animation = element.dataset.animate || DEFAULT_OPTIONS.animationIn!;
   const duration = parseInt(element.dataset.animateDuration || String(DEFAULT_OPTIONS.duration), 10);
   const delay = parseInt(element.dataset.animateDelay || String(DEFAULT_OPTIONS.delay), 10);
 
-  // Verzögerung anwenden
+  // Apply delay
   setTimeout(() => {
     element.style.opacity = '1';
     element.classList.add('animate__animated', `animate__${animation}`);
 
-    // Animation-Dauer setzen
+    // Set animation duration
     element.style.setProperty('--animate-duration', `${duration}ms`);
 
-    // Cleanup nach Animation
+    // Cleanup after animation
     const handleAnimationEnd = () => {
       element.classList.remove('animate__animated', `animate__${animation}`);
       element.removeEventListener('animationend', handleAnimationEnd);
@@ -96,7 +96,7 @@ function animateElement(element: HTMLElement): void {
 }
 
 /**
- * Hilfsfunktion zum manuellen Animieren eines Elements
+ * Helper function to manually animate an element
  */
 export function animateOnScroll(selector: string, options: ScrollAnimationOptions = {}): void {
   const mergedOptions = { ...DEFAULT_OPTIONS, ...options };
@@ -105,7 +105,7 @@ export function animateOnScroll(selector: string, options: ScrollAnimationOption
   elements.forEach((element, index) => {
     element.dataset.animate = mergedOptions.animationIn;
     element.dataset.animateDuration = String(mergedOptions.duration);
-    element.dataset.animateDelay = String(mergedOptions.delay! + index * 100); // Gestaffelte Verzögerung
+    element.dataset.animateDelay = String(mergedOptions.delay! + index * 100); // Staggered delay
     element.dataset.animateOnce = String(mergedOptions.once);
   });
 

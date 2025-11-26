@@ -1,25 +1,25 @@
 <?php
 /**
- * PHPMailer Helper für IONOS SMTP
+ * PHPMailer Helper for IONOS SMTP
  *
- * Stellt konfigurierte PHPMailer-Instanzen bereit
- * Dokumentation: https://www.ionos.de/digitalguide/e-mail/e-mail-technik/phpmailer/
+ * Provides configured PHPMailer instances
+ * Documentation: https://www.ionos.de/digitalguide/e-mail/e-mail-technik/phpmailer/
  */
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 /**
- * Erstellt und konfiguriert eine PHPMailer-Instanz für IONOS SMTP
+ * Creates and configures a PHPMailer instance for IONOS SMTP
  *
- * @return PHPMailer Konfigurierte PHPMailer-Instanz
- * @throws Exception Bei Konfigurationsfehlern
+ * @return PHPMailer Configured PHPMailer instance
+ * @throws Exception On configuration errors
  */
 function createMailer() {
     $mail = new PHPMailer(true);
 
     try {
-        // Server-Einstellungen
+        // Server settings
         $mail->isSMTP();
         $mail->Host = env('SMTP_HOST', 'smtp.ionos.de');
         $mail->SMTPAuth = true;
@@ -29,12 +29,12 @@ function createMailer() {
         $mail->Port = (int)env('SMTP_PORT', 587);
         $mail->CharSet = 'UTF-8';
 
-        // Absender setzen
+        // Set sender
         $fromEmail = env('FROM_EMAIL');
         $fromName = env('FROM_NAME', 'Wohlfühlgesundheit');
         $mail->setFrom($fromEmail, $fromName);
 
-        // Debug-Modus (nur wenn DEBUG_MODE aktiviert)
+        // Debug mode (only when DEBUG_MODE is enabled)
         if (env('DEBUG_MODE') === 'true') {
             $mail->SMTPDebug = 2; // Verbose debug output
             $mail->Debugoutput = 'error_log';
@@ -49,19 +49,19 @@ function createMailer() {
 }
 
 /**
- * Sendet eine einfache Text-E-Mail über IONOS SMTP
+ * Sends a simple text email via IONOS SMTP
  *
- * @param string $to Empfänger-E-Mail
- * @param string $subject Betreff
- * @param string $message Nachricht (plain text)
- * @param string|null $replyTo Optional: Reply-To-Adresse
- * @return bool True bei Erfolg, False bei Fehler
+ * @param string $to Recipient email
+ * @param string $subject Subject
+ * @param string $message Message (plain text)
+ * @param string|null $replyTo Optional: Reply-To address
+ * @return bool True on success, False on error
  */
 function sendTextEmail($to, $subject, $message, $replyTo = null) {
     try {
         $mail = createMailer();
 
-        // Empfänger
+        // Recipient
         $mail->addAddress($to);
 
         // Reply-To (optional)
@@ -69,7 +69,7 @@ function sendTextEmail($to, $subject, $message, $replyTo = null) {
             $mail->addReplyTo($replyTo);
         }
 
-        // Inhalt
+        // Content
         $mail->isHTML(false);
         $mail->Subject = $subject;
         $mail->Body = $message;
@@ -83,20 +83,20 @@ function sendTextEmail($to, $subject, $message, $replyTo = null) {
 }
 
 /**
- * Sendet eine HTML-E-Mail über IONOS SMTP
+ * Sends an HTML email via IONOS SMTP
  *
- * @param string $to Empfänger-E-Mail
- * @param string $subject Betreff
- * @param string $htmlMessage HTML-Nachricht
- * @param string|null $textMessage Optional: Plain-Text-Alternative
- * @param string|null $replyTo Optional: Reply-To-Adresse
- * @return bool True bei Erfolg, False bei Fehler
+ * @param string $to Recipient email
+ * @param string $subject Subject
+ * @param string $htmlMessage HTML message
+ * @param string|null $textMessage Optional: Plain text alternative
+ * @param string|null $replyTo Optional: Reply-To address
+ * @return bool True on success, False on error
  */
 function sendHtmlEmail($to, $subject, $htmlMessage, $textMessage = null, $replyTo = null) {
     try {
         $mail = createMailer();
 
-        // Empfänger
+        // Recipient
         $mail->addAddress($to);
 
         // Reply-To (optional)
@@ -104,7 +104,7 @@ function sendHtmlEmail($to, $subject, $htmlMessage, $textMessage = null, $replyT
             $mail->addReplyTo($replyTo);
         }
 
-        // Inhalt
+        // Content
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body = $htmlMessage;
