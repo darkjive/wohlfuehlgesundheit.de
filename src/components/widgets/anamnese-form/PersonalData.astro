@@ -1,17 +1,12 @@
 ---
 // PersonalData.astro - Persönliche Daten Sektion
+import { Icon } from 'astro-icon/components';
 ---
 
 <!-- Deine Angaben -->
 <div class="border-b border-gray-200 pb-8 dark:border-gray-700">
   <h3 class="mb-6 flex items-center text-xl font-semibold text-gray-900 dark:text-gray-100">
-    <svg class="text-primary-600 mr-2 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-    </svg>
+    <Icon name="tabler:user" class="text-primary-600 mr-2 h-6 w-6" />
     Deine Angaben
   </h3>
 
