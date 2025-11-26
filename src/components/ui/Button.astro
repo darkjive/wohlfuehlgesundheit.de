@@ -14,8 +14,8 @@ const {
 } = Astro.props;
 
 const variants = {
-  primary: 'btn-primary dark:btn-secondary',
-  secondary: 'btn-secondary dark:btn-primary',
+  primary: 'blob-btn blob-btn-primary dark:blob-btn-secondary',
+  secondary: 'blob-btn blob-btn-secondary dark:blob-btn-primary',
   tertiary: 'btn btn-tertiary',
   link: 'cursor-pointer hover:text-primary',
 };
@@ -26,6 +26,16 @@ const variants = {
     <button type={type} class={twMerge(variants[variant] || '', className)} {...rest}>
       <Fragment set:html={text} />
       {icon && <Icon name={icon} class="-mr-1.5 ml-1 inline-block h-5 w-5 rtl:-ml-1.5 rtl:mr-1" />}
+      {(variant === 'primary' || variant === 'secondary') && (
+        <span class="blob-btn__inner">
+          <span class="blob-btn__blobs">
+            <span class="blob-btn__blob"></span>
+            <span class="blob-btn__blob"></span>
+            <span class="blob-btn__blob"></span>
+            <span class="blob-btn__blob"></span>
+          </span>
+        </span>
+      )}
     </button>
   ) : (
     <a
@@ -34,7 +44,17 @@ const variants = {
       {...rest}
     >
       <Fragment set:html={text} />
-      {/* {icon && <Icon name={icon} class="w-5 h-5 ml-1 -mr-1.5 rtl:mr-1 rtl:-ml-1.5 inline-block" />} */}
+      {icon && <Icon name={icon} class="-mr-1.5 ml-1 inline-block h-5 w-5 rtl:-ml-1.5 rtl:mr-1" />}
+      {(variant === 'primary' || variant === 'secondary') && (
+        <span class="blob-btn__inner">
+          <span class="blob-btn__blobs">
+            <span class="blob-btn__blob"></span>
+            <span class="blob-btn__blob"></span>
+            <span class="blob-btn__blob"></span>
+            <span class="blob-btn__blob"></span>
+          </span>
+        </span>
+      )}
     </a>
   )
 }

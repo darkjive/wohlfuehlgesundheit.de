@@ -42,6 +42,118 @@
     @apply btn border-none text-muted shadow-none hover:text-gray-900 dark:text-gray-400 dark:hover:text-white;
   }
 
+  /* Blob Button Components */
+  .blob-btn {
+    @apply relative z-10 inline-flex cursor-pointer items-center justify-center rounded-full border-none bg-transparent px-6 py-3.5 text-center font-bold uppercase transition-colors duration-500 md:px-8;
+    outline: none;
+  }
+
+  .blob-btn::before {
+    content: "";
+    @apply absolute left-0 top-0 z-[1] h-full w-full rounded-full;
+    border: 2px solid;
+  }
+
+  .blob-btn::after {
+    content: "";
+    @apply absolute z-[-2] h-full w-full rounded-full transition-all duration-300;
+    left: 3px;
+    top: 3px;
+    transition-delay: 0.2s;
+  }
+
+  .blob-btn:hover::after {
+    @apply left-0 top-0 transition-all duration-300;
+    transition-delay: 0s;
+  }
+
+  /* Blob Button Primary */
+  .blob-btn-primary {
+    @apply text-primary;
+  }
+
+  .blob-btn-primary::before {
+    @apply border-primary;
+  }
+
+  .blob-btn-primary:hover {
+    @apply text-white;
+  }
+
+  /* Blob Button Secondary */
+  .blob-btn-secondary {
+    @apply text-[#2a700d];
+  }
+
+  .blob-btn-secondary::before {
+    @apply border-[#2a700d];
+  }
+
+  .blob-btn-secondary:hover {
+    @apply text-white;
+  }
+
+  /* Blob Button Inner */
+  .blob-btn__inner {
+    @apply absolute left-0 top-0 z-[-1] h-full w-full overflow-hidden rounded-full bg-white;
+  }
+
+  /* Blob Button Blobs Container */
+  .blob-btn__blobs {
+    @apply relative block h-full;
+    filter: url('#goo');
+  }
+
+  /* Blob Button Individual Blob */
+  .blob-btn__blob {
+    @apply absolute top-[2px] h-full w-1/4 rounded-full transition-transform duration-[450ms];
+    transform: translate3d(0, 150%, 0) scale(1.7);
+  }
+
+  @supports (filter: url('#goo')) {
+    .blob-btn__blob {
+      transform: translate3d(0, 150%, 0) scale(1.4);
+    }
+  }
+
+  .blob-btn-primary .blob-btn__blob {
+    @apply bg-primary;
+  }
+
+  .blob-btn-secondary .blob-btn__blob {
+    @apply bg-[#2a700d];
+  }
+
+  .blob-btn__blob:nth-child(1) {
+    left: 0%;
+    transition-delay: 0s;
+  }
+
+  .blob-btn__blob:nth-child(2) {
+    left: 30%;
+    transition-delay: 0.08s;
+  }
+
+  .blob-btn__blob:nth-child(3) {
+    left: 60%;
+    transition-delay: 0.16s;
+  }
+
+  .blob-btn__blob:nth-child(4) {
+    left: 90%;
+    transition-delay: 0.24s;
+  }
+
+  .blob-btn:hover .blob-btn__blob {
+    transform: translateZ(0) scale(1.7);
+  }
+
+  @supports (filter: url('#goo')) {
+    .blob-btn:hover .blob-btn__blob {
+      transform: translateZ(0) scale(1.4);
+    }
+  }
+
   /* FAQ Toggle Icon */
   .faq-icon::before {
     content: '+';
