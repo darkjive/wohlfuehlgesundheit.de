@@ -201,3 +201,89 @@ import { UI } from 'wohlfuehlgesundheit:config';
   // Initialisiere Animationen nach View Transitions
   document.addEventListener('astro:after-swap', initScrollAnimations);
 </script>
+
+<!-- Bubble Button Animations -->
+<script>
+  import { gsap } from 'gsap';
+
+  function initBubbleButtons() {
+    const buttons = document.querySelectorAll('.button--bubble');
+
+    buttons.forEach((button) => {
+      const container = button.closest('.button--bubble__container');
+      if (!container) return;
+
+      const circlesTopLeft = container.querySelectorAll('.circle.top-left');
+      const circlesBottomRight = container.querySelectorAll('.circle.bottom-right');
+
+      const tl = gsap.timeline();
+      const tl2 = gsap.timeline();
+      const btTl = gsap.timeline({ paused: true });
+
+      // Top-left circles animation
+      tl.to(circlesTopLeft, {
+        x: -25,
+        y: -25,
+        scaleY: 2,
+        duration: 1.2,
+        ease: 'slow(0.1, 0.7, false)',
+      });
+      tl.to(circlesTopLeft[0], { scale: 0.2, x: '+=6', y: '-=2', duration: 0.1 });
+      tl.to(circlesTopLeft[1], { scaleX: 1, scaleY: 0.8, x: '-=10', y: '-=7', duration: 0.1 }, '-=0.1');
+      tl.to(circlesTopLeft[2], { scale: 0.2, x: '-=15', y: '+=6', duration: 0.1 }, '-=0.1');
+      tl.to(circlesTopLeft[0], { scale: 0, x: '-=5', y: '-=15', opacity: 0, duration: 1 });
+      tl.to(circlesTopLeft[1], { scaleX: 0.4, scaleY: 0.4, x: '-=10', y: '-=10', opacity: 0, duration: 1 }, '-=1');
+      tl.to(circlesTopLeft[2], { scale: 0, x: '-=15', y: '+=5', opacity: 0, duration: 1 }, '-=1');
+
+      const tlBt1 = gsap.timeline();
+      tlBt1.set(circlesTopLeft, { x: 0, y: 0, rotation: -45 });
+      tlBt1.add(tl);
+
+      // Bottom-right circles animation
+      tl2.set(circlesBottomRight, { x: 0, y: 0 });
+      tl2.to(circlesBottomRight, {
+        x: 30,
+        y: 30,
+        duration: 1.1,
+        ease: 'slow(0.1, 0.7, false)',
+      });
+      tl2.to(circlesBottomRight[0], { scale: 0.2, x: '-=6', y: '+=3', duration: 0.1 });
+      tl2.to(circlesBottomRight[1], { scale: 0.8, x: '+=7', y: '+=3', duration: 0.1 }, '-=0.1');
+      tl2.to(circlesBottomRight[2], { scale: 0.2, x: '+=15', y: '-=6', duration: 0.1 }, '-=0.2');
+      tl2.to(circlesBottomRight[0], { scale: 0, x: '+=5', y: '+=15', opacity: 0, duration: 1 });
+      tl2.to(circlesBottomRight[1], { scale: 0.4, x: '+=7', y: '+=7', opacity: 0, duration: 1 }, '-=1');
+      tl2.to(circlesBottomRight[2], { scale: 0, x: '+=15', y: '-=5', opacity: 0, duration: 1 }, '-=1');
+
+      const tlBt2 = gsap.timeline();
+      tlBt2.set(circlesBottomRight, { x: 0, y: 0, rotation: 45 });
+      tlBt2.add(tl2);
+
+      // Combine all animations
+      btTl.add(tlBt1);
+      btTl.to(container.querySelector('.button.effect-button'), { scaleY: 1.1, duration: 0.8 }, 0.1);
+      btTl.add(tlBt2, 0.2);
+      btTl.to(
+        container.querySelector('.button.effect-button'),
+        { scale: 1, duration: 1.8, ease: 'elastic.out(1.2, 0.4)' },
+        1.2
+      );
+
+      btTl.timeScale(2.6);
+
+      // Event listener for mouseover
+      button.addEventListener('mouseover', () => {
+        btTl.restart();
+      });
+    });
+  }
+
+  // Initialisiere Bubble Buttons beim ersten Laden
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBubbleButtons);
+  } else {
+    initBubbleButtons();
+  }
+
+  // Initialisiere Bubble Buttons nach View Transitions
+  document.addEventListener('astro:after-swap', initBubbleButtons);
+</script>

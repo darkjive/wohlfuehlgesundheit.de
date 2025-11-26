@@ -38,6 +38,7 @@
     "astro-embed": "^0.7.4",
     "astro-emoji": "^1.2.0",
     "astro-icon": "^1.1.1",
+    "gsap": "^3.13.0",
     "limax": "4.1.0",
     "lodash.merge": "^4.6.2",
     "unpic": "^3.18.0",
