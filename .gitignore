@@ -17,11 +17,13 @@ pnpm-debug.log*
 .env.production
 .env.local
 .env.*.local
-api/.env.example
 api/.env
 
 # macOS-specific files
 .DS_Store
+
+# Windows-specific files
+Thumbs.db
 
 pnpm-lock.yaml
 
@@ -33,9 +35,23 @@ tmp
 # security files
 .htaccess
 .htpasswd
-public/.htaccess
 public/_sec/.htpasswd
 
 # rate limiting data (file-based)
 public/_rate_limit/
-/vendor/
+
+# PHP dependencies (Composer)
+public/vendor/
+
+# Editor & IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Test & Coverage
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
