@@ -8,7 +8,7 @@ import loadConfig from './utils/loadConfig';
 export default ({ config: _themeConfig = 'src/config/site.yaml' } = {}): AstroIntegration => {
   let cfg: AstroConfig;
   return {
-    name: 'astrowind-integration',
+    name: 'wohlfuehlgesundheit',
 
     hooks: {
       'astro:config:setup': async ({
@@ -20,9 +20,9 @@ export default ({ config: _themeConfig = 'src/config/site.yaml' } = {}): AstroIn
         updateConfig,
         addWatchFile,
       }) => {
-        const buildLogger = logger.fork('astrowind');
+        const buildLogger = logger.fork('wohlfuehlgesundheit');
 
-        const virtualModuleId = 'astrowind:config';
+        const virtualModuleId = 'wohlfuehlgesundheit:config';
         const resolvedVirtualModuleId = '\0' + virtualModuleId;
 
         const rawJsonConfig = (await loadConfig(_themeConfig)) as Config;
@@ -37,7 +37,7 @@ export default ({ config: _themeConfig = 'src/config/site.yaml' } = {}): AstroIn
           vite: {
             plugins: [
               {
-                name: 'vite-plugin-astrowind-config',
+                name: 'vite-plugin-wohlfuehlgesundheit-config',
                 resolveId(id) {
                   if (id === virtualModuleId) {
                     return resolvedVirtualModuleId;
@@ -62,9 +62,9 @@ export default ({ config: _themeConfig = 'src/config/site.yaml' } = {}): AstroIn
         if (typeof _themeConfig === 'string') {
           addWatchFile(new URL(_themeConfig, config.root));
 
-          buildLogger.info(`Astrowind \`${_themeConfig}\` has been loaded.`);
+          buildLogger.info(`Wohlfuehlgesundheit \`${_themeConfig}\` has been loaded.`);
         } else {
-          buildLogger.info(`Astrowind config has been loaded.`);
+          buildLogger.info(`Wohlfuehlgesundheit config has been loaded.`);
         }
       },
       'astro:config:done': async ({ config }) => {
@@ -72,7 +72,7 @@ export default ({ config: _themeConfig = 'src/config/site.yaml' } = {}): AstroIn
       },
 
       'astro:build:done': async ({ logger }) => {
-        const buildLogger = logger.fork('astrowind');
+        const buildLogger = logger.fork('wohlfuehlgesundheit');
         buildLogger.info('Updating `robots.txt` with `sitemap-index.xml` ...');
 
         try {

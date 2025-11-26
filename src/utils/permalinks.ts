@@ -1,6 +1,6 @@
 import slugify from 'limax';
 
-import { SITE } from 'astrowind:config';
+import { SITE } from 'wohlfuehlgesundheit:config';
 
 import { trim } from '~/utils/utils';
 

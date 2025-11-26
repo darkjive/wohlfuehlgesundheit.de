@@ -1,4 +1,4 @@
-declare module 'astrowind:config' {
+declare module 'wohlfuehlgesundheit:config' {
   import type { SiteConfig, I18NConfig, MetaDataConfig, UIConfig, AnalyticsConfig } from './config';
 
   export const SITE: SiteConfig;

@@ -10,7 +10,7 @@ import icon from 'astro-icon';
 import compress from 'astro-compress';
 import type { AstroIntegration } from 'astro';
 
-import astrowind from './integrations/astrowind';
+import wohlfuehlgesundheit from './integrations/wohlfuehlgesundheit';
 
 import jopSoftwarecookieconsent from '@jop-software/astro-cookieconsent';
 
@@ -68,7 +68,7 @@ export default defineConfig({
       SVG: false,
       Logger: 1,
     }),
-    astrowind({
+    wohlfuehlgesundheit({
       config: './src/config/site.yaml',
     }),
     jopSoftwarecookieconsent({
