@@ -41,6 +41,6 @@ export const footerData = {
     },
   ],
   footNote: `
-    © Wohlfühlgesundheit · <a class="text-primary hover:text-black dark:text-secondary" href="/impressum">Impressum</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/datenschutz">Datenschutz</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/agb">AGB</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/widerrufsbelehrung">Widerrufsbelehrung</a>
+    © Wohlfühlgesundheit - Holistische Darmtherapie<br /> <a class="text-primary hover:text-black dark:text-secondary" href="/impressum">Impressum</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/datenschutz">Datenschutz</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/agb">AGB</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/widerrufsbelehrung">Widerrufsbelehrung</a>
   `,
 };

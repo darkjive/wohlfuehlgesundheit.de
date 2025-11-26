@@ -26,11 +26,14 @@ const metadata = {
     id="hero"
     title="Stefanie Leidel"
     tagline="Holistische Darmtherapeutin"
-    actions={[{ variant: 'secondary', text: 'Mehr erfahren', href: '#about' }]}
+    actions={[{ variant: 'primary', text: 'Mehr erfahren', href: '#about' }]}
   >
     <Fragment slot="subtitle">
       Schön, dass du hier bist! Mein Name ist Stefanie Leidel. Als zertifizierte holistische Darmtherapeutin und
       Ernährungsberaterin begleite ich dich auf deinem Weg zu mehr Gesundheit und Wohlbefinden.
+    </Fragment>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-green-100 dark:bg-primary dark:bg-none"></div>
     </Fragment>
   </Hero>
 
@@ -157,30 +160,33 @@ const metadata = {
     </div>
   </section>
 
-  <!-- Features Widget ************** -->
-
+  <!-- Features Widget *************** -->
   <Features
-    variant="compact"
     title="Fähigkeiten"
-    classes={{ container: 'bg-green-50 dark:bg-primary' }}
     subtitle="Ganzheitliche Darmgesundheit, Ernährungsberatung und individuelle Gesundheitspläne."
-    columns={3}
-    defaultIcon="tabler:point-filled"
     items={[
       {
         title: 'Darmgesundheit',
         description: 'Anamnesen, Stuhlbefund-Interpretationen und ganzheitliche Darmtherapie.',
+        icon: 'tabler:microscope',
       },
       {
         title: 'Ernährungsberatung',
         description: 'Individuelle Ernährungspläne basierend auf deinen Bedürfnissen und Zielen.',
+        icon: 'tabler:apple',
       },
       {
         title: 'Stressmanagement',
         description: 'Aktivierung des Vagusnervs und Methoden für mehr innere Balance.',
+        icon: 'tabler:bolt',
       },
     ]}
-  />
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-green-100 dark:bg-primary"></div>
+    </Fragment>
+  </Features>
+
   <!-- Quote Widget: Inspirierendes Zitat mit Hintergrundbild -->
 
   <Quote quote="Die Natur kann von keinem belehrt werden, sie weiß immer das Richtige." author="Hippokrates" />

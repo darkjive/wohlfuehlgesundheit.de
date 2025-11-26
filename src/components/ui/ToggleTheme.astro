@@ -21,10 +21,14 @@ const {
 
 {
   !(UI.theme && UI.theme.endsWith(':only')) && (
-    <button 
+    <button
       data-animate="fadeIn"
       data-animate-duration="800"
-      type="button" class={className} aria-label={label} data-aw-toggle-color-scheme>
+      type="button"
+      class={className}
+      aria-label={label}
+      data-aw-toggle-color-scheme
+    >
       <Icon name={iconName} class={iconClass} />
     </button>
   )

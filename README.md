@@ -391,6 +391,7 @@ Das Projekt nutzt eine benutzerdefinierte Astro-Integration (`integrations/wohlf
 **Fix**: PR [#14876](https://github.com/withastro/astro/pull/14876) behebt das Problem, wurde aber noch nicht gemerged.
 
 **Action**: Sobald der Fix in einer neuen Astro-Version verfügbar ist:
+
 1. Astro auf die neue Version updaten
 2. Die `onwarn`-Funktion in `vite.build.rollupOptions` (Zeile 167-180 in `astro.config.ts`) entfernen
 3. Diesen TODO-Eintrag löschen
