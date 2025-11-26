@@ -1,0 +1,98 @@
+---
+import Image from '~/components/common/Image.astro';
+import type { ImageProps } from '~/utils/images-optimization';
+
+interface Props {
+  defaultSrc: ImageProps['src'];
+  hoverSrc: ImageProps['src'];
+  alt: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  width?: number;
+  height?: number;
+}
+
+const { defaultSrc, hoverSrc, alt, class: className, loading = 'lazy', width, height } = Astro.props;
+---
+
+<div class={`image-swap-container relative ${className || ''}`}>
+  <Image
+    src={defaultSrc}
+    alt={alt}
+    class="image-swap-default transition-opacity duration-300"
+    loading={loading}
+    width={width}
+    height={height}
+  />
+  <Image
+    src={hoverSrc}
+    alt={alt}
+    class="image-swap-hover absolute inset-0 opacity-0 transition-opacity duration-300"
+    loading="lazy"
+    width={width}
+    height={height}
+  />
+</div>
+
+<style>
+  .image-swap-container {
+    display: inline-block;
+  }
+
+  /* Desktop: hover effect */
+  @media (hover: hover) and (pointer: fine) {
+    .image-swap-container:hover .image-swap-default {
+      opacity: 0;
+    }
+
+    .image-swap-container:hover .image-swap-hover {
+      opacity: 1;
+    }
+  }
+
+  /* Mobile: touch wird via JavaScript gehandelt */
+  .image-swap-container.touched .image-swap-default {
+    opacity: 0;
+  }
+
+  .image-swap-container.touched .image-swap-hover {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // Mobile touch handling
+  const isTouchDevice = () => {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  };
+
+  if (isTouchDevice()) {
+    const containers = document.querySelectorAll('.image-swap-container');
+
+    containers.forEach((container) => {
+      let isToggled = false;
+
+      container.addEventListener('touchstart', (e) => {
+        // Toggle state on touch
+        isToggled = !isToggled;
+
+        if (isToggled) {
+          container.classList.add('touched');
+        } else {
+          container.classList.remove('touched');
+        }
+
+        // Prevent default to avoid triggering hover on touch devices
+        e.preventDefault();
+      });
+
+      // Remove touched state when clicking outside
+      document.addEventListener('touchstart', (e) => {
+        if (!container.contains(e.target as Node)) {
+          container.classList.remove('touched');
+          isToggled = false;
+        }
+      });
+    });
+  }
+</script>
