@@ -37,7 +37,7 @@ const {
                   ? 'sm:grid-cols-2'
                   : ''
           }`,
-          classes?.grid
+          (classes?.grid as string) ?? ''
         )}
       >
         {items.map(({ title, icon, classes: itemClasses = {} }, index) => (
