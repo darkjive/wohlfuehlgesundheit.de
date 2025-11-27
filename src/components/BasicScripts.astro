@@ -52,7 +52,7 @@ import { UI } from 'wohlfuehlgesundheit:config';
       document.getElementById('header')?.classList.remove('expanded');
       document.getElementById('header')?.classList.remove('bg-page');
       document.querySelector('#header nav')?.classList.add('hidden');
-      // Navigation wieder verstecken erlauben nach Menü-Schließung
+      // Allow navigation to hide again after menu closure
       document.getElementById('header')?.classList.remove('header-hidden');
     });
 
@@ -67,7 +67,7 @@ import { UI } from 'wohlfuehlgesundheit:config';
       header?.classList.toggle('bg-page');
       document.querySelector('#header nav')?.classList.toggle('hidden');
 
-      // Beim Öffnen des Menüs: Navigation immer sichtbar machen
+      // When opening the menu: always make navigation visible
       if (isExpanding) {
         header?.classList.remove('header-hidden');
       }
@@ -118,32 +118,32 @@ import { UI } from 'wohlfuehlgesundheit:config';
       const header = document.querySelector('#header[data-aw-sticky-header]');
       if (!header) return;
 
-      // Bestehende scroll Klasse für Desktop
+      // Existing scroll class for desktop
       if (lastKnownScrollPosition > 60 && !header.classList.contains('scroll')) {
         header.classList.add('scroll');
       } else if (lastKnownScrollPosition <= 60 && header.classList.contains('scroll')) {
         header.classList.remove('scroll');
       }
 
-      // Auto-hide Navigation nur auf mobilen Geräten
+      // Auto-hide navigation only on mobile devices
       const isMobile = window.matchMedia('(max-width: 767px)').matches;
       const isMenuOpen = header.classList.contains('expanded');
 
-      // Nicht verstecken wenn das Menü geöffnet ist
+      // Don't hide when the menu is open
       if (isMobile && !isMenuOpen) {
         const scrollingDown = lastKnownScrollPosition > previousScrollPosition;
         const scrollDelta = Math.abs(lastKnownScrollPosition - previousScrollPosition);
 
-        // Nur verstecken wenn mindestens 5px gescrollt wurde und weiter als 100px runter
+        // Only hide when scrolled at least 5px and further than 100px down
         if (scrollingDown && lastKnownScrollPosition > 100 && scrollDelta > 5) {
           header.classList.add('header-hidden');
         }
-        // Zeigen beim Hochscrollen oder ganz oben
+        // Show when scrolling up or at the very top
         else if ((!scrollingDown && scrollDelta > 5) || lastKnownScrollPosition < 100) {
           header.classList.remove('header-hidden');
         }
       } else {
-        // Auf Desktop oder bei geöffnetem Menü immer sichtbar
+        // Always visible on desktop or when menu is open
         header.classList.remove('header-hidden');
       }
 
@@ -187,17 +187,17 @@ import { UI } from 'wohlfuehlgesundheit:config';
   });
 </script>
 
-<!-- Scroll-Animationen -->
+<!-- Scroll Animations -->
 <script>
   import { initScrollAnimations } from '~/utils/scroll-animations';
 
-  // Initialisiere Animationen beim ersten Laden
+  // Initialize animations on first load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initScrollAnimations);
   } else {
     initScrollAnimations();
   }
 
-  // Initialisiere Animationen nach View Transitions
+  // Initialize animations after view transitions
   document.addEventListener('astro:after-swap', initScrollAnimations);
 </script>
