@@ -148,7 +148,7 @@ Es gilt das Recht der Bundesrepublik Deutschland.
 Bei Fragen zu diesen AGB können Sie mich gerne kontaktieren:
 
 **Stefanie Leidel**
-Unterdorf 24
-64823 Groß-Umstadt
-Deutschland
+Unterdorf 24  
+64823 Groß-Umstadt  
+Deutschland  
 E-Mail: [steffi@wohlfühlgesundheit.de](mailto:steffi@wohlfühlgesundheit.de)
