@@ -1,6 +1,26 @@
-# Holistische Darmtherapie – Website-Projekt
+# Wohlfühlgesundheit - Holistische Darmtherapie
 
-Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und **Tailwind CSS**.
+Moderne, performante Website für eine holistische Darmtherapie-Praxis mit integriertem Buchungssystem und Zoom-Meeting-Integration.
+
+## Technologie-Stack
+
+- **Frontend**: Astro 5.x (Static Site Generator)
+- **Styling**: TailwindCSS 3.x mit Typography Plugin
+- **Backend**: PHP 8.2+ mit Composer
+- **Programmiersprache**: TypeScript
+- **Externe Integrationen**: Zoom Meeting API, PHPMailer
+- **Deployment**: Statische Website mit PHP-API-Backend
+
+## Hauptfunktionen
+
+✅ **Zoom-Terminbuchung**: Vollautomatisches Buchungssystem mit Meeting-Erstellung
+✅ **Mehrstufiger Anamnesebogen**: 10-Schritte-Formular mit Auto-Save
+✅ **Dark Mode**: System-Theme-Erkennung & manueller Toggle
+✅ **DSGVO-konform**: Cookie Consent Management & Datenschutz
+✅ **SEO-optimiert**: Meta-Tags, Sitemap, strukturierte Daten
+✅ **Performance**: Statische Generierung, Asset-Komprimierung, Lazy Loading
+✅ **Sicherheit**: CSRF-Schutz, Input-Validierung, sichere Datenübertragung
+✅ **Barrierearm**: WCAG 2.2 Richtlinien, View Transitions mit reduced-motion Support
 
 ---
 
@@ -13,12 +33,22 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 │       ├── index.ts
 │       ├── types.d.ts
 │       └── utils/
-├── public/
+├── public/                # Öffentliche Assets (werden 1:1 kopiert)
 │   ├── api/               # PHP-Backend-APIs
+│   │   ├── anamnese-booking.php
+│   │   ├── contact-form.php
+│   │   ├── get-csrf-token.php
+│   │   ├── bootstrap.php
+│   │   ├── config.php
+│   │   ├── env-loader.php
+│   │   ├── phpmailer-helper.php
+│   │   ├── security.php
+│   │   ├── .htaccess
+│   │   └── .env.example
 │   ├── vendor/            # PHP-Composer-Abhängigkeiten
-│   ├── _headers           # HTTP-Header
-│   ├── .htaccess          # Server-Konfiguration
-│   └── robots.txt
+│   ├── _headers           # HTTP-Security-Header (Netlify/Cloudflare)
+│   ├── .htaccess          # Apache-Server-Konfiguration
+│   └── robots.txt         # Suchmaschinen-Steuerung
 ├── src/
 │   ├── assets/
 │   │   ├── favicons/
@@ -31,13 +61,27 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 │   │   │   ├── Footer.astro
 │   │   │   ├── Logo-lg.astro
 │   │   │   ├── Logo-sm.astro
-│   │   │   └── ...
+│   │   │   ├── Analytics.astro
+│   │   │   ├── ApplyColorMode.astro
+│   │   │   ├── CommonMeta.astro
+│   │   │   ├── Image.astro
+│   │   │   ├── ImageSwap.astro
+│   │   │   ├── Metadata.astro
+│   │   │   └── SiteVerification.astro
 │   │   ├── ui/           # UI-Komponenten
+│   │   │   ├── Background.astro
 │   │   │   ├── Button.astro
-│   │   │   ├── FormContact.astro
-│   │   │   └── ...
+│   │   │   ├── CollapsibleSection.astro
+│   │   │   ├── Content.astro
+│   │   │   ├── Form.astro
+│   │   │   ├── Headline.astro
+│   │   │   ├── ItemGrid.astro
+│   │   │   ├── Timeline.astro
+│   │   │   ├── ToggleMenu.astro
+│   │   │   ├── ToggleTheme.astro
+│   │   │   └── WidgetWrapper.astro
 │   │   ├── widgets/      # Widget-Komponenten
-│   │   │   ├── anamnese-form/    # Anamnesebogen-Komponenten
+│   │   │   ├── booking-form/    # Buchungsformular-Komponenten
 │   │   │   │   ├── PersonalInfo.astro
 │   │   │   │   ├── PersonalData.astro
 │   │   │   │   ├── MedicalHistory.astro
@@ -48,10 +92,17 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 │   │   │   │   ├── Readiness.astro
 │   │   │   │   ├── ZoomBooking.astro
 │   │   │   │   └── Consent.astro
-│   │   │   ├── Hero.astro
-│   │   │   ├── Features.astro
+│   │   │   ├── BookingForm.astro
 │   │   │   ├── CallToAction.astro
-│   │   │   └── ...
+│   │   │   ├── Complaints.astro
+│   │   │   ├── ContactForm.astro
+│   │   │   ├── FAQs.astro
+│   │   │   ├── Features.astro
+│   │   │   ├── Hero.astro
+│   │   │   ├── HeroSimple.astro
+│   │   │   ├── Quote.astro
+│   │   │   ├── Steps.astro
+│   │   │   └── Testimonials.astro
 │   │   ├── BasicScripts.astro
 │   │   ├── CustomStyles.astro
 │   │   └── Favicons.astro
@@ -65,11 +116,13 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 │   ├── pages/
 │   │   ├── index.astro
 │   │   ├── ueber-mich.astro
-│   │   ├── angebot.astro
 │   │   ├── termin-buchen.astro
 │   │   ├── kontakt.astro
-│   │   ├── danke.astro
-│   │   └── 404.astro
+│   │   ├── 404.astro
+│   │   ├── agb.md
+│   │   ├── datenschutz.md
+│   │   ├── impressum.md
+│   │   └── widerrufsbelehrung.md
 │   ├── utils/            # Hilfsfunktionen
 │   │   ├── images.ts
 │   │   ├── images-optimization.ts
@@ -133,36 +186,93 @@ npm run dev
 
 ---
 
+## Code-Qualität & Best Practices
+
+Das Projekt nutzt verschiedene Tools zur Sicherstellung der Code-Qualität:
+
+### Linting & Formatting
+
+- **ESLint**: TypeScript/JavaScript Linting mit Astro-Support
+- **Prettier**: Code-Formatierung mit Astro- und Tailwind-Plugins
+- **TypeScript**: Strikte Typisierung für bessere Code-Qualität
+
+### Verfügbare Befehle
+
+```bash
+# Projekt auf Fehler überprüfen
+npm run check
+
+# Nur Astro-Dateien prüfen
+npm run check:astro
+
+# Nur ESLint ausführen
+npm run check:eslint
+
+# Nur Prettier prüfen
+npm run check:prettier
+
+# Code automatisch formatieren
+npm run fix
+# oder
+npm run format
+```
+
+### Best Practices
+
+- **KISS-Prinzip**: Keep It Simple, Stupid - kein Over-Engineering
+- **Moderne ECMA-Syntax**: ES2020+ Features nutzen
+- **TypeScript**: Strikte Typisierung wo sinnvoll
+- **Komponenten-basiert**: Wiederverwendbare, modulare Komponenten
+- **Performance First**: Optimierung für schnelle Ladezeiten
+- **Accessibility**: WCAG 2.2 Richtlinien beachten
+- **SEO-Optimierung**: Meta-Tags, strukturierte Daten, semantisches HTML
+- **Sicherheit**: OWASP Top 10 beachten, Input-Validierung, CSRF-Schutz
+
+---
+
 ## Konfiguration
 
 Die Hauptkonfigurationsdatei befindet sich unter `./src/config/site.yaml`:
 
 ```yaml
-name: ''
-site: 'https://BEISPIEL-URL.de'
-base: '/'
-trailingSlash: false
+site:
+  name: 'Wohlfühlgesundheit - Holistische Darmtherapie'
+  site: 'https://wohlfühlgesundheit.de'
+  base: '/'
+  trailingSlash: false
+  googleSiteVerificationId: am4o936StJOXZfUTSRB262VSHDHaoPfc-ZImQ8Qoxkw
+
 metadata:
   title:
-    default: ''
-    template: '%s | BEISPIEL-TITEL'
-  description: 'BEISPIEL-BESCHREIBUNG'
+    default: 'Wohlfühlgesundheit - Holistische Darmtherapie'
+    template: '%s | Wohlfühlgesundheit - Holistische Darmtherapie'
+  description: 'Wohlfühlgesundheit - Holistische Darmtherapie, Deine Holistische Darmtherapeutin. Entdecke Tipps und Programme zur Verbesserung deiner Gesundheit und deines Wohlbefindens.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: 'BEISPIEL-OPENGRAPH-NAME'
+    site_name: 'Wohlfühlgesundheit - Holistische Darmtherapie'
     images:
       - url: '~/assets/images/default.png'
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@BEISPIEL-TWITTER'
-    site: '@BEISPIEL-TWITTER'
+    handle: '@onwidget'
+    site: '@onwidget'
     cardType: summary_large_image
+
+i18n:
+  language: de
+  textDirection: ltr
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: G-TT6VB0HM46
+
 ui:
-  theme: 'system' # "system" | "light" | "dark"
+  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
 ```
 
 ---
@@ -179,13 +289,16 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 ### Inhalte
 
 - **Seiten**:
-  `src/pages/` – Alle Astro-Seiten (index, über-mich, termin-buchen, kontakt, etc.)
+  `src/pages/` – Alle Astro-Seiten (index, über-mich, termin-buchen, kontakt, rechtliche Seiten)
 - **Komponenten**: `src/components/` – Wiederverwendbare Komponenten
-  - `common/` – Gemeinsame Komponenten (Header, Footer, Logos)
-  - `ui/` – UI-Komponenten (Button, Forms, etc.)
-  - `widgets/` – Komplexe Widgets (Hero, Features, etc.)
+  - `common/` – Gemeinsame Komponenten (Header, Footer, Logos, Meta-Tags, Analytics)
+  - `ui/` – UI-Komponenten (Button, Form, Timeline, CollapsibleSection, ToggleTheme, etc.)
+  - `widgets/` – Komplexe Widgets
+    - `booking-form/` – 10-stufiges Buchungsformular
+    - Weitere Widgets: Hero, HeroSimple, Features, Testimonials, Steps, FAQs, Quote, CallToAction, Complaints, ContactForm
 - **Konfiguration**: `src/config/` – Site- und Navigation-Konfiguration
 - **API**: `public/api/` – PHP-Backend für Formulare und Zoom-Integration
+- **Utils**: `src/utils/` – Hilfsfunktionen für Bilder, Permalinks, allgemeine Utilities
 
 ---
 
@@ -234,10 +347,16 @@ Für Anpassungen der Schriftarten, Farben oder anderen Design-Elementen:
 Die Website nutzt ein benutzerdefiniertes PHP-Backend für die Formular-Verarbeitung und externe Integrationen:
 
 - **PHP API** (`public/api/`):
-  - Anamnesebogen & Zoom-Buchung
-  - Kontaktformular-Verarbeitung
-  - E-Mail-Versand
-  - Sichere Konfigurationsverwaltung
+  - `anamnese-booking.php` - Anamnesebogen & Zoom-Terminbuchung
+  - `contact-form.php` - Kontaktformular-Verarbeitung
+  - `get-csrf-token.php` - CSRF-Token-Generierung
+  - `bootstrap.php` - API-Bootstrap & Initialisierung
+  - `config.php` - Zentrale Konfigurationsverwaltung
+  - `env-loader.php` - Sichere .env-Datei-Verwaltung
+  - `phpmailer-helper.php` - E-Mail-Versand-Hilfsfunktionen
+  - `security.php` - Sicherheitsfunktionen (CSRF, Validierung, Sanitization)
+  - `.htaccess` - Apache-Sicherheitskonfiguration
+  - `.env.example` - Beispiel-Umgebungsvariablen
 
 - **Zoom-Integration**:
   - Server-to-Server OAuth 2.0 Authentifizierung
@@ -247,9 +366,13 @@ Die Website nutzt ein benutzerdefiniertes PHP-Backend für die Formular-Verarbei
   - Warteraum-Funktion für erhöhte Sicherheit
 
 - **Sicherheitsfeatures**:
-  - Umfassende Formular-Validierung
-  - Spam-Schutz
-  - Sichere Datenübertragung
+  - CSRF-Token-Validierung für alle Formulare
+  - Server-seitige Input-Validierung und Sanitization
+  - Rate-Limiting und Spam-Schutz
+  - Sichere Datenübertragung (HTTPS erforderlich)
+  - `.htaccess`-basierte Sicherheitsregeln
+  - Umgebungsvariablen-Management via `.env`
+  - Sichere Passwort-Hashing und Session-Management
 
 ### Integrationen & Plugins
 
@@ -264,10 +387,11 @@ Die Website nutzt ein benutzerdefiniertes PHP-Backend für die Formular-Verarbei
 
 ### Analytics & SEO
 
-- **Google Analytics**: [ID anonymisiert]
-- **Google Site Verification**: [ID anonymisiert]
+- **Google Analytics**: Konfiguriert via `site.yaml` (Analytics ID: G-TT6VB0HM46)
+- **Google Site Verification**: Konfiguriert via `site.yaml`
 - **OpenGraph & Twitter Cards**: Vollständige Social-Media-Integration
-- **Robots.txt**: Suchmaschinen-Steuerung
+- **Robots.txt & Sitemap**: Automatische Generierung via Astro-Sitemap-Plugin
+- **SEO-Optimierung**: Meta-Tags, strukturierte Daten, canonical URLs
 
 ---
 
@@ -275,16 +399,18 @@ Die Website nutzt ein benutzerdefiniertes PHP-Backend für die Formular-Verarbei
 
 Die Website umfasst folgende Hauptseiten (`src/pages/`):
 
-- **index.astro**: Startseite mit Hero, Features, FAQs
+- **index.astro**: Startseite mit Hero, Features, Testimonials, Steps, FAQs
 - **ueber-mich.astro**: Über die Therapeutin & ihre Qualifikationen
 - **termin-buchen.astro**: Anamnesebogen & Zoom-Terminbuchung
 - **kontakt.astro**: Kontaktformular
-- **danke.astro**: Danke-Seite nach erfolgreicher Formular-Absendung
 - **404.astro**: Custom 404-Fehlerseite
 
-Zusätzliche rechtliche Seiten (aus Navigation):
+Rechtliche Seiten (Markdown):
 
-- Impressum, Datenschutz, AGB, Widerrufsbelehrung
+- **impressum.md**: Impressum
+- **datenschutz.md**: Datenschutzerklärung (DSGVO-konform)
+- **agb.md**: Allgemeine Geschäftsbedingungen
+- **widerrufsbelehrung.md**: Widerrufsbelehrung
 
 ---
 
@@ -300,9 +426,9 @@ Vollautomatisches Terminbuchungssystem mit:
 - Warteraum-Funktion für mehr Sicherheit
 - Flexible Terminlängen (20/40 Minuten)
 
-### 2. Umfangreicher Anamnesebogen
+### 2. Umfangreiches Buchungsformular
 
-Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/anamnese-form/`):
+Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/booking-form/`):
 
 1. **PersonalInfo.astro**: Persönliche Grunddaten
 2. **PersonalData.astro**: Erweiterte persönliche Informationen
@@ -323,20 +449,21 @@ Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/an
 - Responsive Design für mobile & Desktop
 - Direkte Integration mit Zoom-API für Terminbuchung
 
-#### 3. Dark Mode
+### 3. Dark Mode
 
 - System-Theme-Erkennung
 - Manueller Light/Dark Mode Toggle
 - Persistente Theme-Speicherung
+- Nahtlose Integration in alle Komponenten
 
-#### 4. Cookie Consent Management
+### 4. Cookie Consent Management
 
 - DSGVO-konform
 - Kategorien: Notwendig, Statistik, Marketing
 - Vollständig auf Deutsch lokalisiert
 - Anpassbare Einstellungen
 
-#### 5. View Transitions
+### 5. View Transitions
 
 Die Website nutzt Astro's native View Transitions API:
 
@@ -344,7 +471,7 @@ Die Website nutzt Astro's native View Transitions API:
 - **Accessibility**: Respektiert `prefers-reduced-motion` für Barrierefreiheit
 - **Performance**: Natives Browser-Feature ohne externe Bibliotheken
 
-#### 6. Performance-Optimierungen
+### 6. Performance-Optimierungen
 
 - Statische Site-Generierung für beste Performance
 - Asset-Komprimierung (HTML, CSS, JS)
@@ -352,6 +479,76 @@ Die Website nutzt Astro's native View Transitions API:
 - CSS Code-Splitting
 - Optimierte Font-Loading-Strategie
 - Native View Transitions (kein JavaScript-Overhead)
+
+---
+
+## Widget-Komponenten
+
+Die Website nutzt folgende wiederverwendbare Widget-Komponenten (`src/components/widgets/`):
+
+### Content Widgets
+
+- **Hero.astro**: Haupt-Hero-Sektion für die Startseite mit großem Bild, Titel und CTA
+- **HeroSimple.astro**: Vereinfachte Hero-Sektion für Unterseiten
+- **Features.astro**: Feature-Grid zur Darstellung von Dienstleistungen
+- **Steps.astro**: Schritt-für-Schritt-Prozessdarstellung (z.B. Ablauf der Therapie)
+- **Testimonials.astro**: Kunden-Rezensionen und Bewertungen
+- **Quote.astro**: Hervorgehobene Zitate oder Statements
+- **Complaints.astro**: Darstellung von behandelbaren Beschwerden
+- **FAQs.astro**: Häufig gestellte Fragen mit Accordion-Funktionalität
+- **CallToAction.astro**: Call-to-Action-Bereiche für Conversion-Optimierung
+
+### Formular Widgets
+
+- **ContactForm.astro**: Kontaktformular mit CSRF-Schutz
+- **BookingForm.astro**: Haupt-Wrapper für das mehrstufige Buchungsformular
+- **booking-form/** (Unterordner): 10 Schritte des Anamnesebogens
+
+Alle Widgets sind:
+- Vollständig responsive
+- Dark-Mode-kompatibel
+- Barrierearm gestaltet
+- Mit TypeScript typisiert
+
+---
+
+## UI-Komponenten
+
+Die Website nutzt folgende wiederverwendbare UI-Komponenten (`src/components/ui/`):
+
+- **Button.astro**: Konfigurierbare Button-Komponente mit verschiedenen Varianten
+- **Form.astro**: Formular-Wrapper mit standardisiertem Styling
+- **Headline.astro**: Standardisierte Überschriften-Komponente
+- **Timeline.astro**: Zeitstrahl-Darstellung für Prozesse oder Ereignisse
+- **ItemGrid.astro**: Grid-Layout für Items/Features
+- **Content.astro**: Content-Wrapper für Text-Inhalte
+- **Background.astro**: Hintergrund-Komponente mit verschiedenen Styles
+- **CollapsibleSection.astro**: Ausklappbare Sektionen (Accordion)
+- **ToggleTheme.astro**: Dark/Light Mode Umschalter
+- **ToggleMenu.astro**: Mobile Navigation Toggle
+- **WidgetWrapper.astro**: Standard-Wrapper für alle Widgets
+
+Alle UI-Komponenten:
+- Nutzen TailwindCSS für Styling
+- Sind vollständig typisiert (TypeScript)
+- Unterstützen Props für Anpassungen
+- Sind konsistent im Design
+
+---
+
+## Layouts
+
+Die Website nutzt drei Haupt-Layouts (`src/layouts/`):
+
+- **Layout.astro**: Basis-Layout mit HTML-Struktur, Meta-Tags, Scripts
+- **PageLayout.astro**: Standard-Seiten-Layout mit Header, Footer, Navigation
+- **MarkdownLayout.astro**: Spezialisiertes Layout für Markdown-Seiten (rechtliche Dokumente)
+
+Alle Layouts:
+- Nutzen Astro View Transitions
+- Integrieren Dark Mode Support
+- Enthalten SEO-Meta-Tags
+- Sind responsive gestaltet
 
 ---
 
@@ -368,11 +565,32 @@ Das Projekt nutzt eine benutzerdefinierte Astro-Integration (`integrations/wohlf
 
 **Build & Deployment**:
 
-1. Dependencies installieren: `npm install` und `composer install`
-2. Build erstellen: `npm run build`
-3. `dist/` Ordner auf Webserver deployen
-4. Sicherstellen, dass `public/api/` PHP-Dateien ausführbar sind
-5. `.env`-Datei mit Credentials konfigurieren (Zoom, E-Mail, etc.)
+1. **Dependencies installieren**:
+   ```bash
+   npm install
+   composer install
+   ```
+
+2. **Umgebungsvariablen konfigurieren**:
+   - `.env.example` nach `.env` kopieren
+   - Alle erforderlichen Variablen ausfüllen:
+     - Zoom API Credentials (Account ID, Client ID, Client Secret)
+     - E-Mail-Server-Einstellungen (SMTP)
+     - Admin-E-Mail-Adressen
+     - Session-Secrets
+
+3. **Build erstellen**:
+   ```bash
+   npm run build
+   ```
+
+4. **Deployment**:
+   - `dist/` Ordner auf Webserver deployen
+   - Sicherstellen, dass `public/api/` PHP-Dateien ausführbar sind
+   - `.env`-Datei im `public/api/` Verzeichnis platzieren
+   - PHP 7.4+ und Composer auf Server installieren
+   - Apache mit mod_rewrite oder Nginx konfigurieren
+   - SSL/TLS-Zertifikat für HTTPS einrichten
 
 ---
 
