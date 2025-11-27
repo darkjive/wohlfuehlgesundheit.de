@@ -5,17 +5,18 @@ import ContactForm from '~/components/widgets/ContactForm.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
-  title: 'Kontakt',
+  title: 'Kontakt - Jetzt unverbindlich anfragen | Stefanie Leidel Darmtherapie',
+  description: 'Hast du Fragen zur Darmtherapie oder möchtest ein Erstgespräch vereinbaren? Kontaktiere mich unverbindlich – ich melde mich innerhalb von 24 Stunden.',
 };
 ---
 
 <Layout metadata={metadata}>
-  <HeroSimple tagline="Kontakt" title="Du hast Fragen?" />
+  <HeroSimple tagline="Kontakt" title="Du hast Fragen? Ich bin für dich da!" />
 
   <ContactForm
     id="form"
-    title="Benutze gerne das folgende Formular"
-    subtitle="Für schnellere Antworten, schau in meinen FAQ-Bereich. Möglicherweise findest Du dort die Antwort, nach der Du suchst! Wenn nicht, frage gerne nach."
+    title="Schreib mir deine Nachricht"
+    subtitle="Du hast Fragen zur Darmtherapie, zu meinem Angebot oder möchtest direkt ein Erstgespräch vereinbaren? Nutze gerne das Kontaktformular – ich melde mich innerhalb von 24 Stunden bei dir. Tipp: Im FAQ-Bereich findest du bereits Antworten auf viele häufige Fragen!"
     inputs={[
       {
         type: 'text',
@@ -32,18 +33,18 @@ const metadata = {
       label: 'Nachricht',
     }}
     disclaimer={{
-      label: 'Durch das Absenden dieses Kontaktformulars stimmst du der Erhebung Deiner persönlichen Daten zu.',
+      label: 'Durch das Absenden dieses Kontaktformulars stimmst du der Erhebung und Verarbeitung deiner persönlichen Daten gemäß unserer Datenschutzerklärung zu.',
     }}
-    description="Ich antworte in der Regel innerhalb von 24 Stunden."
+    description="✉️ Ich antworte in der Regel innerhalb von 24 Stunden (Montag–Freitag). Ich freue mich auf deine Nachricht!"
   />
   <!-- Call To Action **************** -->
   <CallToAction
-    title="Bereit für den ersten Schritt?"
-    subtitle="Starte jetzt deine Reise zu mehr Wohlbefinden mit einer holistischen Darmtherapie."
+    title="Lieber direkt einen Termin buchen?"
+    subtitle="Du möchtest keine Zeit verlieren und direkt starten? Buche jetzt dein unverbindliches Erstgespräch online – einfach, schnell und ohne Wartezeiten."
     actions={[
       {
         variant: 'primary',
-        text: 'Termin vereinbaren',
+        text: 'Jetzt Termin buchen',
         href: '/termin-buchen',
       },
     ]}
