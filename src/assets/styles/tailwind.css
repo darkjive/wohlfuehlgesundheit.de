@@ -67,35 +67,93 @@
     transition-delay: 0s;
   }
 
-  /* Blob Button Primary */
+  /* Blob Button Primary - Light Mode */
   .blob-btn-primary {
-    @apply text-primary;
+    @apply text-[#1e6b0a];
   }
 
   .blob-btn-primary::before {
-    @apply border-primary;
+    @apply border-[#1e6b0a];
   }
 
   .blob-btn-primary:hover {
     @apply text-white;
   }
 
-  /* Blob Button Secondary */
+  .blob-btn-primary .blob-btn__blob {
+    @apply bg-[#1e6b0a];
+  }
+
+  .blob-btn-primary .blob-btn__inner {
+    @apply bg-white;
+  }
+
+  /* Blob Button Primary - Dark Mode */
+  .dark .blob-btn-primary {
+    @apply text-[#86efac];
+  }
+
+  .dark .blob-btn-primary::before {
+    @apply border-[#86efac];
+  }
+
+  .dark .blob-btn-primary:hover {
+    @apply text-[#1e6b0a];
+  }
+
+  .dark .blob-btn-primary .blob-btn__blob {
+    @apply bg-[#86efac];
+  }
+
+  .dark .blob-btn-primary .blob-btn__inner {
+    @apply bg-[#0f3d06];
+  }
+
+  /* Blob Button Secondary - Light Mode */
   .blob-btn-secondary {
-    @apply text-[#2a700d];
+    @apply text-[#4ade80];
   }
 
   .blob-btn-secondary::before {
-    @apply border-[#2a700d];
+    @apply border-[#4ade80];
   }
 
   .blob-btn-secondary:hover {
     @apply text-white;
   }
 
+  .blob-btn-secondary .blob-btn__blob {
+    @apply bg-[#4ade80];
+  }
+
+  .blob-btn-secondary .blob-btn__inner {
+    @apply bg-white;
+  }
+
+  /* Blob Button Secondary - Dark Mode */
+  .dark .blob-btn-secondary {
+    @apply text-[#1e6b0a];
+  }
+
+  .dark .blob-btn-secondary::before {
+    @apply border-[#1e6b0a];
+  }
+
+  .dark .blob-btn-secondary:hover {
+    @apply text-white;
+  }
+
+  .dark .blob-btn-secondary .blob-btn__blob {
+    @apply bg-[#1e6b0a];
+  }
+
+  .dark .blob-btn-secondary .blob-btn__inner {
+    @apply bg-[#0f3d06];
+  }
+
   /* Blob Button Inner */
   .blob-btn__inner {
-    @apply absolute left-0 top-0 z-[-1] h-full w-full overflow-hidden rounded-full bg-white;
+    @apply absolute left-0 top-0 z-[-1] h-full w-full overflow-hidden rounded-full;
   }
 
   /* Blob Button Blobs Container */
@@ -114,14 +172,6 @@
     .blob-btn__blob {
       transform: translate3d(0, 150%, 0) scale(1.4);
     }
-  }
-
-  .blob-btn-primary .blob-btn__blob {
-    @apply bg-primary;
-  }
-
-  .blob-btn-secondary .blob-btn__blob {
-    @apply bg-[#2a700d];
   }
 
   .blob-btn__blob:nth-child(1) {
