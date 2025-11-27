@@ -1,12 +1,8 @@
 ---
 import { getAsset } from '~/utils/permalinks';
-import lcpBgImage from '~/assets/images/assets_task_01k5bmcw2beb2tnwgq1edcv91d_1758105932_img_0.webp';
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link rel="sitemap" href={getAsset('/sitemap-index.xml')} />
-
-<!-- Preload critical resources for better performance -->
-<link rel="preload" as="image" href={lcpBgImage.src} fetchpriority="high" />
