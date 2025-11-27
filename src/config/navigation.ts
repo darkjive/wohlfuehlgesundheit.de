@@ -26,6 +26,18 @@ export const headerData = {
 };
 
 export const footerData = {
+  columns: [
+    {
+      title: 'Navigation',
+      links: [
+        { text: 'Start', href: getPermalink('/') },
+        { text: 'Über mich', href: getPermalink('/ueber-mich') },
+        { text: 'Termin buchen', href: getPermalink('/termin-buchen') },
+        { text: 'Fragen?', href: getPermalink('/#faq') },
+        { text: 'Kontakt', href: getPermalink('/kontakt') },
+      ],
+    },
+  ],
   secondaryLinks: [
     { text: 'Impressum', href: getPermalink('/impressum') },
     { text: 'Datenschutz', href: getPermalink('/datenschutz') },
@@ -34,13 +46,12 @@ export const footerData = {
   ],
   socialLinks: [
     {
-      text: 'Folge mir auf Instagram',
       ariaLabel: 'Instagram',
       icon: 'tabler:brand-instagram',
       href: 'https://www.instagram.com/stories/wohl_fuehl_gesundheit/',
     },
   ],
   footNote: `
-    <p class="mb-1">© Wohlfühlgesundheit - Holistische Darmtherapie</p><br /> <a class="text-primary hover:text-black dark:text-secondary" href="/impressum">Impressum</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/datenschutz">Datenschutz</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/agb">AGB</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/widerrufsbelehrung">Widerrufsbelehrung</a>
+    © ${new Date().getFullYear()} Wohlfühlgesundheit - Holistische Darmtherapie
   `,
 };

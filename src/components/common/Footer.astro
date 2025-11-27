@@ -1,7 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-// import { SITE } from 'wohlfuehlgesundheit:config';
-// import { getHomePermalink } from '~/utils/permalinks';
+import Logo from '~/components/common/Logo-sm.astro';
 
 interface Link {
   text?: string;
@@ -10,14 +9,20 @@ interface Link {
   icon?: string;
 }
 
+interface FooterColumn {
+  title: string;
+  links: Array<Link>;
+}
+
 export interface Props {
+  columns?: Array<FooterColumn>;
   secondaryLinks: Array<Link>;
   socialLinks: Array<Link>;
   footNote?: string;
   theme?: string;
 }
 
-const { socialLinks = [], footNote = '', theme = 'light' } = Astro.props;
+const { columns = [], secondaryLinks = [], socialLinks = [], footNote = '', theme = 'light' } = Astro.props;
 
 const buildTime = import.meta.env.BUILD_TIME || '';
 const formattedBuildTime = buildTime
@@ -31,39 +36,168 @@ const formattedBuildTime = buildTime
   : '';
 ---
 
-<footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative']}>
+<footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative border-t border-gray-200 dark:border-gray-700']}>
   <div class="dark:bg-dark pointer-events-none absolute inset-0 dark:bg-none" aria-hidden="true"></div>
-  <div class="relative mx-auto max-w-5xl px-4 sm:px-6">
-    <div class="py-4 pt-0 text-center md:py-8">
-      {
-        socialLinks.length > 0 &&
-          socialLinks.map(({ ariaLabel, href, text, icon }) => (
-            <a
-              class="inline-block rounded-lg p-5 text-primary hover:text-black focus:outline-none focus:ring-1 focus:ring-gray-200 dark:text-secondary dark:focus:ring-gray-700"
-              aria-label={ariaLabel}
-              href={href}
-            >
-              {icon && <Icon name={icon} class="inline-block h-7 w-7" />}
-              <br />
-              <Fragment set:html={text} />
-            </a>
-          ))
-      }
+
+  <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <!-- Desktop: Grid Layout | Mobile: Stack -->
+    <div class="grid gap-8 md:grid-cols-3 lg:gap-12">
+
+      <!-- Spalte 1: Branding -->
+      <div class="space-y-4">
+        <a href="/" class="inline-block" aria-label="Startseite">
+          <Logo />
+        </a>
+        <p class="text-sm text-muted dark:text-gray-400">
+          Holistische Darmtherapie für dein Wohlbefinden
+        </p>
+      </div>
+
+      <!-- Spalte 2: Navigation (Desktop) / Ausklappbar (Mobile) -->
+      {columns.length > 0 && (
+        <div class="hidden md:block">
+          <h3 class="mb-4 font-heading text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-100">
+            Navigation
+          </h3>
+          <ul class="space-y-3">
+            {columns[0]?.links.map(({ text, href }) => (
+              <li>
+                <a
+                  href={href}
+                  class="text-sm text-gray-600 transition hover:text-primary dark:text-gray-400 dark:hover:text-secondary"
+                >
+                  {text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <!-- Mobile: Ausklappbare Navigation -->
+      {columns.length > 0 && (
+        <details class="group md:hidden">
+          <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800">
+            <span class="font-heading text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-100">
+              Navigation
+            </span>
+            <Icon
+              name="tabler:chevron-down"
+              class="h-5 w-5 transition-transform duration-200 group-open:rotate-180"
+            />
+          </summary>
+          <ul class="mt-2 space-y-3 px-4 pb-4">
+            {columns[0]?.links.map(({ text, href }) => (
+              <li>
+                <a
+                  href={href}
+                  class="text-sm text-gray-600 transition hover:text-primary dark:text-gray-400 dark:hover:text-secondary"
+                >
+                  {text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
+
+      <!-- Spalte 3: Rechtliches & Social -->
+      <div class="space-y-6">
+        <!-- Rechtliches (Desktop) -->
+        {secondaryLinks.length > 0 && (
+          <div class="hidden md:block">
+            <h3 class="mb-4 font-heading text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-100">
+              Rechtliches
+            </h3>
+            <ul class="space-y-3">
+              {secondaryLinks.map(({ text, href }) => (
+                <li>
+                  <a
+                    href={href}
+                    class="text-sm text-gray-600 transition hover:text-primary dark:text-gray-400 dark:hover:text-secondary"
+                  >
+                    {text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Rechtliches (Mobile - Ausklappbar) -->
+        {secondaryLinks.length > 0 && (
+          <details class="group md:hidden">
+            <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800">
+              <span class="font-heading text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-100">
+                Rechtliches
+              </span>
+              <Icon
+                name="tabler:chevron-down"
+                class="h-5 w-5 transition-transform duration-200 group-open:rotate-180"
+              />
+            </summary>
+            <ul class="mt-2 space-y-3 px-4 pb-4">
+              {secondaryLinks.map(({ text, href }) => (
+                <li>
+                  <a
+                    href={href}
+                    class="text-sm text-gray-600 transition hover:text-primary dark:text-gray-400 dark:hover:text-secondary"
+                  >
+                    {text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+
+        <!-- Social Links -->
+        {socialLinks.length > 0 && (
+          <div>
+            <h3 class="mb-4 font-heading text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-100">
+              Folge mir
+            </h3>
+            <div class="flex gap-4">
+              {socialLinks.map(({ ariaLabel, href, icon }) => (
+                <a
+                  href={href}
+                  aria-label={ariaLabel}
+                  class="rounded-lg p-2 text-primary transition hover:bg-gray-100 hover:text-black dark:text-secondary dark:hover:bg-gray-800 dark:hover:text-white"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {icon && <Icon name={icon} class="h-6 w-6" />}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-    <div class="border-t py-6 dark:border-[#2a4b1c] md:py-8">
-      <div class="text-center text-xs uppercase tracking-wider dark:text-muted sm:tracking-widest md:text-sm">
+
+    <!-- Bottom: Copyright -->
+    <div class="mt-12 border-t border-gray-200 pt-8 dark:border-gray-700">
+      <div class="text-center text-xs text-gray-600 dark:text-gray-400">
         <Fragment set:html={footNote} />
       </div>
-      {
-        formattedBuildTime && (
-          <div
-            class="mt-2 text-center text-xs text-gray-600 opacity-50 dark:text-gray-400"
-            title={`Build: ${buildTime}`}
-          >
-            {formattedBuildTime}
-          </div>
-        )
-      }
+      {formattedBuildTime && (
+        <div
+          class="mt-2 text-center text-xs text-gray-500 opacity-50 dark:text-gray-500"
+          title={`Build: ${buildTime}`}
+        >
+          {formattedBuildTime}
+        </div>
+      )}
     </div>
   </div>
 </footer>
+
+<style>
+  /* Remove default marker for details/summary */
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
