@@ -42,16 +42,6 @@
     @apply btn border-none text-muted shadow-none hover:text-gray-900 dark:text-gray-400 dark:hover:text-white;
   }
 
-  /* FAQ Toggle Icon */
-  .faq-icon::before {
-    content: '+';
-    @apply text-2xl font-light;
-  }
-
-  .faq-item[open] .faq-icon::before {
-    content: '−';
-  }
-
   /* Header Scroll Styles */
   #header.scroll > div:first-child {
     @apply bg-page md:bg-white/90 md:backdrop-blur-md;
