@@ -15,7 +15,8 @@ import certImage from '~/assets/images/INA_Cert2025.jpg';
 import certImage2 from '~/assets/images/Teilnahmebestaetigung_Leidel.jpg';
 
 const metadata = {
-  title: 'Über mich',
+  title: 'Über mich - Stefanie Leidel | Holistische Darmtherapeutin Groß-Umstadt',
+  description: 'Stefanie Leidel - Zertifizierte holistische Darmtherapeutin & Ernährungsberaterin. Meine Mission: Dich auf dem Weg zu mehr Darmgesundheit & Wohlbefinden zu begleiten.',
 };
 ---
 
@@ -29,8 +30,9 @@ const metadata = {
     actions={[{ variant: 'primary', text: 'Mehr erfahren', href: '#about' }]}
   >
     <Fragment slot="subtitle">
-      Schön, dass du hier bist! Mein Name ist Stefanie Leidel. Als zertifizierte holistische Darmtherapeutin und
-      Ernährungsberaterin begleite ich dich auf deinem Weg zu mehr Gesundheit und Wohlbefinden.
+      Schön, dass du hier bist! Ich bin Stefanie – <strong>zertifizierte holistische Darmtherapeutin und Ernährungsberaterin</strong> aus Groß-Umstadt.
+      Meine Mission: Dich auf deinem Weg zu <strong>mehr Darmgesundheit, Energie und einem guten Bauchgefühl</strong> zu begleiten –
+      mit Herz, Fachwissen und einem klaren Plan, der zu <em>dir</em> passt.
     </Fragment>
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-green-100 dark:bg-primary dark:bg-none"></div>
@@ -55,23 +57,42 @@ const metadata = {
   >
     <Fragment slot="content">
       <h2 class="mb-2 font-heading text-4xl font-bold tracking-tight dark:text-white sm:text-4xl">Über mich</h2>
-      <p>
-        Ich habe eine 12-monatige Ausbildung am Institut für Naturheilkunde und Ayurveda erfolgreich abgeschlossen
-        (April 2024 - März 2025). Dabei habe ich die Fachkompetenz als <strong
-          >zertifizierte holistische Darmtherapeutin und Ernährungsberaterin</strong
-        > erlangt.
+
+      <h3 class="mb-3 text-xl font-semibold">Warum ich tue, was ich tue</h3>
+      <p class="mb-4">
+        Gesundheit ist nicht selbstverständlich – das habe ich selbst erfahren. Die Faszination für die Zusammenhänge zwischen
+        <strong>Darm, Ernährung und Wohlbefinden</strong> hat mich dazu bewogen, mich intensiv mit ganzheitlicher Darmgesundheit
+        zu beschäftigen. Heute begleite ich Menschen dabei, ihre Beschwerden zu verstehen, Ursachen zu finden und
+        <strong>nachhaltige Lösungen</strong> zu entwickeln.
       </p>
-      <br />
-      <p>
-        Die Ausbildung umfasste unter anderem Anatomie der Verdauungsorgane, das Immunsystem, Darmmikrobiom und
+      <p class="mb-4">
+        Es erfüllt mich, wenn meine Klientinnen und Klienten nach langer Leidenszeit endlich wieder <strong>mehr Energie,
+        ein gutes Bauchgefühl und Lebensfreude</strong> spüren. Jeder Mensch ist einzigartig – deshalb arbeite ich
+        <strong>individuell, empathisch und auf Augenhöhe</strong>.
+      </p>
+
+      <h3 class="mb-3 mt-6 text-xl font-semibold">Meine Qualifikation</h3>
+      <p class="mb-4">
+        Ich habe eine <strong>12-monatige Ausbildung am Institut für Naturheilkunde und Ayurveda</strong> erfolgreich abgeschlossen
+        (April 2024 - März 2025, über <strong>500 Stunden Theorie und Praxis</strong>). Dabei habe ich die Fachkompetenz als
+        <strong>zertifizierte holistische Darmtherapeutin und Ernährungsberaterin</strong> erlangt.
+      </p>
+      <p class="mb-4">
+        Die Ausbildung umfasste unter anderem: <strong>Anatomie der Verdauungsorgane, Immunsystem, Darmmikrobiom und
         Darm-Hirn-Achse, Stoffwechsel- und Regulationssysteme, Säure-Basen-Haushalt, Nähr- und Vitalstoffe,
-        ganzheitliche Ernährungslehre, Darm- und Lebertherapie, Stressmanagement sowie Praxisfälle mit Anamnesen,
+        ganzheitliche Ernährungslehre, Darm- und Lebertherapie, Stressmanagement</strong> sowie umfangreiche Praxisfälle mit Anamnesen,
         Stuhlbefund-Interpretationen und individuellen Gesundheitsplänen.
       </p>
-      <br />
+
+      <h3 class="mb-3 mt-6 text-xl font-semibold">Meine Arbeitsweise</h3>
+      <p class="mb-4">
+        In meiner Arbeit ist es mir wichtig, <strong>aktuelles wissenschaftliches Wissen mit einer ganzheitlichen und praxisnahen
+        Beratung</strong> zu verbinden. Ich nehme mir Zeit für dich, höre dir zu und entwickle gemeinsam mit dir einen Therapieplan,
+        der zu deinem Leben, deinen Bedürfnissen und deinen Zielen passt.
+      </p>
       <p>
-        In meiner Arbeit ist es mir wichtig, aktuelles Wissen mit einer ganzheitlichen und praxisnahen Beratung zu
-        verbinden. Mein Ziel ist es, dir zu helfen, dein Wohlbefinden zu stärken und langfristig in Balance zu kommen.
+        Mein Ziel ist es, dir zu helfen, dein <strong>Wohlbefinden langfristig zu stärken und in Balance zu kommen</strong> –
+        nicht durch kurzfristige Diäten oder Verbote, sondern durch nachhaltiges Verständnis und alltagstaugliche Lösungen.
       </p>
     </Fragment>
 
@@ -162,23 +183,38 @@ const metadata = {
 
   <!-- Features Widget *************** -->
   <Features
-    title="Fähigkeiten"
-    subtitle="Ganzheitliche Darmgesundheit, Ernährungsberatung und individuelle Gesundheitspläne."
+    title="Meine Schwerpunkte & Kompetenzen"
+    subtitle="Mit diesen Methoden und Ansätzen unterstütze ich dich auf deinem Weg zu mehr Darmgesundheit und Wohlbefinden."
     items={[
       {
-        title: 'Darmgesundheit',
-        description: 'Anamnesen, Stuhlbefund-Interpretationen und ganzheitliche Darmtherapie.',
+        title: 'Holistische Darmtherapie',
+        description: 'Umfassende Anamnesen, detaillierte Stuhlbefund-Interpretationen, ganzheitliche Darmtherapie bei Reizdarm, SIBO, chronischen Entzündungen und Verdauungsbeschwerden. Ich erkläre dir verständlich, was in deinem Darm passiert und wie wir gemeinsam gegensteuern können.',
         icon: 'tabler:microscope',
       },
       {
-        title: 'Ernährungsberatung',
-        description: 'Individuelle Ernährungspläne basierend auf deinen Bedürfnissen und Zielen.',
+        title: 'Individuelle Ernährungsberatung',
+        description: 'Maßgeschneiderte Ernährungspläne, die zu dir, deinem Alltag und deinen Zielen passen – wissenschaftlich fundiert, praxisnah und ohne strikte Verbote. Ich begleite dich bei Nahrungsmittelunverträglichkeiten, Eliminationsdiäten und dem Aufbau einer nachhaltigen, gesunden Ernährung.',
         icon: 'tabler:apple',
       },
       {
-        title: 'Stressmanagement',
-        description: 'Aktivierung des Vagusnervs und Methoden für mehr innere Balance.',
+        title: 'Stressmanagement & Darm-Hirn-Achse',
+        description: 'Aktivierung des Vagusnervs, Entspannungstechniken und Methoden für mehr innere Balance. Denn: Dein Darm und dein Gehirn kommunizieren ständig – chronischer Stress kann deine Darmgesundheit massiv beeinträchtigen. Ich zeige dir, wie du gegensteuern kannst.',
         icon: 'tabler:bolt',
+      },
+      {
+        title: 'Mikronährstoff-Therapie',
+        description: 'Gezielte Analyse und Empfehlung von Vitaminen, Mineralstoffen, Probiotika und weiteren Nahrungsergänzungsmitteln – passend zu deinem individuellen Bedarf und deinen Laborwerten.',
+        icon: 'tabler:pill',
+      },
+      {
+        title: 'Begleitung bei chronischen Erkrankungen',
+        description: 'Unterstützung bei CED (Morbus Crohn, Colitis ulcerosa), Hashimoto, Diabetes, Endometriose, PCOS, Hauterkrankungen und weiteren chronischen Beschwerden – immer in Abstimmung mit deiner ärztlichen Behandlung.',
+        icon: 'tabler:heart-handshake',
+      },
+      {
+        title: 'Leaky Gut & Darmbarriere',
+        description: 'Therapie bei durchlässiger Darmwand (Leaky Gut Syndrom), Stärkung der Darmbarriere und Regeneration der Darmschleimhaut – für ein stabiles Immunsystem und weniger Entzündungen.',
+        icon: 'tabler:shield-check',
       },
     ]}
   >
@@ -220,12 +256,12 @@ const metadata = {
 
   <!-- Call To Action **************** -->
   <CallToAction
-    title="Bereit für den ersten Schritt?"
-    subtitle="Starte jetzt deine Reise zu mehr Wohlbefinden mit einer holistischen Darmtherapie."
+    title="Lass uns gemeinsam deinen Weg starten!"
+    subtitle="Du möchtest deine Darmgesundheit verbessern, endlich beschwerdefrei leben und dich rundum wohlfühlen? Ich freue mich darauf, dich kennenzulernen und dich auf deinem Weg zu begleiten. Buche jetzt dein unverbindliches Erstgespräch!"
     actions={[
       {
         variant: 'primary',
-        text: 'Termin vereinbaren',
+        text: 'Jetzt Termin buchen',
         href: '/termin-buchen',
       },
     ]}
