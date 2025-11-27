@@ -1,7 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-// import { SITE } from 'wohlfuehlgesundheit:config';
-// import { getHomePermalink } from '~/utils/permalinks';
+import { getPermalink } from '~/utils/permalinks';
 
 interface Link {
   text?: string;
@@ -10,14 +9,20 @@ interface Link {
   icon?: string;
 }
 
+interface FooterSection {
+  title: string;
+  links: Array<Link>;
+}
+
 export interface Props {
-  secondaryLinks: Array<Link>;
-  socialLinks: Array<Link>;
+  sections?: Array<FooterSection>;
+  secondaryLinks?: Array<Link>;
+  socialLinks?: Array<Link>;
   footNote?: string;
   theme?: string;
 }
 
-const { socialLinks = [], footNote = '', theme = 'light' } = Astro.props;
+const { sections = [], secondaryLinks = [], socialLinks = [], footNote = '', theme = 'light' } = Astro.props;
 
 const buildTime = import.meta.env.BUILD_TIME || '';
 const formattedBuildTime = buildTime
@@ -29,35 +34,107 @@ const formattedBuildTime = buildTime
       minute: '2-digit',
     })
   : '';
+
+// Default sections if none provided
+const footerSections: FooterSection[] = sections.length > 0 ? sections : [
+  {
+    title: 'Navigation',
+    links: [
+      { text: 'Start', href: getPermalink() },
+      { text: 'Über mich', href: getPermalink('/ueber-mich') },
+      { text: 'Termin buchen', href: getPermalink('/termin-buchen') },
+      { text: 'Kontakt', href: getPermalink('/kontakt') },
+    ],
+  },
+  {
+    title: 'Rechtliches',
+    links: secondaryLinks,
+  },
+];
 ---
 
-<footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative']}>
-  <div class="dark:bg-dark pointer-events-none absolute inset-0 dark:bg-none" aria-hidden="true"></div>
-  <div class="relative mx-auto max-w-5xl px-4 sm:px-6">
-    <div class="py-4 pt-0 text-center md:py-8">
+<footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative border-t border-gray-200 dark:border-gray-700']}>
+  <div class="pointer-events-none absolute inset-0 dark:bg-none" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <!-- Main footer content -->
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <!-- Brand section -->
+      <div class="space-y-4">
+        <h3 class="font-heading text-xl font-bold text-primary dark:text-secondary">Wohlfühlgesundheit</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">
+          Holistische Darmtherapie für dein Wohlbefinden
+        </p>
+      </div>
+
+      <!-- Dynamic sections (collapsed on mobile) -->
       {
-        socialLinks.length > 0 &&
-          socialLinks.map(({ ariaLabel, href, text, icon }) => (
-            <a
-              class="inline-block rounded-lg p-5 text-primary hover:text-black focus:outline-none focus:ring-1 focus:ring-gray-200 dark:text-secondary dark:focus:ring-gray-700"
-              aria-label={ariaLabel}
-              href={href}
+        footerSections.map((section, index) => (
+          <div class="space-y-4">
+            <button
+              type="button"
+              class="footer-toggle flex w-full items-center justify-between font-heading text-lg font-semibold text-gray-900 dark:text-gray-100 md:pointer-events-none"
+              aria-expanded="false"
+              data-section={`footer-section-${index}`}
             >
-              {icon && <Icon name={icon} class="inline-block h-7 w-7" />}
-              <br />
-              <Fragment set:html={text} />
-            </a>
-          ))
+              {section.title}
+              <Icon name="tabler:chevron-down" class="h-5 w-5 transition-transform md:hidden" />
+            </button>
+            <div
+              id={`footer-section-${index}`}
+              class="footer-content hidden space-y-2 md:block"
+            >
+              {section.links.map((link) => (
+                <a
+                  href={link.href}
+                  class="block text-sm text-gray-600 transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-secondary"
+                >
+                  {link.text}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+
+      <!-- Social Media section -->
+      {
+        socialLinks.length > 0 && (
+          <div class="space-y-4">
+            <button
+              type="button"
+              class="footer-toggle flex w-full items-center justify-between font-heading text-lg font-semibold text-gray-900 dark:text-gray-100 md:pointer-events-none"
+              aria-expanded="false"
+              data-section="footer-social"
+            >
+              Social Media
+              <Icon name="tabler:chevron-down" class="h-5 w-5 transition-transform md:hidden" />
+            </button>
+            <div id="footer-social" class="footer-content hidden space-y-3 md:block">
+              {socialLinks.map(({ ariaLabel, href, text, icon }) => (
+                <a
+                  href={href}
+                  aria-label={ariaLabel}
+                  class="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-secondary"
+                >
+                  {icon && <Icon name={icon} class="h-5 w-5" />}
+                  <span>{text}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
       }
     </div>
-    <div class="border-t py-6 dark:border-[#2a4b1c] md:py-8">
-      <div class="text-center text-xs uppercase tracking-wider dark:text-muted sm:tracking-widest md:text-sm">
-        <Fragment set:html={footNote} />
+
+    <!-- Bottom section -->
+    <div class="mt-12 border-t border-gray-200 pt-8 dark:border-gray-700">
+      <div class="text-center text-sm text-gray-600 dark:text-gray-300">
+        {footNote ? <Fragment set:html={footNote} /> : <p>© {new Date().getFullYear()} Wohlfühlgesundheit - Holistische Darmtherapie</p>}
       </div>
       {
         formattedBuildTime && (
           <div
-            class="mt-2 text-center text-xs text-gray-600 opacity-50 dark:text-gray-400"
+            class="mt-2 text-center text-xs text-gray-500 opacity-50 dark:text-gray-400"
             title={`Build: ${buildTime}`}
           >
             {formattedBuildTime}
@@ -67,3 +144,40 @@ const formattedBuildTime = buildTime
     </div>
   </div>
 </footer>
+
+<script>
+  // Simple accordion functionality for mobile
+  function initFooterToggles() {
+    const toggles = document.querySelectorAll('.footer-toggle');
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        // Only work on mobile
+        if (window.innerWidth >= 768) return;
+
+        const sectionId = toggle.getAttribute('data-section');
+        const content = document.getElementById(sectionId);
+        const icon = toggle.querySelector('svg');
+
+        if (!content) return;
+
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+        // Toggle visibility
+        toggle.setAttribute('aria-expanded', String(!isExpanded));
+        content.classList.toggle('hidden');
+
+        // Rotate icon
+        if (icon) {
+          icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+      });
+    });
+  }
+
+  // Initialize on page load
+  initFooterToggles();
+
+  // Re-initialize after view transitions
+  document.addEventListener('astro:page-load', initFooterToggles);
+</script>

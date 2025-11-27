@@ -323,20 +323,40 @@ Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/an
 - Responsive Design für mobile & Desktop
 - Direkte Integration mit Zoom-API für Terminbuchung
 
-#### 3. Dark Mode
+#### 3. Responsive Footer mit Accordion-Navigation
+
+Moderner, strukturierter Footer mit folgenden Features:
+
+- **Desktop**: Mehrspaltige Grid-Ansicht (4 Spalten)
+  - Branding & Beschreibung
+  - Navigationslinks
+  - Rechtliche Links (Impressum, Datenschutz, AGB, Widerrufsbelehrung)
+  - Social Media
+- **Mobile**: Ausklappbare Sections (Accordion)
+  - Sections lassen sich per Klick auf- und zuklappen
+  - Platzsparende Darstellung für kleine Bildschirme
+  - Sanfte Animationen für bessere UX
+- **KISS-Prinzip**: Natives JavaScript ohne externe Frameworks
+- **Accessibility**: ARIA-Labels und semantisches HTML
+- **Dark Mode**: Vollständige Dark-Mode-Unterstützung
+- **Responsive Design**: Optimiert für alle Bildschirmgrößen
+
+**Komponente**: `src/components/common/Footer.astro`
+
+#### 4. Dark Mode
 
 - System-Theme-Erkennung
 - Manueller Light/Dark Mode Toggle
 - Persistente Theme-Speicherung
 
-#### 4. Cookie Consent Management
+#### 5. Cookie Consent Management
 
 - DSGVO-konform
 - Kategorien: Notwendig, Statistik, Marketing
 - Vollständig auf Deutsch lokalisiert
 - Anpassbare Einstellungen
 
-#### 5. View Transitions
+#### 6. View Transitions
 
 Die Website nutzt Astro's native View Transitions API:
 
@@ -344,7 +364,7 @@ Die Website nutzt Astro's native View Transitions API:
 - **Accessibility**: Respektiert `prefers-reduced-motion` für Barrierefreiheit
 - **Performance**: Natives Browser-Feature ohne externe Bibliotheken
 
-#### 6. Performance-Optimierungen
+#### 7. Performance-Optimierungen
 
 - Statische Site-Generierung für beste Performance
 - Asset-Komprimierung (HTML, CSS, JS)
