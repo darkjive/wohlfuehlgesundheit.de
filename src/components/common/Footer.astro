@@ -1,7 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-// import { SITE } from 'wohlfuehlgesundheit:config';
-// import { getHomePermalink } from '~/utils/permalinks';
 
 interface Link {
   text?: string;
@@ -10,14 +8,20 @@ interface Link {
   icon?: string;
 }
 
+interface LinkSection {
+  title: string;
+  links: Array<Link>;
+}
+
 export interface Props {
-  secondaryLinks: Array<Link>;
-  socialLinks: Array<Link>;
+  sections?: Array<LinkSection>;
+  secondaryLinks?: Array<Link>;
+  socialLinks?: Array<Link>;
   footNote?: string;
   theme?: string;
 }
 
-const { socialLinks = [], footNote = '', theme = 'light' } = Astro.props;
+const { sections = [], secondaryLinks = [], socialLinks = [], footNote = '', theme = 'light' } = Astro.props;
 
 const buildTime = import.meta.env.BUILD_TIME || '';
 const formattedBuildTime = buildTime
@@ -31,39 +35,78 @@ const formattedBuildTime = buildTime
   : '';
 ---
 
-<footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative']}>
+<footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative border-t border-gray-200 dark:border-[#2a4b1c]']}>
   <div class="dark:bg-dark pointer-events-none absolute inset-0 dark:bg-none" aria-hidden="true"></div>
-  <div class="relative mx-auto max-w-5xl px-4 sm:px-6">
-    <div class="py-4 pt-0 text-center md:py-8">
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+      <!-- Über Wohlfühlgesundheit -->
+      <div class="space-y-4">
+        <h3 class="font-serif text-lg font-semibold text-primary dark:text-secondary">
+          Wohlfühlgesundheit
+        </h3>
+        <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+          Holistische Darmtherapie für dein Wohlbefinden. Entdecke den Weg zu mehr Gesundheit und Vitalität.
+        </p>
+        {
+          socialLinks.length > 0 && (
+            <div class="flex gap-3 pt-2">
+              {socialLinks.map(({ ariaLabel, href, icon }) => (
+                <a
+                  class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-all hover:bg-primary hover:text-white dark:bg-secondary/10 dark:text-secondary dark:hover:bg-secondary dark:hover:text-[#2a700d]"
+                  aria-label={ariaLabel}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {icon && <Icon name={icon} class="h-5 w-5" />}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Dynamic Sections -->
       {
-        socialLinks.length > 0 &&
-          socialLinks.map(({ ariaLabel, href, text, icon }) => (
-            <a
-              class="inline-block rounded-lg p-5 text-primary hover:text-black focus:outline-none focus:ring-1 focus:ring-gray-200 dark:text-secondary dark:focus:ring-gray-700"
-              aria-label={ariaLabel}
-              href={href}
-            >
-              {icon && <Icon name={icon} class="inline-block h-7 w-7" />}
-              <br />
-              <Fragment set:html={text} />
-            </a>
-          ))
+        sections.map((section) => (
+          <div class="space-y-4">
+            <h3 class="font-serif text-lg font-semibold text-primary dark:text-secondary">{section.title}</h3>
+            <ul class="space-y-2">
+              {section.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="inline-flex items-center text-sm text-gray-700 transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-secondary"
+                  >
+                    {link.icon && <Icon name={link.icon} class="mr-2 h-4 w-4" />}
+                    {link.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
       }
     </div>
-    <div class="border-t py-6 dark:border-[#2a4b1c] md:py-8">
-      <div class="text-center text-xs uppercase tracking-wider dark:text-muted sm:tracking-widest md:text-sm">
-        <Fragment set:html={footNote} />
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-200 py-6 dark:border-[#2a4b1c]">
+      <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
+        <!-- Copyright & Legal Links -->
+        <div class="text-center text-sm text-gray-600 dark:text-gray-400 md:text-left">
+          <Fragment set:html={footNote} />
+        </div>
+
+        <!-- Build Time -->
+        {
+          formattedBuildTime && (
+            <div class="text-xs text-gray-500 opacity-50 dark:text-gray-500" title={`Build: ${buildTime}`}>
+              {formattedBuildTime}
+            </div>
+          )
+        }
       </div>
-      {
-        formattedBuildTime && (
-          <div
-            class="mt-2 text-center text-xs text-gray-600 opacity-50 dark:text-gray-400"
-            title={`Build: ${buildTime}`}
-          >
-            {formattedBuildTime}
-          </div>
-        )
-      }
     </div>
   </div>
 </footer>

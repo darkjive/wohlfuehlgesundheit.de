@@ -26,6 +26,34 @@ export const headerData = {
 };
 
 export const footerData = {
+  sections: [
+    {
+      title: 'Navigation',
+      links: [
+        { text: 'Start', href: getPermalink(), icon: 'tabler:home' },
+        { text: 'Über mich', href: getPermalink('/ueber-mich'), icon: 'tabler:user-heart' },
+        { text: 'Termin buchen', href: getPermalink('/termin-buchen'), icon: 'tabler:calendar-check' },
+        { text: 'FAQ', href: getPermalink('/#faq'), icon: 'tabler:help-circle' },
+      ],
+    },
+    {
+      title: 'Angebote',
+      links: [
+        { text: 'Darmtherapie', href: getPermalink('/#leistungen'), icon: 'tabler:heart-handshake' },
+        { text: 'Beratung', href: getPermalink('/#leistungen'), icon: 'tabler:message-circle-2' },
+        { text: 'Kontakt', href: getPermalink('/kontakt'), icon: 'tabler:mail' },
+      ],
+    },
+    {
+      title: 'Rechtliches',
+      links: [
+        { text: 'Impressum', href: getPermalink('/impressum'), icon: 'tabler:file-text' },
+        { text: 'Datenschutz', href: getPermalink('/datenschutz'), icon: 'tabler:shield-lock' },
+        { text: 'AGB', href: getPermalink('/agb'), icon: 'tabler:file-description' },
+        { text: 'Widerrufsbelehrung', href: getPermalink('/widerrufsbelehrung'), icon: 'tabler:rotate-clockwise-2' },
+      ],
+    },
+  ],
   secondaryLinks: [
     { text: 'Impressum', href: getPermalink('/impressum') },
     { text: 'Datenschutz', href: getPermalink('/datenschutz') },
@@ -41,6 +69,6 @@ export const footerData = {
     },
   ],
   footNote: `
-    <p class="mb-1">© Wohlfühlgesundheit - Holistische Darmtherapie</p><br /> <a class="text-primary hover:text-black dark:text-secondary" href="/impressum">Impressum</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/datenschutz">Datenschutz</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/agb">AGB</a> · <a class="text-primary hover:text-black dark:text-secondary" href="/widerrufsbelehrung">Widerrufsbelehrung</a>
+    <span>© ${new Date().getFullYear()} Wohlfühlgesundheit - Holistische Darmtherapie</span>
   `,
 };
