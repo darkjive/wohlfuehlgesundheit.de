@@ -127,7 +127,38 @@ export function validateForm(formData: FormData, rules: ValidationRules): Valida
 }
 
 /**
- * Add visual feedback to form field
+ * Create Tabler icon SVG element
+ */
+function createTablerIcon(iconName: 'check' | 'x', className: string): SVGElement {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  svg.classList.add(...className.split(' '));
+
+  if (iconName === 'check') {
+    // Tabler check icon
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M5 12l5 5l10 -10');
+    svg.appendChild(path);
+  } else {
+    // Tabler x icon
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M18 6l-12 12');
+    svg.appendChild(path);
+    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path2.setAttribute('d', 'M6 6l12 12');
+    svg.appendChild(path2);
+  }
+
+  return svg;
+}
+
+/**
+ * Add visual feedback to form field with Tabler icons
  */
 export function updateFieldUI(field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, error: string | null) {
   const container = field.closest('div');
@@ -139,12 +170,27 @@ export function updateFieldUI(field: HTMLInputElement | HTMLTextAreaElement | HT
     existingError.remove();
   }
 
+  // Remove existing validation icon
+  const existingIcon = container.querySelector('.validation-icon');
+  if (existingIcon) {
+    existingIcon.remove();
+  }
+
   // Remove existing validation classes
   field.classList.remove('field-valid', 'field-invalid');
+  container.classList.remove('has-validation-icon');
 
   if (error) {
     // Add error styling
     field.classList.add('field-invalid');
+
+    // Create validation icon wrapper
+    const iconWrapper = document.createElement('div');
+    iconWrapper.className = 'validation-icon is-invalid';
+    const icon = createTablerIcon('x', '');
+    iconWrapper.appendChild(icon);
+    container.appendChild(iconWrapper);
+    container.classList.add('has-validation-icon');
 
     // Create error message element
     const errorElement = document.createElement('p');
@@ -154,6 +200,14 @@ export function updateFieldUI(field: HTMLInputElement | HTMLTextAreaElement | HT
   } else if (field.value.trim()) {
     // Add valid styling only if field has value
     field.classList.add('field-valid');
+
+    // Create validation icon wrapper
+    const iconWrapper = document.createElement('div');
+    iconWrapper.className = 'validation-icon is-valid';
+    const icon = createTablerIcon('check', '');
+    iconWrapper.appendChild(icon);
+    container.appendChild(iconWrapper);
+    container.classList.add('has-validation-icon');
   }
 }
 

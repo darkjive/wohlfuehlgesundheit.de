@@ -1,16 +1,22 @@
 /**
  * Form Validation Styles
- * Visual feedback for form field validation
+ * Visual feedback for form field validation using Tabler Icons
  */
+
+/* Field wrapper for positioning validation icons */
+.field-wrapper {
+  @apply relative;
+}
+
+.field-wrapper.has-validation-icon input,
+.field-wrapper.has-validation-icon textarea,
+.field-wrapper.has-validation-icon select {
+  @apply pr-10;
+}
 
 /* Valid field styling */
 .field-valid {
   @apply border-green-500 dark:border-green-400;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1.25rem 1.25rem;
-  padding-right: 2.5rem;
 }
 
 .field-valid:focus {
@@ -20,15 +26,43 @@
 /* Invalid field styling */
 .field-invalid {
   @apply border-red-500 dark:border-red-400;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='15' y1='9' x2='9' y2='15'%3E%3C/line%3E%3Cline x1='9' y1='9' x2='15' y2='15'%3E%3C/line%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1.25rem 1.25rem;
-  padding-right: 2.5rem;
 }
 
 .field-invalid:focus {
   @apply ring-2 ring-red-500 dark:ring-red-400;
+}
+
+/* Validation icon positioning */
+.validation-icon {
+  @apply absolute pointer-events-none;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.validation-icon svg {
+  @apply w-5 h-5;
+}
+
+.validation-icon.is-valid svg {
+  @apply text-green-500 dark:text-green-400;
+  stroke-width: 2.5;
+}
+
+.validation-icon.is-invalid svg {
+  @apply text-red-500 dark:text-red-400;
+  stroke-width: 2.5;
+}
+
+/* For textarea, position icon at the top */
+textarea ~ .validation-icon {
+  top: 0.75rem;
+  transform: none;
+}
+
+/* For select fields with native arrow, move icon further left */
+select ~ .validation-icon {
+  right: 2.5rem;
 }
 
 /* Validation error message */
@@ -47,26 +81,9 @@
   }
 }
 
-/* Checkbox validation error styling */
+/* Checkbox validation styling */
 input[type='checkbox'].field-invalid {
   @apply border-red-500 dark:border-red-400;
-  background-image: none;
-  padding-right: initial;
-}
-
-/* Select field valid/invalid */
-select.field-valid,
-select.field-invalid {
-  background-position:
-    right 2.5rem center,
-    right 0.75rem center;
-  padding-right: 4rem;
-}
-
-/* Textarea valid/invalid */
-textarea.field-valid,
-textarea.field-invalid {
-  background-position: right 0.75rem top 0.75rem;
 }
 
 /* Focus state improvements */
