@@ -2,3 +2,6 @@ User-agent: *
 Disallow: /_astro/
 Disallow: /_sec/
 Disallow: /logs/
+Disallow: /datenschutz/
+Disallow: /widerrufsbelehrung/
+Disallow: /impressum/
