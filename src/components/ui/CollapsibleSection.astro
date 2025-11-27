@@ -1,6 +1,7 @@
 ---
 // CollapsibleSection.astro - Collapsible section for optional form fields
 // Similar to FAQs, but for form sections
+import { Icon } from 'astro-icon/components';
 
 interface Props {
   title: string;
@@ -19,14 +20,10 @@ const { title, subtitle, isOptional = true } = Astro.props;
       <span class="section-title">{title}</span>
       {isOptional && <span class="text-base font-normal text-gray-300 dark:text-gray-500">(Optional)</span>}
     </div>
-    <svg
+    <Icon
+      name="tabler:chevron-down"
       class="h-5 w-5 text-gray-400 transition-transform duration-200 group-open:rotate-180 group-open:text-gray-900 dark:text-gray-400 dark:group-open:text-gray-100"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-    </svg>
+    />
   </summary>
 
   <div class="px-6 pb-6 pt-2">

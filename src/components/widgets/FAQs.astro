@@ -1,6 +1,7 @@
 ---
 import Headline from '~/components/ui/Headline.astro';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import { Icon } from 'astro-icon/components';
 import type { Faqs as Props } from '~/types';
 
 const {
@@ -22,14 +23,17 @@ const {
     {
       items.map((item, index) => (
         <details
-          class="faq-item border-b border-gray-200 py-4 dark:border-[#4c8733]"
+          class="faq-item group border-b border-gray-200 py-4 dark:border-[#4c8733]"
           data-animate="fadeIn"
           data-animate-duration="600"
           data-animate-delay={index * 50}
         >
           <summary class="flex cursor-pointer items-center justify-between text-lg">
             {item.title}
-            <span class="faq-icon ml-2" />
+            <Icon
+              name="tabler:chevron-down"
+              class="ml-2 h-5 w-5 text-gray-600 transition-transform duration-200 group-open:rotate-180 dark:text-gray-400"
+            />
           </summary>
           <p class="mt-2 text-gray-700 dark:text-slate-100">{item.description}</p>
         </details>
