@@ -157,12 +157,28 @@ export default defineConfig({
     build: {
       sourcemap: false, // Disable source maps for production
       cssCodeSplit: true,
+      modulePreload: {
+        polyfill: false, // Disable polyfill for modern browsers
+      },
       rollupOptions: {
         output: {
           // Optimize asset names
           assetFileNames: 'assets/[name].[hash][extname]',
           chunkFileNames: 'assets/[name].[hash].js',
           entryFileNames: 'assets/[name].[hash].js',
+          // Optimize chunk splitting for better caching
+          manualChunks(id) {
+            // Vendor chunks for better caching
+            if (id.includes('node_modules')) {
+              if (id.includes('@fontsource')) {
+                return 'fonts';
+              }
+              if (id.includes('astro')) {
+                return 'astro-runtime';
+              }
+              return 'vendor';
+            }
+          },
         },
         onwarn(warning, warn) {
           // Suppress known Astro internal warning - can be removed once PR #14876 is merged
