@@ -1,13 +1,31 @@
 ---
 import '@fontsource-variable/noto-serif-display';
+import '@fontsource-variable/noto-serif-display/wght-italic.css';
 import '@fontsource-variable/quicksand';
 ---
 
 <style is:inline>
+  /* Extended font-face declarations for full control */
+  @font-face {
+    font-family: 'Noto Serif Display';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('@fontsource-variable/noto-serif-display/files/noto-serif-display-latin-wght-normal.woff2') format('woff2-variations');
+  }
+
+  @font-face {
+    font-family: 'Noto Serif Display';
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('@fontsource-variable/noto-serif-display/files/noto-serif-display-latin-wght-italic.woff2') format('woff2-variations');
+  }
+
   :root {
-    --aw-font-sans: 'Quicksand Variable';
-    --aw-font-serif: 'Noto Serif Display Variable';
-    --aw-font-heading: 'Noto Serif Display Variable';
+    --aw-font-sans: 'Quicksand Variable', 'Quicksand', sans-serif;
+    --aw-font-serif: 'Noto Serif Display', serif;
+    --aw-font-heading: 'Noto Serif Display', serif;
 
     --aw-color-primary: rgb(42, 112, 13);
     --aw-color-secondary: rgb(245, 245, 245);
@@ -27,9 +45,9 @@ import '@fontsource-variable/quicksand';
   }
 
   .dark {
-    --aw-font-sans: 'Quicksand Variable';
-    --aw-font-serif: 'Noto Serif Display Variable';
-    --aw-font-heading: 'Noto Serif Display Variable';
+    --aw-font-sans: 'Quicksand Variable', 'Quicksand', sans-serif;
+    --aw-font-serif: 'Noto Serif Display', serif;
+    --aw-font-heading: 'Noto Serif Display', serif;
 
     --aw-color-primary: rgb(39, 100, 13);
     --aw-color-secondary: rgb(230, 230, 230);
@@ -62,5 +80,75 @@ import '@fontsource-variable/quicksand';
       animation-duration: 0.3s;
       animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+  }
+
+  /* Font Style Utilities */
+  .font-italic {
+    font-style: italic;
+  }
+
+  .font-normal-style {
+    font-style: normal;
+  }
+
+  /* Font Weight Utilities für Noto Serif Display (100-900) */
+  .font-thin {
+    font-weight: 100;
+  }
+
+  .font-extralight {
+    font-weight: 200;
+  }
+
+  .font-light {
+    font-weight: 300;
+  }
+
+  .font-normal {
+    font-weight: 400;
+  }
+
+  .font-medium {
+    font-weight: 500;
+  }
+
+  .font-semibold {
+    font-weight: 600;
+  }
+
+  .font-bold {
+    font-weight: 700;
+  }
+
+  .font-extrabold {
+    font-weight: 800;
+  }
+
+  .font-black {
+    font-weight: 900;
+  }
+
+  /* Kombinierte Font-Klassen für häufige Anwendungsfälle */
+  .serif-italic {
+    font-family: var(--aw-font-serif);
+    font-style: italic;
+  }
+
+  .serif-italic-light {
+    font-family: var(--aw-font-serif);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .serif-italic-medium {
+    font-family: var(--aw-font-serif);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .serif-italic-bold {
+    font-family: var(--aw-font-serif);
+    font-style: italic;
+    font-weight: 700;
   }
 </style>
