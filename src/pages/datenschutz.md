@@ -65,9 +65,9 @@ Die Daten werden gelöscht, sobald sie für die Erreichung des Zweckes ihrer Erh
 
 Diese Website wird gehostet bei:
 
-**1&1 IONOS SE**
-Elgendorfer Straße 57
-56410 Montabaur
+**1&1 IONOS SE**  
+Elgendorfer Straße 57  
+56410 Montabaur  
 Deutschland
 
 Die Verarbeitung erfolgt auf Grundlage von **Art. 6 Abs. 1 lit. f DSGVO** (berechtigtes Interesse an einem sicheren und effizienten Hosting). Mit IONOS wurde ein Vertrag zur Auftragsverarbeitung gemäß Art. 28 DSGVO abgeschlossen.
@@ -300,11 +300,11 @@ Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Vera
 
 Zuständige Aufsichtsbehörde:
 
-**Der Hessische Beauftragte für Datenschutz und Informationsfreiheit**
-Postfach 3163
-65021 Wiesbaden
-Telefon: +49 611 1408-0
-E-Mail: [poststelle@datenschutz.hessen.de](mailto:poststelle@datenschutz.hessen.de)
+**Der Hessische Beauftragte für Datenschutz und Informationsfreiheit**  
+Postfach 3163  
+65021 Wiesbaden  
+Telefon: +49 611 1408-0  
+E-Mail: [poststelle@datenschutz.hessen.de](mailto:poststelle@datenschutz.hessen.de)  
 Website: [https://datenschutz.hessen.de](https://datenschutz.hessen.de)
 
 ## 11. SSL- bzw. TLS-Verschlüsselung
@@ -321,8 +321,8 @@ Ich behalte mir vor, diese Datenschutzerklärung bei Bedarf zu aktualisieren, um
 
 Bei Fragen zum Datenschutz oder zur Ausübung Ihrer Rechte können Sie mich jederzeit kontaktieren:
 
-**Stefanie Leidel**
-Unterdorf 24
-64823 Groß-Umstadt
-Deutschland
+**Stefanie Leidel**  
+Unterdorf 24  
+64823 Groß-Umstadt  
+Deutschland  
 E-Mail: [steffi@wohlfühlgesundheit.de](mailto:steffi@wohlfühlgesundheit.de)
