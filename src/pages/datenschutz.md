@@ -9,11 +9,11 @@ _Letzte Aktualisierung: 05. Januar 2025_
 
 Verantwortlich für die Verarbeitung personenbezogener Daten auf dieser Website ist:
 
-**Stefanie Leidel**
-Holistische Darmtherapeutin und Ernährungsberaterin
-Unterdorf 24
-64823 Groß-Umstadt
-Deutschland
+**Stefanie Leidel**  
+Holistische Darmtherapeutin und Ernährungsberaterin  
+Unterdorf 24  
+64823 Groß-Umstadt  
+Deutschland  
 E-Mail: [steffi@wohlfühlgesundheit.de](mailto:steffi@wohlfühlgesundheit.de)
 
 ## 2. Allgemeines zur Datenverarbeitung
