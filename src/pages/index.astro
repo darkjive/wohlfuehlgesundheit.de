@@ -9,7 +9,8 @@ import Quote from '~/components/widgets/Quote.astro';
 import Complaints from '~/components/widgets/Complaints.astro';
 
 const metadata = {
-  title: 'Start',
+  title: 'Darmgesundheit & Ernährungsberatung | Holistische Darmtherapie Groß-Umstadt',
+  description: 'Holistische Darmtherapie bei Reizdarm, Blähbauch & Verdauungsproblemen. Zertifizierte Darmberatung online & vor Ort in Groß-Umstadt. Jetzt Erstgespräch buchen!',
   // ignoreTitleTemplate: true,
 };
 ---
@@ -45,8 +46,9 @@ const metadata = {
 
     <Fragment slot="subtitle">
       <span class="sm:inline">
-        Dein Darm ist das Zentrum deines Wohlbefindens. Gemeinsam entdecken wir, wie du deine Verdauung optimieren
-        kannst, dein Wohlbefinden förderst und mehr Balance in dein Leben bringst.
+        Leidest du unter <strong>Blähbauch, Reizdarm oder chronischen Verdauungsbeschwerden?</strong> Du bist nicht allein.
+        Als zertifizierte holistische Darmtherapeutin begleite ich dich auf dem Weg zu <strong>mehr Energie, einem gesunden Bauchgefühl
+        und nachhaltigem Wohlbefinden</strong> – wissenschaftlich fundiert, empathisch und individuell.
       </span>
     </Fragment>
     <Fragment slot="bg">
@@ -136,15 +138,15 @@ const metadata = {
         icon: 'tabler:brain',
       },
     ]}
-    footerText="All das können Anzeichen für ein Ungleichgewicht im Darm sein. Dies liegt oft an unserer ungesunden Ernährung, den Umweltgiften und dem Stress, dem wir ausgesetzt sind."
+    footerText="All das können Anzeichen für ein Ungleichgewicht im Darm sein. Eine gestörte Darmflora, chronischer Stress, Umweltgifte und unausgewogene Ernährung bringen deinen Körper aus dem Gleichgewicht. Gemeinsam finden wir die Ursachen und entwickeln einen individuellen Plan für deine Darmgesundheit. ⚠️ Wichtig: Bei akuten oder anhaltenden Beschwerden empfehle ich immer eine ärztliche Abklärung – meine Beratung ersetzt keine medizinische Diagnose oder Behandlung."
   />
 
   <!-- Features Widget *************** -->
   <Features
     id="features"
     tagline="Was ich für Dich tun kann"
-    title="Wohlbefinden und Gesundheit beginnen im Darm"
-    subtitle="Dein Darm ist der Schlüssel zu mehr Wohlbefinden. Ich begleite dich auf deinem Weg - mit Herz, Fachwissen & einem klaren Plan."
+    title="Dein Weg zu einem gesunden Darm – in 3 Schritten"
+    subtitle="Von der ersten Analyse bis zu deinem individuellen Therapieplan: Ich begleite dich Schritt für Schritt zu mehr Darmgesundheit, Energie und Wohlbefinden. Wissenschaftlich fundiert, ganzheitlich und auf deine Bedürfnisse zugeschnitten."
     items={[
       {
         title: 'Anamnese & Vorgespräch',
@@ -199,9 +201,16 @@ const metadata = {
   >
     <Fragment slot="content">
       <h3 class="mb-2 text-lg font-medium tracking-tight dark:text-white">Warum ist Darmgesundheit so wichtig?</h3>
-      Dein Darm ist viel mehr als nur ein Verdauungsorgan. Er beherbergt 100 Billionen Bakterien, die Dein Immunsystem, Deine
-      Hormone und sogar Deine Stimmung beeinflussen. Als zertifizierte holistische Darmtherapeutin helfe ich Dir, dieses
-      komplexe System wieder ins Gleichgewicht zu bringen.
+      <p class="mb-4">
+        Dein Darm ist weit mehr als nur ein Verdauungsorgan – er ist das <strong>Zentrum deiner Gesundheit</strong>.
+        Hier leben 100 Billionen Bakterien, die täglich entscheiden, wie gut dein Immunsystem funktioniert, wie ausgeglichen
+        deine Hormone sind und sogar, wie du dich emotional fühlst.
+      </p>
+      <p>
+        Eine gestörte Darmflora kann zu <strong>Müdigkeit, Hautproblemen, Allergien, Verdauungsbeschwerden und sogar
+        psychischen Belastungen</strong> führen. Als zertifizierte holistische Darmtherapeutin helfe ich dir, dieses komplexe
+        System wieder ins Gleichgewicht zu bringen – mit einem individuellen Therapieplan, der genau auf dich zugeschnitten ist.
+      </p>
     </Fragment>
   </Content>
 
@@ -233,10 +242,16 @@ const metadata = {
     }}
   >
     <Fragment slot="content">
-      <h3 class="mb-2 text-lg font-medium tracking-tight dark:text-white">Dein Weg zu mehr Darmgesundheit</h3>
-      Meine holistische Herangehensweise bedeutet: Ich schaue nicht nur auf Deine Symptome, sondern betrachte Dich als ganzen
-      Menschen. Gemeinsam entwickeln wir einen individuellen Plan, der Deine Darmgesundheit nachhaltig verbessert und Dein
-      Wohlbefinden steigert.
+      <h3 class="mb-2 text-lg font-medium tracking-tight dark:text-white">Dein Weg zu mehr Darmgesundheit – individuell & ganzheitlich</h3>
+      <p class="mb-4">
+        <strong>Holistisch</strong> bedeutet: Ich betrachte dich als ganzen Menschen, nicht nur deine Symptome. Jede Person ist einzigartig –
+        deshalb erhältst du einen <strong>individuellen Therapieplan</strong>, der genau auf deine Bedürfnisse, deine Lebensumstände
+        und deine Ziele zugeschnitten ist.
+      </p>
+      <p>
+        Ob <strong>Reizdarm, Nahrungsmittelunverträglichkeiten, chronische Entzündungen oder einfach der Wunsch nach mehr Energie</strong> –
+        gemeinsam entwickeln wir einen nachhaltigen Plan für deine Darmgesundheit und dein Wohlbefinden.
+      </p>
     </Fragment>
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-[#e8e7d9] dark:bg-primary"></div>
@@ -271,9 +286,15 @@ const metadata = {
   >
     <Fragment slot="content">
       <h3 class="mb-2 text-lg font-medium tracking-tight dark:text-white">Wissenschaftlich fundiert & natürlich</h3>
-      Alle meine Methoden basieren auf aktuellen wissenschaftlichen Erkenntnissen zur Darmgesundheit und meiner zertifizierten
-      Ausbildung zur holistischen Darmtherapeutin. Ich kombiniere bewährte naturheilkundliche Ansätze mit modernem Wissen
-      über das Darmmikrobiom und die Darm-Hirn-Achse.
+      <p class="mb-4">
+        Alle meine Methoden basieren auf <strong>aktuellen wissenschaftlichen Erkenntnissen zur Darmgesundheit</strong> und
+        meiner zertifizierten 12-monatigen Ausbildung zur holistischen Darmtherapeutin am Institut für Naturheilkunde und Ayurveda
+        (über 500 Stunden Theorie und Praxis).
+      </p>
+      <p>
+        Ich kombiniere bewährte <strong>naturheilkundliche Ansätze</strong> mit modernem Wissen über das Darmmikrobiom, die Darm-Hirn-Achse
+        und Ernährungswissenschaft – für einen ganzheitlichen, nachhaltigen Therapieansatz, der dich langfristig unterstützt.
+      </p>
     </Fragment>
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-[#fde4e6] dark:bg-transparent"></div>
@@ -290,8 +311,8 @@ const metadata = {
   <!-- FAQs Widget ******************* -->
   <FAQs
     id="faq"
-    title="Häufig gestellte Fragen"
-    subtitle="Hier findest Du Antworten auf die wichtigsten Fragen rund um meine holistische Darmtherapie und Ernährungsberatung."
+    title="Häufig gestellte Fragen zur Darmtherapie & Ernährungsberatung"
+    subtitle="Hier findest du Antworten auf die wichtigsten Fragen rund um holistische Darmtherapie, Darmgesundheit, Reizdarm, Ernährungsberatung und meine Arbeitsweise. Du hast weitere Fragen? Kontaktiere mich gerne!"
     tagline="FAQs"
     classes={{ container: 'max-w-6xl' }}
     bg={`<div class="absolute inset-0 bg-white dark:bg-primary dark:bg-none"></div>`}
@@ -390,17 +411,62 @@ const metadata = {
         description:
           'Ich behandle alle Deine Gesundheitsinformationen streng vertraulich nach DSGVO. Deine Daten werden sicher gespeichert und nicht an Dritte weitergegeben. Du hast jederzeit das Recht auf Auskunft, Berichtigung oder Löschung Deiner Daten.',
       },
+      {
+        title: 'Was ist ein Reizdarm und kann eine Darmtherapie helfen?',
+        description:
+          'Das Reizdarmsyndrom (RDS) ist eine funktionelle Darmstörung mit Symptomen wie Bauchschmerzen, Blähungen, Durchfall oder Verstopfung – oft ohne erkennbare organische Ursache. Eine holistische Darmtherapie kann helfen, indem sie das Darmmikrobiom analysiert, Ernährung anpasst, Trigger identifiziert und Stressmanagement integriert. Viele Betroffene berichten von deutlicher Besserung ihrer Beschwerden. Wichtig: Bei Verdacht auf Reizdarm sollte vorab eine ärztliche Abklärung erfolgen.',
+      },
+      {
+        title: 'Kann eine Darmtherapie bei Hautproblemen wie Akne oder Neurodermitis helfen?',
+        description:
+          'Ja, häufig besteht ein direkter Zusammenhang zwischen Darmgesundheit und Hautbild – die sogenannte Darm-Haut-Achse. Eine gestörte Darmflora, chronische Entzündungen oder Nahrungsmittelunverträglichkeiten können sich auf die Haut auswirken. Durch gezielte Ernährungsumstellung, Darmsanierung und Stärkung der Darmbarriere können Hautprobleme oft deutlich gebessert werden. Bei Hauterkrankungen arbeite ich gerne begleitend zu einer dermatologischen Behandlung.',
+      },
+      {
+        title: 'Hilft eine Darmtherapie bei Müdigkeit und Erschöpfung?',
+        description:
+          'Chronische Müdigkeit und Erschöpfung können viele Ursachen haben – eine davon ist oft eine gestörte Darmgesundheit. Ein unausgeglichenes Darmmikrobiom beeinträchtigt die Nährstoffaufnahme, kann zu Entzündungen führen und die Energie-Produktion blockieren. Durch gezielte Analysen, Mikronährstoff-Therapie und Darmsanierung kann die Vitalität häufig deutlich gesteigert werden. Wichtig: Chronische Erschöpfung sollte immer ärztlich abgeklärt werden, um andere Ursachen auszuschließen.',
+      },
+      {
+        title: 'Was ist SIBO und wie wird es behandelt?',
+        description:
+          'SIBO (Small Intestinal Bacterial Overgrowth) ist eine Dünndarmfehlbesiedlung, bei der sich Bakterien im Dünndarm übermäßig vermehren. Typische Symptome: starke Blähungen, Bauchschmerzen, Durchfall. Die Behandlung erfolgt über spezielle Ernährungsprotokolle (z.B. Low-FODMAP), gezielte Probiotika und ggf. pflanzliche Antibiotika. Eine SIBO-Diagnose sollte ärztlich per Atemtest gesichert werden – ich unterstütze dich dann mit einem individuellen Ernährungs- und Therapieplan.',
+      },
+      {
+        title: 'Wie lange muss ich mich an einen strengen Ernährungsplan halten?',
+        description:
+          'Das ist sehr individuell. In der Regel starten wir mit einer Eliminationsphase (z.B. bei Unverträglichkeiten oder Reizdarm) für 4-8 Wochen. Danach testen wir schrittweise, welche Lebensmittel du gut verträgst. Ziel ist keine dauerhafte Einschränkung, sondern eine nachhaltige, alltagstaugliche Ernährung, die zu dir passt und deine Beschwerden lindert. Ich begleite dich dabei, wieder mehr Lebensmittelvielfalt und Freiheit zu erreichen.',
+      },
+      {
+        title: 'Kann ich die Darmtherapie auch mit schulmedizinischer Behandlung kombinieren?',
+        description:
+          'Ja, absolut! Meine holistische Darmtherapie ist eine sinnvolle Ergänzung zur schulmedizinischen Behandlung – nicht als Ersatz. Viele meiner Klientinnen sind gleichzeitig in ärztlicher Behandlung, z.B. bei CED, Hashimoto oder Diabetes. Ich arbeite gerne begleitend und in Abstimmung mit deinem Arzt oder deiner Ärztin, um deine Gesundheit ganzheitlich zu unterstützen.',
+      },
+      {
+        title: 'Welche Laborwerte sind für eine Darmtherapie sinnvoll?',
+        description:
+          'Für eine fundierte Darmtherapie ist eine Stuhlanalyse sehr empfehlenswert. Sie zeigt das Darmmikrobiom, Entzündungsmarker (z.B. Calprotectin), Verdauungsleistung und ggf. Pilze/Parasiten. Ergänzend können Blutuntersuchungen (Mikronährstoffe, Schilddrüsenwerte, Entzündungsmarker) oder Atemtests (bei Unverträglichkeiten, SIBO) hilfreich sein. Ich berate dich gerne, welche Diagnostik in deinem Fall sinnvoll ist – das Labor-Kit bekommst du direkt nach Hause gesendet.',
+      },
+      {
+        title: 'Was kann ich selbst für meine Darmgesundheit tun?',
+        description:
+          'Du kannst bereits jetzt viel für deinen Darm tun: Iss ballaststoffreich und vielfältig, integriere fermentierte Lebensmittel (z.B. Sauerkraut, Kimchi, Naturjoghurt), reduziere Zucker und Fertigprodukte, trinke ausreichend Wasser, bewege dich regelmäßig und achte auf guten Schlaf. Auch Stressmanagement und Entspannungstechniken sind wichtig. Für individuelle, gezielte Maßnahmen – besonders bei bestehenden Beschwerden – unterstütze ich dich gerne persönlich.',
+      },
+      {
+        title: 'Gibt es eine Erfolgsgarantie?',
+        description:
+          'Jeder Mensch ist einzigartig, daher kann ich keine pauschale Erfolgsgarantie geben. Die allermeisten meiner Klientinnen berichten jedoch von deutlichen Verbesserungen ihrer Beschwerden, mehr Energie und einem besseren Bauchgefühl. Entscheidend ist deine Bereitschaft, den Therapieplan umzusetzen und dich aktiv zu beteiligen. Ich begleite dich dabei Schritt für Schritt – mit Geduld, Verständnis und fachlicher Expertise.',
+      },
     ]}
   />
 
   <!-- Call To Action **************** -->
   <CallToAction
-    title="Bereit für den ersten Schritt?"
-    subtitle="Starte jetzt deine Reise zu mehr Wohlbefinden mit einer holistischen Darmtherapie."
+    title="Bereit für dein gesundes Bauchgefühl?"
+    subtitle="Du möchtest deine Verdauungsbeschwerden endlich in den Griff bekommen, mehr Energie spüren und dich wieder rundum wohlfühlen? Starte jetzt mit einem unverbindlichen Erstgespräch – ich freue mich auf dich!"
     actions={[
       {
         variant: 'primary',
-        text: 'Termin vereinbaren',
+        text: 'Jetzt Termin buchen',
         href: '/termin-buchen',
       },
     ]}
