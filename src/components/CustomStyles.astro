@@ -1,13 +1,24 @@
 ---
-import '@fontsource-variable/noto-serif-display';
-import '@fontsource-variable/quicksand';
+import '@fontsource-variable/noto-serif-display/wght.css';
+import '@fontsource-variable/quicksand/wght.css';
 ---
 
 <style is:inline>
+  /* Font display optimization */
+  @font-face {
+    font-family: 'Quicksand Variable';
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Noto Serif Display Variable';
+    font-display: swap;
+  }
+
   :root {
-    --aw-font-sans: 'Quicksand Variable';
-    --aw-font-serif: 'Noto Serif Display Variable';
-    --aw-font-heading: 'Noto Serif Display Variable';
+    --aw-font-sans: 'Quicksand Variable', system-ui, -apple-system, sans-serif;
+    --aw-font-serif: 'Noto Serif Display Variable', Georgia, serif;
+    --aw-font-heading: 'Noto Serif Display Variable', Georgia, serif;
 
     --aw-color-primary: rgb(42, 112, 13);
     --aw-color-secondary: rgb(245, 245, 245);
