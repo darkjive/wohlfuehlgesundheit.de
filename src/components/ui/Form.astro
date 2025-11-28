@@ -8,7 +8,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
 <!-- Success Message -->
 <div id="contact-success-message" class="mb-6 hidden rounded-lg bg-green-50 p-8 shadow-md">
   <div class="text-center">
-    <p class="mb-4 text-2xl"><Emoji symbol="💖 💖 💖" label="Heart" /></p>
+    <p class="mb-4 text-xl"><Emoji symbol="💖 💖 💖" label="Heart" /></p>
     <h3 class="mb-4 text-3xl font-bold text-green-800 md:text-4xl">Danke, das hat geklappt!</h3>
     <p class="text-green-700" id="contact-success-text"></p>
   </div>
@@ -53,7 +53,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
                 id={name}
                 autocomplete={autocomplete}
                 placeholder={placeholder}
-                class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+                class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-gray-600"
                 required={type === 'email' ? true : undefined}
               />
             </div>
@@ -72,7 +72,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
           name={textarea.name ? textarea.name : 'message'}
           rows={textarea.rows ? textarea.rows : 4}
           placeholder={textarea.placeholder}
-          class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+          class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-gray-600"
           required
         />
       </div>
@@ -92,7 +92,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
             id="disclaimer"
             name="disclaimer"
             type="checkbox"
-            class="h-5 w-5 cursor-pointer rounded border border-gray-200 bg-white text-primary focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-slate-900"
+            class="h-5 w-5 cursor-pointer rounded border border-gray-200 bg-white text-primary focus:ring-2 focus:ring-primary dark:border-gray-600 dark:bg-gray-900"
             required
           />
         </div>

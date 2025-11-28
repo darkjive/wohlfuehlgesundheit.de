@@ -27,7 +27,7 @@ const {
       testimonials &&
         testimonials.map(({ title, testimonial, name, job, image }, index) => (
           <div class="flex h-auto" data-animate="fadeIn" data-animate-duration="600" data-animate-delay={index * 100}>
-            <div class="flex flex-col rounded-md bg-white p-4 shadow-xl dark:border dark:border-slate-600 dark:bg-primary dark:text-white dark:shadow-none md:p-6">
+            <div class="flex flex-col rounded-md bg-white p-4 shadow-xl dark:border dark:border-gray-600 dark:bg-primary dark:text-white dark:shadow-none md:p-6">
               {title && <h2 class="pb-4 text-lg font-medium leading-6">{title}</h2>}
               {testimonial && (
                 <blockquote class="flex-auto italic">
@@ -37,12 +37,12 @@ const {
 
               <div class="flex items-center">
                 {image && (
-                  <div class="h-10 w-10 rounded-full border border-slate-200 dark:border-slate-600">
+                  <div class="h-10 w-10 rounded-full border border-gray-200 dark:border-gray-600">
                     {typeof image === 'string' ? (
                       <Fragment set:html={image} />
                     ) : (
                       <Image
-                        class="h-10 min-h-full w-10 min-w-full rounded-full border border-slate-200 dark:border-slate-600"
+                        class="h-10 min-h-full w-10 min-w-full rounded-full border border-gray-200 dark:border-gray-600"
                         width={40}
                         height={40}
                         widths={[400, 768]}
@@ -55,7 +55,7 @@ const {
 
                 <div class="ml-3 grow rtl:ml-0 rtl:mr-3">
                   {name && <p class="text-base font-semibold">{name}</p>}
-                  {job && <p class="text-xs">{job}</p>}
+                  {job && <p class="text-sm">{job}</p>}
                 </div>
               </div>
             </div>
