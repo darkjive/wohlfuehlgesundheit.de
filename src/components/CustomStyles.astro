@@ -1,6 +1,13 @@
 ---
 import '@fontsource-variable/noto-serif-display/wght.css';
+import '@fontsource/noto-serif-display/100-italic.css';
+import '@fontsource/noto-serif-display/500.css';
+import '@fontsource/noto-serif-display/500-italic.css';
+import '@fontsource/noto-serif-display/600-italic.css';
 import '@fontsource-variable/quicksand/wght.css';
+import '@fontsource/quicksand/300.css';
+import '@fontsource/quicksand/400.css';
+import '@fontsource/quicksand/500.css';
 ---
 
 <style is:inline>
@@ -16,9 +23,29 @@ import '@fontsource-variable/quicksand/wght.css';
   }
 
   :root {
+    /* Font families */
     --aw-font-sans: 'Quicksand Variable', system-ui, -apple-system, sans-serif;
     --aw-font-serif: 'Noto Serif Display Variable', Georgia, serif;
     --aw-font-heading: 'Noto Serif Display Variable', Georgia, serif;
+    --aw-font-italic: 'Noto Serif Display Variable', Georgia, serif;
+    --aw-font-light: 'Quicksand Variable', system-ui, -apple-system, sans-serif;
+    --aw-font-medium: 'Quicksand Variable', system-ui, -apple-system, sans-serif;
+
+    /* Font weights */
+    --aw-font-weight-sans: 400;
+    --aw-font-weight-serif: 100;
+    --aw-font-weight-heading: 500;
+    --aw-font-weight-italic: 600;
+    --aw-font-weight-light: 300;
+    --aw-font-weight-medium: 500;
+
+    /* Font styles */
+    --aw-font-style-sans: normal;
+    --aw-font-style-serif: italic;
+    --aw-font-style-heading: italic;
+    --aw-font-style-italic: italic;
+    --aw-font-style-light: normal;
+    --aw-font-style-medium: normal;
 
     --aw-color-primary: rgb(42, 112, 13);
     --aw-color-secondary: rgb(245, 245, 245);
@@ -38,9 +65,29 @@ import '@fontsource-variable/quicksand/wght.css';
   }
 
   .dark {
+    /* Font families */
     --aw-font-sans: 'Quicksand Variable';
     --aw-font-serif: 'Noto Serif Display Variable';
     --aw-font-heading: 'Noto Serif Display Variable';
+    --aw-font-italic: 'Noto Serif Display Variable';
+    --aw-font-light: 'Quicksand Variable';
+    --aw-font-medium: 'Quicksand Variable';
+
+    /* Font weights */
+    --aw-font-weight-sans: 400;
+    --aw-font-weight-serif: 100;
+    --aw-font-weight-heading: 500;
+    --aw-font-weight-italic: 600;
+    --aw-font-weight-light: 300;
+    --aw-font-weight-medium: 500;
+
+    /* Font styles */
+    --aw-font-style-sans: normal;
+    --aw-font-style-serif: italic;
+    --aw-font-style-heading: italic;
+    --aw-font-style-italic: italic;
+    --aw-font-style-light: normal;
+    --aw-font-style-medium: normal;
 
     --aw-color-primary: rgb(39, 100, 13);
     --aw-color-secondary: rgb(230, 230, 230);
@@ -73,5 +120,42 @@ import '@fontsource-variable/quicksand/wght.css';
       animation-duration: 0.3s;
       animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+  }
+
+  /* Font utility classes using CSS variables */
+  .font-serif {
+    font-family: var(--aw-font-serif);
+    font-weight: var(--aw-font-weight-serif);
+    font-style: var(--aw-font-style-serif);
+  }
+
+  .font-heading {
+    font-family: var(--aw-font-heading);
+    font-weight: var(--aw-font-weight-heading);
+    font-style: var(--aw-font-style-heading);
+  }
+
+  .font-italic {
+    font-family: var(--aw-font-italic);
+    font-weight: var(--aw-font-weight-italic);
+    font-style: var(--aw-font-style-italic);
+  }
+
+  .font-sans {
+    font-family: var(--aw-font-sans);
+    font-weight: var(--aw-font-weight-sans);
+    font-style: var(--aw-font-style-sans);
+  }
+
+  .font-light {
+    font-family: var(--aw-font-light);
+    font-weight: var(--aw-font-weight-light);
+    font-style: var(--aw-font-style-light);
+  }
+
+  .font-medium {
+    font-family: var(--aw-font-medium);
+    font-weight: var(--aw-font-weight-medium);
+    font-style: var(--aw-font-style-medium);
   }
 </style>
