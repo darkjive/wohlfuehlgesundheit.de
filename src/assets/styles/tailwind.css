@@ -31,11 +31,11 @@
   }
 
   .btn-primary {
-    @apply btn border-primary bg-primary font-semibold text-white hover:border-secondary hover:bg-secondary hover:text-[#2a700d] dark:border-[#2a700d] dark:bg-primary dark:hover:border-secondary dark:hover:bg-secondary;
+    @apply btn border-primary bg-primary font-semibold text-white hover:border-secondary hover:bg-secondary hover:text-primary dark:border-primary dark:bg-primary dark:hover:border-secondary dark:hover:bg-secondary;
   }
 
   .btn-secondary {
-    @apply btn border-secondary bg-secondary font-semibold text-[#2a700d] hover:border-primary hover:bg-primary hover:text-white dark:border-secondary dark:bg-secondary dark:hover:border-primary dark:hover:bg-primary;
+    @apply btn border-secondary bg-secondary font-semibold text-primary hover:border-primary hover:bg-primary hover:text-white dark:border-secondary dark:bg-secondary dark:hover:border-primary dark:hover:bg-primary;
   }
 
   .btn-tertiary {
@@ -50,7 +50,7 @@
 
   .dark #header.scroll > div:first-child,
   #header.scroll.dark > div:first-child {
-    @apply bg-page border-b border-gray-500/20 md:bg-[#2a700dff];
+    @apply bg-page border-b border-gray-500/20 md:bg-primary;
     box-shadow: none;
   }
 

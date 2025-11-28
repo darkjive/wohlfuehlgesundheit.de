@@ -5,7 +5,7 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <!-- Zoom Appointment Booking -->
-<div class="border-b border-gray-200 pb-8 dark:border-[#4c8733]">
+<div class="border-b border-gray-200 pb-8 dark:border-gray-600">
   <h3 class="mb-6 flex text-lg font-semibold text-gray-900 dark:text-gray-100">
     <Icon name="tabler:calendar" class="text-primary-600 mr-2 h-8 w-8" />
     Zoom-Erstgespräch Termin buchen
@@ -22,7 +22,7 @@ import { Icon } from 'astro-icon/components';
         name="datum"
         required
         min=""
-        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
       />
       <p class="mt-1 text-sm text-gray-300">Bitte wähle ein Datum in der Zukunft</p>
     </div>
@@ -35,7 +35,7 @@ import { Icon } from 'astro-icon/components';
         id="uhrzeit"
         name="uhrzeit"
         required
-        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
       >
         <option value="">Bitte wählen</option>
         <option value="08:00">08:00 Uhr</option>
@@ -61,7 +61,7 @@ import { Icon } from 'astro-icon/components';
         id="dauer"
         name="dauer"
         required
-        class="text-md dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
+        class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-none"
       >
         <option value="40" selected>40 Minuten (empfohlen)</option>
         <option value="20">20 Minuten</option>

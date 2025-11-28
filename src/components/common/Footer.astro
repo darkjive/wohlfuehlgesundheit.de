@@ -36,7 +36,7 @@ const formattedBuildTime = buildTime
   : '';
 ---
 
-<footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative border-t border-gray-200 dark:border-[#2a4b1c]']}>
+<footer class:list={[{ dark: theme === 'dark' }, 'not-prose relative border-t border-gray-200 dark:border-gray-600']}>
   <div class="dark:bg-dark pointer-events-none absolute inset-0 dark:bg-none" aria-hidden="true"></div>
   <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Main Footer Content -->
@@ -77,7 +77,7 @@ const formattedBuildTime = buildTime
             <div class="space-y-1">
               {socialLinks.map(({ ariaLabel, href, icon }) => (
                 <a
-                  class="bg-primary/10 dark:bg-secondary/10 inline-flex h-10 w-10 items-center justify-center rounded-lg text-primary transition-all hover:bg-primary hover:text-white dark:text-secondary dark:hover:bg-secondary dark:hover:text-[#2a700d]"
+                  class="bg-primary/10 dark:bg-secondary/10 inline-flex h-10 w-10 items-center justify-center rounded-lg text-primary transition-all hover:bg-primary hover:text-white dark:text-secondary dark:hover:bg-secondary dark:hover:text-primary"
                   aria-label={ariaLabel}
                   href={href}
                   target="_blank"
@@ -98,7 +98,7 @@ const formattedBuildTime = buildTime
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-gray-200 py-6 dark:border-[#2a4b1c]">
+    <div class="border-t border-gray-200 py-6 dark:border-gray-600">
       <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
         <!-- Copyright & Legal Links -->
         <div class="text-center text-sm text-gray-600 dark:text-gray-400 md:text-left">
