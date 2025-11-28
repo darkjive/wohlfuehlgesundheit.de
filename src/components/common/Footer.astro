@@ -41,7 +41,7 @@ const formattedBuildTime = buildTime
     <!-- Main Footer Content -->
     <div class="grid grid-cols-2 gap-8 py-12 md:grid-cols-4 lg:grid-cols-5 lg:gap-12">
       <!-- About Wohlfühlgesundheit -->
-      <div class="hidden lg:block space-y-4 text-center">
+      <div class="hidden space-y-4 text-center lg:block">
         <h3 class="text-base/3 text-primary dark:text-secondary sm:text-sm">
           <a aria-label="Startseite" href="/">wohlfühlgesundheit.de</a>
         </h3>
@@ -53,7 +53,7 @@ const formattedBuildTime = buildTime
         {
           socialLinks.length > 0 && (
             <div class="space-y-2">
-                            {socialLinks.map(({ ariaLabel, href, icon }) => (
+              {socialLinks.map(({ ariaLabel, href, icon }) => (
                 <a
                   class="bg-primary/10 dark:bg-secondary/10 inline-flex h-10 w-10 items-center justify-center rounded-lg text-primary transition-all hover:bg-primary hover:text-white dark:text-secondary dark:hover:bg-secondary dark:hover:text-[#2a700d]"
                   aria-label={ariaLabel}
@@ -64,7 +64,7 @@ const formattedBuildTime = buildTime
                   {icon && <Icon name={icon} class="h-10 w-10" />}
                 </a>
               ))}
-    <p>Folge mir auf Instagram </p>
+              <p>Folge mir auf Instagram </p>
             </div>
           )
         }
