@@ -42,15 +42,13 @@ const formattedBuildTime = buildTime
     <!-- Main Footer Content -->
     <div class="grid grid-cols-2 gap-8 py-12 md:grid-cols-4 lg:grid-cols-5 lg:gap-12">
       <!-- About Wohlfühlgesundheit -->
-      <div class="space-y-1 hidden text-center lg:block">
-
-      <a aria-label="Startseite" class="items-center" href={getHomePermalink()}>
-        <h3 class="text-lg text-primary dark:text-secondary">
-          wohlfühlgesundheit.de
-        </h3>
-        <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-          Holistische Darmtherapie für dein Wohlbefinden. Entdecke den Weg zu mehr Gesundheit und Vitalität.
-        </p></a>
+      <div class="hidden space-y-1 text-center lg:block">
+        <a aria-label="Startseite" class="items-center" href={getHomePermalink()}>
+          <h3 class="text-lg text-primary dark:text-secondary">wohlfühlgesundheit.de</h3>
+          <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+            Holistische Darmtherapie für dein Wohlbefinden. Entdecke den Weg zu mehr Gesundheit und Vitalität.
+          </p></a
+        >
       </div>
 
       <!-- Dynamic Sections -->
@@ -88,7 +86,11 @@ const formattedBuildTime = buildTime
                   {icon && <Icon name={icon} class="h-10 w-10" />}
                 </a>
               ))}
-              <p class="text-lg text-primary dark:text-secondary">Folge mir<br/>auf Instagram </p>
+              <p class="text-lg text-primary dark:text-secondary">
+                Folge mir
+                <br />
+                auf Instagram{' '}
+              </p>
             </div>
           )
         }
