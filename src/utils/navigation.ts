@@ -1,4 +1,4 @@
-import { getPermalink } from '../utils/permalinks';
+import { getPermalink } from './permalinks';
 
 export const headerData = {
   links: [
@@ -30,27 +30,27 @@ export const footerData = {
     {
       title: 'Navigation',
       links: [
-        { text: 'Start', href: getPermalink(), icon: 'tabler:home' },
-        { text: 'Über mich', href: getPermalink('/ueber-mich'), icon: 'tabler:user-heart' },
-        { text: 'Termin buchen', href: getPermalink('/termin-buchen'), icon: 'tabler:calendar-check' },
-        { text: 'FAQ', href: getPermalink('/#faq'), icon: 'tabler:help-circle' },
+        { text: 'Start', href: getPermalink() },
+        { text: 'Über mich', href: getPermalink('/ueber-mich') },
+        { text: 'Termin buchen', href: getPermalink('/termin-buchen') },
+        { text: 'FAQ', href: getPermalink('/#faq') },
       ],
     },
     {
       title: 'Angebote',
       links: [
-        { text: 'Darmtherapie', href: getPermalink('/#leistungen'), icon: 'tabler:heart-handshake' },
-        { text: 'Beratung', href: getPermalink('/#leistungen'), icon: 'tabler:message-circle-2' },
-        { text: 'Kontakt', href: getPermalink('/kontakt'), icon: 'tabler:mail' },
+        { text: 'Darmtherapie', href: getPermalink('/#features') },
+        { text: 'Methoden', href: getPermalink('/#methods') },
+        { text: 'Kontakt', href: getPermalink('/kontakt') },
       ],
     },
     {
       title: 'Rechtliches',
       links: [
-        { text: 'Impressum', href: getPermalink('/impressum'), icon: 'tabler:file-text' },
-        { text: 'Datenschutz', href: getPermalink('/datenschutz'), icon: 'tabler:shield-lock' },
-        { text: 'AGB', href: getPermalink('/agb'), icon: 'tabler:file-description' },
-        { text: 'Widerrufsbelehrung', href: getPermalink('/widerrufsbelehrung'), icon: 'tabler:rotate-clockwise-2' },
+        { text: 'Impressum', href: getPermalink('/impressum') },
+        { text: 'Datenschutz', href: getPermalink('/datenschutz') },
+        { text: 'AGB', href: getPermalink('/agb') },
+        { text: 'Widerrufsbelehrung', href: getPermalink('/widerrufsbelehrung') },
       ],
     },
   ],
