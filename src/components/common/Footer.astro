@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { getHomePermalink } from '~/utils/permalinks';
 
 interface Link {
   text?: string;
@@ -41,41 +42,23 @@ const formattedBuildTime = buildTime
     <!-- Main Footer Content -->
     <div class="grid grid-cols-2 gap-8 py-12 md:grid-cols-4 lg:grid-cols-5 lg:gap-12">
       <!-- About Wohlfühlgesundheit -->
-      <div class="hidden space-y-4 text-center lg:block">
-        <h3 class="text-base/3 text-primary dark:text-secondary sm:text-sm">
-          <a aria-label="Startseite" href="/">wohlfühlgesundheit.de</a>
+      <div class="space-y-1 hidden text-center lg:block">
+
+      <a aria-label="Startseite" class="items-center" href={getHomePermalink()}>
+        <h3 class="text-lg text-primary dark:text-secondary">
+          wohlfühlgesundheit.de
         </h3>
         <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
           Holistische Darmtherapie für dein Wohlbefinden. Entdecke den Weg zu mehr Gesundheit und Vitalität.
-        </p>
-      </div>
-      <div class="space-y-4 text-center">
-        {
-          socialLinks.length > 0 && (
-            <div class="space-y-2">
-              {socialLinks.map(({ ariaLabel, href, icon }) => (
-                <a
-                  class="bg-primary/10 dark:bg-secondary/10 inline-flex h-10 w-10 items-center justify-center rounded-lg text-primary transition-all hover:bg-primary hover:text-white dark:text-secondary dark:hover:bg-secondary dark:hover:text-[#2a700d]"
-                  aria-label={ariaLabel}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {icon && <Icon name={icon} class="h-10 w-10" />}
-                </a>
-              ))}
-              <p>Folge mir auf Instagram </p>
-            </div>
-          )
-        }
+        </p></a>
       </div>
 
       <!-- Dynamic Sections -->
       {
         sections.map((section) => (
-          <div class="space-y-4 text-center">
+          <div class="space-y-1 text-center">
             <h3 class="text-lg text-primary dark:text-secondary">{section.title}</h3>
-            <ul class="space-y-2">
+            <ul class="space-y-1">
               {section.links.map((link) => (
                 <li>
                   <a
@@ -90,6 +73,26 @@ const formattedBuildTime = buildTime
           </div>
         ))
       }
+      <div class="space-y-1 text-center">
+        {
+          socialLinks.length > 0 && (
+            <div class="space-y-1">
+              {socialLinks.map(({ ariaLabel, href, icon }) => (
+                <a
+                  class="bg-primary/10 dark:bg-secondary/10 inline-flex h-10 w-10 items-center justify-center rounded-lg text-primary transition-all hover:bg-primary hover:text-white dark:text-secondary dark:hover:bg-secondary dark:hover:text-[#2a700d]"
+                  aria-label={ariaLabel}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {icon && <Icon name={icon} class="h-10 w-10" />}
+                </a>
+              ))}
+              <p class="text-lg text-primary dark:text-secondary">Folge mir<br/>auf Instagram </p>
+            </div>
+          )
+        }
+      </div>
     </div>
 
     <!-- Bottom Bar -->
