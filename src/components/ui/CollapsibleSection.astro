@@ -12,9 +12,9 @@ interface Props {
 const { title, subtitle, isOptional = true } = Astro.props;
 ---
 
-<details class="collapsible-section group mb-6 rounded-lg border border-gray-300 transition-all dark:border-gray-600">
+<details class="collapsible-section group mb-6 rounded-lg border border-gray-200 transition-all dark:border-[#4c8733]">
   <summary
-    class="dark:hover:bg-dark dark:group-open:bg-dark flex cursor-pointer items-center justify-between rounded-lg px-6 py-4 text-lg font-semibold text-gray-400 transition-colors hover:bg-gray-50 group-open:bg-gray-50 group-open:text-gray-900 dark:text-gray-400 dark:group-open:text-gray-100"
+    class="flex cursor-pointer items-center justify-between rounded-lg px-6 py-4 text-lg font-semibold text-gray-400 transition-colors group-open:text-gray-900 dark:text-gray-400 dark:group-open:text-gray-100"
   >
     <div class="flex items-center gap-3">
       <span class="section-title">{title}</span>
