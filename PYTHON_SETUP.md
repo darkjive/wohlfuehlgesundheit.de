@@ -45,7 +45,7 @@ Nach Aktivierung siehst du `(venv)` im Prompt:
 pip install -r api/requirements.txt
 
 # Oder direkt:
-pip install reelscraper
+pip install instaloader
 ```
 
 ### 4. Instagram-Feed abrufen
@@ -95,10 +95,10 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
-# Check if reelscraper is installed
-if ! python3 -c "import reelscraper" 2>/dev/null; then
-    echo "📦 Installing reelscraper..."
-    pip install reelscraper
+# Check if instaloader is installed
+if ! python3 -c "import instaloader" 2>/dev/null; then
+    echo "📦 Installing instaloader..."
+    pip install instaloader
 fi
 
 # Run the Python script
@@ -121,10 +121,10 @@ echo "📍 File: $OUTPUT_FILE"
 Falls du kein venv nutzen willst:
 ```bash
 # System-weit installieren
-pip install reelscraper
+pip install instaloader
 
 # Oder nur für User
-pip install --user reelscraper
+pip install --user instaloader
 ```
 
 ---
@@ -159,7 +159,7 @@ deactivate               # Bei Session-Ende
 **Ohne venv:**
 ```bash
 # Einmalig
-pip install --user reelscraper
+pip install --user instaloader
 
 # Danach:
 npm run instagram:fetch  # Funktioniert direkt
@@ -170,10 +170,10 @@ npm run instagram:fetch  # Funktioniert direkt
 **IONOS nutzt System-Python**, daher:
 ```bash
 # Auf IONOS (kein venv nötig)
-pip3 install reelscraper
+pip3 install instaloader
 
 # Oder in Benutzer-Verzeichnis
-pip3 install --user reelscraper
+pip3 install --user instaloader
 ```
 
 ---
@@ -216,9 +216,9 @@ source venv/bin/activate
 
 ### Kann ich npm ohne venv nutzen?
 
-Ja, aber dann muss `reelscraper` system-weit installiert sein:
+Ja, aber dann muss `instaloader` system-weit installiert sein:
 ```bash
-pip install --user reelscraper
+pip install --user instaloader
 ```
 
 ### Was ist der Unterschied zu pipenv?

@@ -22,7 +22,7 @@ Komplette Anleitung zur Instagram-Feed-Integration für lokale Entwicklung (Garu
 
 ```bash
 # 1. Python-Dependencies installieren
-pip install reelscraper
+pip install instaloader
 
 # 2. Feed abrufen
 npm run instagram:fetch
@@ -75,8 +75,8 @@ sudo pacman -S python python-pip
 # Ins Projektverzeichnis wechseln
 cd /home/user/wohlfuehlgesundheit.de
 
-# reelscraper installieren
-pip install reelscraper
+# instaloader installieren
+pip install instaloader
 
 # Oder mit requirements.txt:
 pip install -r api/requirements.txt
@@ -88,7 +88,7 @@ pip install -r api/requirements.txt
 pip install pipenv
 
 # Virtuelle Umgebung erstellen und Dependencies installieren
-pipenv install reelscraper
+pipenv install instaloader
 
 # Shell mit virtueller Umgebung starten
 pipenv shell
@@ -229,8 +229,8 @@ ssh benutzer@deine-domain.de
 # Navigiere zum Projektverzeichnis
 cd /pfad/zu/wohlfuehlgesundheit.de
 
-# Installiere reelscraper
-pip3 install reelscraper
+# Installiere instaloader
+pip3 install instaloader
 # oder mit requirements.txt:
 pip3 install -r api/requirements.txt
 ```
@@ -350,30 +350,30 @@ python3 api/instagram_feed.py wohl_fuehl_gesundheit --max-posts 20
 
 ## Fehlersuche
 
-### Problem: `ModuleNotFoundError: No module named 'reelscraper'`
+### Problem: `ModuleNotFoundError: No module named 'instaloader'`
 
 **Symptom:**
 ```
-Error: reelscraper not installed. Install with: pip install reelscraper
+Error: instaloader not installed. Install with: pip install instaloader
 ```
 
 **Lösung (Garuda Linux):**
 ```bash
-pip install reelscraper
+pip install instaloader
 
 # Falls Permission-Fehler:
-pip install --user reelscraper
+pip install --user instaloader
 
 # Oder system-weit:
-sudo pip install reelscraper
+sudo pip install instaloader
 ```
 
 **Lösung (IONOS):**
 ```bash
-pip3 install reelscraper
+pip3 install instaloader
 
 # Falls pip3 fehlt:
-python3 -m pip install reelscraper
+python3 -m pip install instaloader
 ```
 
 ---
@@ -393,6 +393,35 @@ chmod +x scripts/fetch-instagram.sh
 
 # Oder direkt mit Python ausführen
 python3 api/instagram_feed.py
+```
+
+---
+
+### Problem: `403 Forbidden` Warnung (normal!)
+
+**Symptom:**
+```
+JSON Query to graphql/query: 403 Forbidden when accessing https://www.instagram.com/graphql/query [retrying; skip with ^C]
+```
+
+**Erklärung:**
+✅ **Dies ist NORMAL und KEIN Fehler!**
+
+Instagram hat Anti-Bot-Schutz, der manchmal den ersten Request blockiert. `instaloader` erkennt das automatisch und macht einen Retry mit angepassten Request-Headern.
+
+**Was passiert:**
+1. Erster Request → 403 Forbidden (Instagram blockt)
+2. instaloader wartet kurz
+3. Zweiter Request → Erfolgreich! ✅
+
+**Lösung:**
+- ✅ Nichts tun - das Script funktioniert automatisch
+- ⚠️ Wenn es mehrmals fehlschlägt: 5-10 Minuten warten
+- ℹ️ Die Warnung verschwindet nicht, aber das Feed wird trotzdem generiert
+
+**Bestätigung dass es funktioniert hat:**
+```
+✓ Generated Instagram feed: public/data/instagram-feed.json (12 posts)
 ```
 
 ---
@@ -810,7 +839,7 @@ exit 0
 
 ## Nützliche Links
 
-- **reelscraper Dokumentation**: https://pypi.org/project/reelscraper/
+- **instaloader Dokumentation**: https://instaloader.github.io/
 - **Instagram Profil**: https://www.instagram.com/wohl_fuehl_gesundheit/
 - **Astro Dokumentation**: https://docs.astro.build/
 - **Python 3 Dokumentation**: https://docs.python.org/3/
@@ -824,7 +853,7 @@ Bei Problemen oder Fragen:
 1. **Logs prüfen** (siehe [Monitoring & Logs](#monitoring--logs))
 2. **Fehlersuche durchgehen** (siehe [Fehlersuche](#fehlersuche))
 3. **GitHub Issues**: https://github.com/darkjive/wohlfuehlgesundheit.de/issues
-4. **reelscraper Issues**: https://github.com/nordteam/reelscraper/issues
+4. **instaloader Issues**: https://github.com/instaloader/instaloader/issues
 
 ---
 

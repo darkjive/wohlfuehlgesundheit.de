@@ -49,7 +49,7 @@ pip install -r api/requirements.txt
 
 Benötigt:
 - Python 3.7+
-- reelscraper >= 1.0.0
+- instaloader >= 1.0.0
 
 ## 📝 Scripts
 
