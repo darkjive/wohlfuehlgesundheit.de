@@ -246,6 +246,13 @@ Die Website nutzt ein benutzerdefiniertes PHP-Backend für die Formular-Verarbei
   - Terminverwaltung & Kalender-Integration (ICS)
   - Warteraum-Funktion für erhöhte Sicherheit
 
+- **Instagram-Feed-Integration**:
+  - Automatischer Feed-Import via EnsembleData API
+  - Responsive Grid-Layout mit Hover-Effekten
+  - Cache-System (1 Stunde) zur Minimierung von API-Calls
+  - Lazy Loading für optimale Performance
+  - Error Handling & Fallback-Darstellung
+
 - **Sicherheitsfeatures**:
   - Umfassende Formular-Validierung
   - Spam-Schutz
@@ -373,6 +380,85 @@ Das Projekt nutzt eine benutzerdefinierte Astro-Integration (`integrations/wohlf
 3. `dist/` Ordner auf Webserver deployen
 4. Sicherstellen, dass `public/api/` PHP-Dateien ausführbar sind
 5. `.env`-Datei mit Credentials konfigurieren (Zoom, E-Mail, etc.)
+
+---
+
+## Instagram-Feed einrichten
+
+Die Website zeigt automatisch Instagram-Posts über die EnsembleData API an.
+
+### Konfiguration
+
+1. **EnsembleData Account erstellen**:
+
+   - Registriere dich unter: https://dashboard.ensembledata.com/register
+   - Erhalte deinen API-Token (7 Tage kostenloser Trial verfügbar)
+
+2. **Umgebungsvariablen setzen**:
+
+   Bearbeite `public/api/.env` und füge hinzu:
+
+   ```env
+   ENSEMBLEDATA_API_TOKEN=dein-api-token-hier
+   INSTAGRAM_USERNAME=wohl_fuehl_gesundheit
+   ```
+
+3. **Cache-Verzeichnis erstellen**:
+
+   ```bash
+   mkdir -p public/api/cache
+   chmod 755 public/api/cache
+   ```
+
+### Verwendung
+
+Der Instagram-Feed ist bereits in `src/pages/index.astro` integriert:
+
+```astro
+<InstagramFeed
+  id="instagram"
+  title="Folge mir auf Instagram"
+  subtitle="Inspirierende Rezepte und Tipps zur Darmgesundheit"
+  tagline="Social Media"
+  username="wohl_fuehl_gesundheit"
+  postsToShow={6}
+  columns={3}
+/>
+```
+
+**Props**:
+
+- `username`: Instagram-Username (ohne @)
+- `postsToShow`: Anzahl der angezeigten Posts (Standard: 6)
+- `columns`: Anzahl der Spalten im Grid (Standard: 3)
+- `title`, `subtitle`, `tagline`: Überschriften-Elemente
+
+### API-Endpoint
+
+Der Feed wird über `/api/instagram-feed.php` bereitgestellt:
+
+- **Caching**: 1 Stunde (3600 Sekunden)
+- **Rate Limiting**: 10 Requests pro Stunde
+- **Datenformat**: JSON mit Post-Details (Bild, Caption, Likes, Comments)
+
+### Fehlerbehandlung
+
+Der Feed zeigt automatisch:
+
+- **Loading State**: Spinner während des Ladens
+- **Error State**: Freundliche Fehlermeldung bei API-Problemen
+- **Responsive Layout**: Mobile-optimiertes Grid (1/2/3 Spalten je nach Viewport)
+
+### Cache manuell leeren
+
+```bash
+rm public/api/cache/instagram-feed.json
+```
+
+### Dokumentation
+
+- **EnsembleData API**: https://ensembledata.com/instagram-api
+- **Node.js Library**: https://github.com/ensembledata/ensembledata-node
 
 ---
 

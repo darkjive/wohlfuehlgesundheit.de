@@ -1,0 +1,205 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import type { InstagramFeed as Props } from '~/types';
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline = await Astro.slots.render('tagline'),
+  username = 'wohl_fuehl_gesundheit',
+  postsToShow = 6,
+  columns = 3,
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+
+// Generate unique ID for this feed instance
+const feedId = `instagram-feed-${Math.random().toString(36).substring(7)}`;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
+
+  <div id={feedId} class="instagram-feed" data-username={username} data-posts={postsToShow}>
+    <!-- Loading State -->
+    <div class="feed-loading" role="status" aria-live="polite">
+      <div class="flex items-center justify-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        <span class="sr-only">Instagram-Feed wird geladen...</span>
+      </div>
+    </div>
+
+    <!-- Error State (hidden by default) -->
+    <div class="feed-error hidden" role="alert">
+      <div class="rounded-lg border border-red-300 bg-red-50 p-6 text-center dark:border-red-700 dark:bg-red-900/20">
+        <p class="text-red-800 dark:text-red-200">
+          Der Instagram-Feed konnte nicht geladen werden. Bitte versuche es später erneut.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feed Grid (populated by JavaScript) -->
+    <div class="feed-grid hidden grid gap-4 sm:gap-6" style={`grid-template-columns: repeat(${columns}, minmax(0, 1fr))`}>
+    </div>
+  </div>
+
+  <!-- CTA to Instagram Profile -->
+  <div class="mt-8 text-center">
+    <a
+      href={`https://www.instagram.com/${username}/`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-primary inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-white transition hover:bg-primary/90"
+    >
+      <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+        ></path>
+      </svg>
+      Folge uns auf Instagram
+    </a>
+  </div>
+</WidgetWrapper>
+
+<script>
+  // Instagram Feed Loader
+  class InstagramFeed {
+    private feedElement: HTMLElement;
+    private username: string;
+    private postsToShow: number;
+    private loadingElement: HTMLElement | null;
+    private errorElement: HTMLElement | null;
+    private gridElement: HTMLElement | null;
+
+    constructor(feedElement: HTMLElement) {
+      this.feedElement = feedElement;
+      this.username = feedElement.dataset.username || 'wohl_fuehl_gesundheit';
+      this.postsToShow = parseInt(feedElement.dataset.posts || '6', 10);
+      this.loadingElement = feedElement.querySelector('.feed-loading');
+      this.errorElement = feedElement.querySelector('.feed-error');
+      this.gridElement = feedElement.querySelector('.feed-grid');
+
+      this.loadFeed();
+    }
+
+    private async loadFeed() {
+      try {
+        const response = await fetch('/api/instagram-feed.php');
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.message || 'Failed to load Instagram feed');
+        }
+
+        this.renderFeed(result.data);
+      } catch (error) {
+        console.error('Instagram Feed Error:', error);
+        this.showError();
+      }
+    }
+
+    private renderFeed(posts: any[]) {
+      if (!this.gridElement) return;
+
+      // Limit posts to requested amount
+      const postsToRender = posts.slice(0, this.postsToShow);
+
+      // Build grid HTML
+      const gridHTML = postsToRender
+        .map(
+          (post) => `
+        <a
+          href="${this.escapeHtml(post.permalink)}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="instagram-post group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800"
+          aria-label="Instagram Post"
+        >
+          <img
+            src="${this.escapeHtml(post.media_url)}"
+            alt="${this.escapeHtml(post.caption ? post.caption.substring(0, 100) : 'Instagram Post')}"
+            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-black/0 transition-all duration-300 group-hover:bg-black/40">
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <div class="flex gap-4 text-white">
+                <div class="flex items-center gap-1">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                  <span class="text-sm font-medium">${post.likes || 0}</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/>
+                  </svg>
+                  <span class="text-sm font-medium">${post.comments || 0}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      `
+        )
+        .join('');
+
+      this.gridElement.innerHTML = gridHTML;
+
+      // Show grid, hide loading
+      this.gridElement.classList.remove('hidden');
+      this.loadingElement?.classList.add('hidden');
+    }
+
+    private showError() {
+      this.loadingElement?.classList.add('hidden');
+      this.errorElement?.classList.remove('hidden');
+    }
+
+    private escapeHtml(text: string): string {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  }
+
+  // Initialize all Instagram feeds on the page
+  document.addEventListener('DOMContentLoaded', () => {
+    const feeds = document.querySelectorAll<HTMLElement>('.instagram-feed');
+    feeds.forEach((feed) => new InstagramFeed(feed));
+  });
+</script>
+
+<style>
+  .instagram-post {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .instagram-post img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 640px) {
+    .feed-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .feed-grid {
+      grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+  }
+</style>

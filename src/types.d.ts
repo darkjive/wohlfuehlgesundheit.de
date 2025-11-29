@@ -299,3 +299,9 @@ export interface Complaints extends Omit<Headline, 'classes'>, Widget {
   defaultIcon?: string;
   footerText?: string;
 }
+
+export interface InstagramFeed extends Omit<Headline, 'classes'>, Widget {
+  username?: string;
+  postsToShow?: number;
+  columns?: number;
+}

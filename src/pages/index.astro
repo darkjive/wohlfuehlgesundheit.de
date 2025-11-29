@@ -7,6 +7,7 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Quote from '~/components/widgets/Quote.astro';
 import Complaints from '~/components/widgets/Complaints.astro';
+import InstagramFeed from '~/components/widgets/InstagramFeed.astro';
 
 const metadata = {
   title: 'Darmgesundheit & Ernährungsberatung | Holistische Darmtherapie Groß-Umstadt',
@@ -320,6 +321,21 @@ const metadata = {
     quote="Eure Nahrungsmittel sollen eure Heilmittel und eure Heilmittel eure Nahrungsmittel sein."
     author="Hippokrates"
   />
+
+  <!-- Instagram Feed Widget ******************* -->
+  <InstagramFeed
+    id="instagram"
+    title="Folge mir auf Instagram"
+    subtitle="Entdecke inspirierende Rezepte, praktische Tipps zur Darmgesundheit und Einblicke in meinen holistischen Ansatz. Lass dich motivieren auf deinem Weg zu mehr Wohlbefinden!"
+    tagline="Social Media"
+    username="wohl_fuehl_gesundheit"
+    postsToShow={6}
+    columns={3}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-green-50 dark:bg-transparent"></div>
+    </Fragment>
+  </InstagramFeed>
 
   <!-- FAQs Widget ******************* -->
   <FAQs
