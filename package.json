@@ -17,6 +17,7 @@
     "deploy": "npm run build && ./deploy.sh",
     "astro": "astro",
     "instagram:fetch": "bash scripts/fetch-instagram.sh",
+    "instagram:check": "bash scripts/check-instagram-feed.sh",
     "check": "npm run check:astro && npm run check:eslint && npm run check:prettier",
     "check:astro": "astro check",
     "check:eslint": "eslint .",
