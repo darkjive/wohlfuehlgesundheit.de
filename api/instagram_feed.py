@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
 """
 Instagram Feed Scraper for wohlfuehlgesundheit.de
-Uses reelscraper to fetch Instagram posts and generate static JSON feed
-Python 3.13.7 compatible
+Uses instaloader to fetch Instagram posts and generate static JSON feed
+Python 3.7+ compatible
 """
 
 import json
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 
 try:
-    from reelscraper import InstagramScraper
+    import instaloader
 except ImportError:
-    print("Error: reelscraper not installed. Install with: pip install reelscraper", file=sys.stderr)
+    print("Error: instaloader not installed. Install with: pip install instaloader", file=sys.stderr)
     sys.exit(1)
 
 
@@ -32,7 +31,15 @@ class InstagramFeedGenerator:
         """
         self.username = username
         self.max_posts = max_posts
-        self.scraper = InstagramScraper()
+        self.loader = instaloader.Instaloader(
+            download_videos=False,
+            download_video_thumbnails=False,
+            download_geotags=False,
+            download_comments=False,
+            save_metadata=False,
+            compress_json=False,
+            quiet=True
+        )
 
     def fetch_posts(self) -> List[Dict[str, Any]]:
         """
@@ -42,53 +49,52 @@ class InstagramFeedGenerator:
             List of post dictionaries
         """
         try:
-            # Fetch profile posts
-            profile_data = self.scraper.get_profile(self.username)
+            # Get profile
+            profile = instaloader.Profile.from_username(self.loader.context, self.username)
             posts = []
 
-            if not profile_data or 'edge_owner_to_timeline_media' not in profile_data:
-                print(f"Warning: No posts found for @{self.username}", file=sys.stderr)
-                return []
-
-            edges = profile_data['edge_owner_to_timeline_media']['edges'][:self.max_posts]
-
-            for edge in edges:
-                node = edge.get('node', {})
-
-                # Extract media URL
-                media_url = node.get('display_url', '')
-                thumbnail_url = node.get('thumbnail_src', media_url)
+            # Fetch posts
+            for index, post in enumerate(profile.get_posts()):
+                if index >= self.max_posts:
+                    break
 
                 # Determine media type
                 media_type = 'IMAGE'
-                if node.get('is_video'):
+                if post.is_video:
                     media_type = 'VIDEO'
-                elif node.get('edge_sidecar_to_children'):
+                elif post.typename == 'GraphSidecar':
                     media_type = 'CAROUSEL_ALBUM'
 
-                # Extract caption
-                caption_edges = node.get('edge_media_to_caption', {}).get('edges', [])
-                caption = caption_edges[0]['node']['text'] if caption_edges else ''
+                # Get media URL
+                media_url = post.url
+                thumbnail_url = post.url
 
                 # Build post object
-                post = {
-                    'id': node.get('id', ''),
-                    'caption': caption,
+                post_data = {
+                    'id': str(post.mediaid),
+                    'caption': post.caption if post.caption else '',
                     'mediaUrl': media_url,
                     'mediaType': media_type,
-                    'permalink': f"https://www.instagram.com/p/{node.get('shortcode', '')}/",
-                    'timestamp': datetime.fromtimestamp(
-                        node.get('taken_at_timestamp', 0)
-                    ).isoformat(),
+                    'permalink': f"https://www.instagram.com/p/{post.shortcode}/",
+                    'timestamp': post.date_utc.isoformat(),
                     'thumbnailUrl': thumbnail_url,
-                    'likesCount': node.get('edge_liked_by', {}).get('count', 0),
-                    'commentsCount': node.get('edge_media_to_comment', {}).get('count', 0)
+                    'likesCount': post.likes,
+                    'commentsCount': post.comments
                 }
 
-                posts.append(post)
+                posts.append(post_data)
+
+            if not posts:
+                print(f"Warning: No posts found for @{self.username}", file=sys.stderr)
 
             return posts
 
+        except instaloader.exceptions.ProfileNotExistsException:
+            print(f"Error: Instagram profile '@{self.username}' does not exist", file=sys.stderr)
+            return []
+        except instaloader.exceptions.ConnectionException as e:
+            print(f"Error: Network connection failed: {e}", file=sys.stderr)
+            return []
         except Exception as e:
             print(f"Error fetching Instagram posts: {e}", file=sys.stderr)
             return []

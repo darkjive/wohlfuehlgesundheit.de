@@ -1,1 +1,1 @@
-reelscraper>=1.0.0
+instaloader>=4.10.0

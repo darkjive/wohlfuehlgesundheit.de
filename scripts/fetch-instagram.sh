@@ -26,12 +26,12 @@ if ! command -v python3 &> /dev/null; then
 fi
 
 # Check if reelscraper is installed
-if ! python3 -c "import reelscraper" 2>/dev/null; then
-    echo "📦 Installing reelscraper..."
+if ! python3 -c "import instaloader" 2>/dev/null; then
+    echo "📦 Installing instaloader..."
     if [ $VENV_ACTIVATED -eq 1 ]; then
-        pip install reelscraper
+        pip install instaloader
     else
-        pip3 install reelscraper
+        pip3 install instaloader
     fi
 fi
 
