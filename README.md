@@ -97,6 +97,7 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 | `npm run dev`       | Startet nur Astro Dev-Server (localhost:4321) – **ohne PHP**   |
 | `npm run dev:php`   | Startet nur PHP Dev-Server (localhost:8000)                    |
 | `npm run build`     | Erstellt die produktionsreife Website in `./dist/`             |
+| `npm run instagram:fetch` | Holt aktuelle Instagram-Posts und generiert JSON-Feed   |
 | `npm run preview`   | Vorschau der gebauten Website vor dem Deployment               |
 | `npm run check`     | Überprüft das Projekt auf Fehler                               |
 | `npm run fix`       | Führt ESLint aus und formatiert Code mit Prettier              |
@@ -300,7 +301,36 @@ Vollautomatisches Terminbuchungssystem mit:
 - Warteraum-Funktion für mehr Sicherheit
 - Flexible Terminlängen (20/40 Minuten)
 
-### 2. Umfangreicher Anamnesebogen
+### 2. Instagram Feed Integration
+
+Automatisches Instagram-Feed-System mit:
+
+- Python-Backend (reelscraper) zum Abrufen von Instagram-Posts
+- Statisches JSON-Feed für optimale Performance
+- Responsive Grid-Darstellung mit Hover-Effekten
+- Media-Type-Indikatoren (Bild, Video, Karussell)
+- Automatische Build-Integration
+- IONOS-Server-Support mit Cron-Jobs
+
+**Verwendung:**
+
+```bash
+# Instagram-Feed manuell abrufen
+npm run instagram:fetch
+
+# Automatisch beim Build (bereits integriert)
+npm run build
+```
+
+**Setup auf IONOS-Server:**
+Siehe `api/IONOS_SETUP.md` für detaillierte Anweisungen zur Installation und Automatisierung mit Cron-Jobs.
+
+**Komponente:**
+- `src/components/widgets/InstagramFeed.astro` - Widget-Komponente
+- `api/instagram_feed.py` - Python-Scraper
+- `public/data/instagram-feed.json` - Generiertes JSON-Feed
+
+### 3. Umfangreicher Anamnesebogen
 
 Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/anamnese-form/`):
 
@@ -323,20 +353,20 @@ Mehrstufiges Formular mit 10 detaillierten Schritten (`src/components/widgets/an
 - Responsive Design für mobile & Desktop
 - Direkte Integration mit Zoom-API für Terminbuchung
 
-#### 3. Dark Mode
+#### 4. Dark Mode
 
 - System-Theme-Erkennung
 - Manueller Light/Dark Mode Toggle
 - Persistente Theme-Speicherung
 
-#### 4. Cookie Consent Management
+#### 5. Cookie Consent Management
 
 - DSGVO-konform
 - Kategorien: Notwendig, Statistik, Marketing
 - Vollständig auf Deutsch lokalisiert
 - Anpassbare Einstellungen
 
-#### 5. View Transitions
+#### 6. View Transitions
 
 Die Website nutzt Astro's native View Transitions API:
 
@@ -344,7 +374,7 @@ Die Website nutzt Astro's native View Transitions API:
 - **Accessibility**: Respektiert `prefers-reduced-motion` für Barrierefreiheit
 - **Performance**: Natives Browser-Feature ohne externe Bibliotheken
 
-#### 6. Performance-Optimierungen
+#### 7. Performance-Optimierungen
 
 - Statische Site-Generierung für beste Performance
 - Asset-Komprimierung (HTML, CSS, JS)

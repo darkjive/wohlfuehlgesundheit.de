@@ -7,6 +7,7 @@ import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Quote from '~/components/widgets/Quote.astro';
 import Complaints from '~/components/widgets/Complaints.astro';
+import InstagramFeed from '~/components/widgets/InstagramFeed.astro';
 
 const metadata = {
   title: 'Darmgesundheit & Ernährungsberatung | Holistische Darmtherapie Groß-Umstadt',
@@ -313,6 +314,28 @@ const metadata = {
       <div class="absolute inset-0 bg-[#fde4e6] dark:bg-transparent"></div>
     </Fragment>
   </Content>
+
+  <!-- Instagram Feed Widget ******************* -->
+  <InstagramFeed
+    id="instagram"
+    tagline="Folge mir auf Instagram"
+    title="Aktuelle Tipps & Inspiration"
+    subtitle="Entdecke hilfreiche Tipps rund um Darmgesundheit, Ernährung und ganzheitliches Wohlbefinden – direkt aus meinem Alltag."
+    columns={3}
+    maxPosts={6}
+    username="wohl_fuehl_gesundheit"
+    callToAction={{
+      variant: 'primary',
+      text: '@wohl_fuehl_gesundheit folgen',
+      href: 'https://www.instagram.com/wohl_fuehl_gesundheit/',
+      target: '_blank',
+      icon: 'tabler:brand-instagram',
+    }}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-green-50 dark:bg-transparent"></div>
+    </Fragment>
+  </InstagramFeed>
 
   <!-- Quote Widget: Inspiring quote with background image -->
 

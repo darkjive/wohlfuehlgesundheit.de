@@ -299,3 +299,23 @@ export interface Complaints extends Omit<Headline, 'classes'>, Widget {
   defaultIcon?: string;
   footerText?: string;
 }
+
+export interface InstagramPost {
+  id: string;
+  caption?: string;
+  mediaUrl: string;
+  mediaType: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
+  permalink: string;
+  timestamp: string;
+  thumbnailUrl?: string;
+  likesCount?: number;
+  commentsCount?: number;
+}
+
+export interface InstagramFeed extends Omit<Headline, 'classes'>, Widget {
+  posts?: Array<InstagramPost>;
+  columns?: number;
+  maxPosts?: number;
+  username?: string;
+  callToAction?: CallToAction;
+}

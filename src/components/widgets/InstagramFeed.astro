@@ -1,0 +1,171 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import Button from '~/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+import type { InstagramFeed as Props, InstagramPost } from '~/types';
+import { twMerge } from 'tailwind-merge';
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline = await Astro.slots.render('tagline'),
+  posts = [],
+  columns = 3,
+  maxPosts = 6,
+  username = 'wohl_fuehl_gesundheit',
+  callToAction,
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+
+// Load posts from JSON if not provided
+let instagramPosts: InstagramPost[] = posts;
+
+if (!instagramPosts || instagramPosts.length === 0) {
+  try {
+    const feedPath = '/data/instagram-feed.json';
+    const response = await fetch(`${Astro.site?.origin || ''}${feedPath}`);
+    if (response.ok) {
+      const feedData = await response.json();
+      instagramPosts = feedData.posts || [];
+    }
+  } catch (error) {
+    console.warn('Could not load Instagram feed:', error);
+    instagramPosts = [];
+  }
+}
+
+// Limit posts
+const displayPosts = instagramPosts.slice(0, maxPosts);
+
+// Format timestamp
+const formatDate = (timestamp: string): string => {
+  try {
+    const date = new Date(timestamp);
+    return new Intl.DateTimeFormat('de-DE', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    }).format(date);
+  } catch {
+    return '';
+  }
+};
+
+// Truncate caption
+const truncateCaption = (caption: string, maxLength: number = 120): string => {
+  if (!caption || caption.length <= maxLength) return caption;
+  return caption.substring(0, maxLength).trim() + '...';
+};
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
+
+  {
+    displayPosts && displayPosts.length > 0 ? (
+      <div
+        class={twMerge(
+          `mx-auto grid gap-6 ${
+            columns === 4
+              ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+              : columns === 3
+                ? 'sm:grid-cols-2 lg:grid-cols-3'
+                : columns === 2
+                  ? 'sm:grid-cols-2'
+                  : ''
+          }`,
+          (classes?.grid as string) ?? ''
+        )}
+      >
+        {displayPosts.map((post, index) => (
+          <a
+            href={post.permalink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative block overflow-hidden rounded-lg bg-white shadow-md transition-all hover:shadow-xl dark:bg-gray-800"
+            data-animate="fadeIn"
+            data-animate-duration="600"
+            data-animate-delay={index * 50}
+          >
+            {/* Image Container */}
+            <div class="relative aspect-square overflow-hidden">
+              <img
+                src={post.thumbnailUrl || post.mediaUrl}
+                alt={truncateCaption(post.caption || 'Instagram Post', 50)}
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
+
+              {/* Media Type Indicator */}
+              {post.mediaType === 'VIDEO' && (
+                <div class="absolute right-2 top-2 rounded-full bg-black/60 p-2">
+                  <Icon name="tabler:player-play-filled" class="h-4 w-4 text-white" />
+                </div>
+              )}
+              {post.mediaType === 'CAROUSEL_ALBUM' && (
+                <div class="absolute right-2 top-2 rounded-full bg-black/60 p-2">
+                  <Icon name="tabler:photo-filled" class="h-4 w-4 text-white" />
+                </div>
+              )}
+
+              {/* Overlay on hover */}
+              <div class="absolute inset-0 flex items-center justify-center bg-black/0 transition-all group-hover:bg-black/30">
+                <Icon
+                  name="tabler:brand-instagram"
+                  class="h-12 w-12 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                />
+              </div>
+            </div>
+
+            {/* Post Info */}
+            <div class="p-4">
+              {post.caption && (
+                <p class="mb-3 line-clamp-2 text-sm text-gray-700 dark:text-gray-300">
+                  {truncateCaption(post.caption, 100)}
+                </p>
+              )}
+
+              <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <div class="flex items-center gap-3">
+                  {post.likesCount !== undefined && post.likesCount > 0 && (
+                    <span class="flex items-center gap-1">
+                      <Icon name="tabler:heart" class="h-4 w-4" />
+                      {post.likesCount}
+                    </span>
+                  )}
+                  {post.commentsCount !== undefined && post.commentsCount > 0 && (
+                    <span class="flex items-center gap-1">
+                      <Icon name="tabler:message-circle" class="h-4 w-4" />
+                      {post.commentsCount}
+                    </span>
+                  )}
+                </div>
+                {post.timestamp && <time dateTime={post.timestamp}>{formatDate(post.timestamp)}</time>}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="py-12 text-center">
+        <p class="text-gray-500 dark:text-gray-400">Keine Instagram-Beiträge verfügbar.</p>
+      </div>
+    )
+  }
+
+  {
+    callToAction && displayPosts.length > 0 && (
+      <div class="mt-8 flex justify-center" data-animate="fadeIn" data-animate-duration="800" data-animate-delay="300">
+        <Button {...callToAction} class="group">
+          <Icon name="tabler:brand-instagram" class="mr-2 h-5 w-5" />
+          {callToAction.text || `@${username} folgen`}
+        </Button>
+      </div>
+    )
+  }
+</WidgetWrapper>
