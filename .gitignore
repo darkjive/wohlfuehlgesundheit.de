@@ -59,3 +59,7 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
+
+# Instagram Feed (generated)
+public/data/instagram/
+public/data/instagram-feed.json

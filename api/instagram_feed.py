@@ -2,11 +2,13 @@
 """
 Instagram Feed Scraper for wohlfuehlgesundheit.de
 Uses instaloader to fetch Instagram posts and generate static JSON feed
+Downloads images locally to avoid CORS issues
 Python 3.7+ compatible
 """
 
 import json
 import sys
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any, Optional
@@ -19,18 +21,20 @@ except ImportError:
 
 
 class InstagramFeedGenerator:
-    """Generate JSON feed from Instagram profile"""
+    """Generate JSON feed from Instagram profile with local image storage"""
 
-    def __init__(self, username: str, max_posts: int = 12):
+    def __init__(self, username: str, max_posts: int = 12, download_images: bool = True):
         """
         Initialize Instagram feed generator
 
         Args:
             username: Instagram username (without @)
             max_posts: Maximum number of posts to fetch
+            download_images: Download images locally to avoid CORS (default: True)
         """
         self.username = username
         self.max_posts = max_posts
+        self.download_images = download_images
         self.loader = instaloader.Instaloader(
             download_videos=False,
             download_video_thumbnails=False,
@@ -40,6 +44,48 @@ class InstagramFeedGenerator:
             compress_json=False,
             quiet=True
         )
+
+        # Image storage directory
+        self.images_dir = Path('public/data/instagram')
+        if self.download_images:
+            self.images_dir.mkdir(parents=True, exist_ok=True)
+
+    def download_image(self, url: str, filename: str) -> str:
+        """
+        Download image from URL to local storage
+
+        Args:
+            url: Image URL
+            filename: Local filename
+
+        Returns:
+            Relative path to downloaded image
+        """
+        try:
+            image_path = self.images_dir / filename
+
+            # Skip if already exists
+            if image_path.exists():
+                return f'/data/instagram/{filename}'
+
+            # Download image
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+            req = urllib.request.Request(url, headers=headers)
+
+            with urllib.request.urlopen(req) as response:
+                image_data = response.read()
+
+            with open(image_path, 'wb') as f:
+                f.write(image_data)
+
+            return f'/data/instagram/{filename}'
+
+        except Exception as e:
+            print(f"Warning: Could not download image {filename}: {e}", file=sys.stderr)
+            # Fallback to original URL
+            return url
 
     def fetch_posts(self) -> List[Dict[str, Any]]:
         """
@@ -67,22 +113,31 @@ class InstagramFeedGenerator:
 
                 # Get media URL
                 media_url = post.url
-                thumbnail_url = post.url
+
+                # Download image locally if enabled
+                if self.download_images:
+                    # Use shortcode as filename (unique)
+                    extension = 'jpg'  # Instagram uses jpg/webp
+                    filename = f'{post.shortcode}.{extension}'
+                    local_media_url = self.download_image(media_url, filename)
+                else:
+                    local_media_url = media_url
 
                 # Build post object
                 post_data = {
                     'id': str(post.mediaid),
                     'caption': post.caption if post.caption else '',
-                    'mediaUrl': media_url,
+                    'mediaUrl': local_media_url,
                     'mediaType': media_type,
                     'permalink': f"https://www.instagram.com/p/{post.shortcode}/",
                     'timestamp': post.date_utc.isoformat(),
-                    'thumbnailUrl': thumbnail_url,
+                    'thumbnailUrl': local_media_url,  # Same as mediaUrl for now
                     'likesCount': post.likes,
                     'commentsCount': post.comments
                 }
 
                 posts.append(post_data)
+                print(f"✓ Fetched post {index + 1}/{self.max_posts}: {post.shortcode}")
 
             if not posts:
                 print(f"Warning: No posts found for @{self.username}", file=sys.stderr)
@@ -158,13 +213,19 @@ def main():
         default='public/data/instagram-feed.json',
         help='Output JSON file path (default: public/data/instagram-feed.json)'
     )
+    parser.add_argument(
+        '--no-download',
+        action='store_true',
+        help='Do not download images locally (may cause CORS issues)'
+    )
 
     args = parser.parse_args()
 
     # Generate feed
     generator = InstagramFeedGenerator(
         username=args.username,
-        max_posts=args.max_posts
+        max_posts=args.max_posts,
+        download_images=not args.no_download
     )
     generator.generate_feed(output_path=args.output)
 
