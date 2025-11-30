@@ -63,3 +63,4 @@ __pycache__/
 # Instagram Feed (generated)
 public/data/instagram/
 public/data/instagram-feed.json
+.instagram-session

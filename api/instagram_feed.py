@@ -35,6 +35,10 @@ class InstagramFeedGenerator:
         self.username = username
         self.max_posts = max_posts
         self.download_images = download_images
+
+        # Session file to reduce rate limiting
+        self.session_file = Path('.instagram-session')
+
         self.loader = instaloader.Instaloader(
             download_videos=False,
             download_video_thumbnails=False,
@@ -42,8 +46,16 @@ class InstagramFeedGenerator:
             download_comments=False,
             save_metadata=False,
             compress_json=False,
-            quiet=True
+            quiet=True,
+            max_connection_attempts=1  # Fail fast instead of retrying
         )
+
+        # Load session if exists (reduces rate limiting)
+        if self.session_file.exists():
+            try:
+                self.loader.load_session_from_file(self.username, str(self.session_file))
+            except:
+                pass  # Session expired, continue without
 
         # Image storage directory
         self.images_dir = Path('public/data/instagram')
@@ -173,6 +185,12 @@ class InstagramFeedGenerator:
 
         # Fetch posts
         posts = self.fetch_posts()
+
+        # Save session for next time (reduces rate limiting)
+        try:
+            self.loader.save_session_to_file(str(self.session_file))
+        except:
+            pass  # Failed to save session, not critical
 
         # Build feed data
         feed_data = {
