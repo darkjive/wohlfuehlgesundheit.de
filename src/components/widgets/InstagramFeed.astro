@@ -5,6 +5,8 @@ import Button from '~/components/ui/Button.astro';
 import { Icon } from 'astro-icon/components';
 import type { InstagramFeed as Props, InstagramPost } from '~/types';
 import { twMerge } from 'tailwind-merge';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const {
   title = await Astro.slots.render('title'),
@@ -27,10 +29,11 @@ let instagramPosts: InstagramPost[] = posts;
 
 if (!instagramPosts || instagramPosts.length === 0) {
   try {
-    const feedPath = '/data/instagram-feed.json';
-    const response = await fetch(`${Astro.site?.origin || ''}${feedPath}`);
-    if (response.ok) {
-      const feedData = await response.json();
+    // Read JSON file directly during build (works in SSG)
+    const feedPath = path.join(process.cwd(), 'public/data/instagram-feed.json');
+    if (fs.existsSync(feedPath)) {
+      const feedContent = fs.readFileSync(feedPath, 'utf-8');
+      const feedData = JSON.parse(feedContent);
       instagramPosts = feedData.posts || [];
     }
   } catch (error) {
