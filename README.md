@@ -89,20 +89,20 @@ Website für eine holistische Darmtherapie-Praxis, entwickelt mit **Astro** und 
 
 ### Befehle
 
-| Befehl              | Aktion                                                         |
-| ------------------- | -------------------------------------------------------------- |
-| `npm install`       | Installiert Abhängigkeiten                                     |
-| `npm start`         | **Empfohlen**: Startet PHP + Astro Dev-Server (localhost:4321) |
-| `npm run dev:full`  | Gleich wie `npm start` – startet beide Server                  |
-| `npm run dev`       | Startet nur Astro Dev-Server (localhost:4321) – **ohne PHP**   |
-| `npm run dev:php`   | Startet nur PHP Dev-Server (localhost:8000)                    |
-| `npm run build`     | Erstellt die produktionsreife Website in `./dist/`             |
-| `npm run instagram:fetch` | Holt aktuelle Instagram-Posts und generiert JSON-Feed   |
-| `npm run preview`   | Vorschau der gebauten Website vor dem Deployment               |
-| `npm run check`     | Überprüft das Projekt auf Fehler                               |
-| `npm run fix`       | Führt ESLint aus und formatiert Code mit Prettier              |
-| `npm run astro ...` | Führt Astro-CLI-Befehle aus                                    |
-| `npm run deploy`    | Führt Deployment-Befehle aus                                   |
+| Befehl                    | Aktion                                                         |
+| ------------------------- | -------------------------------------------------------------- |
+| `npm install`             | Installiert Abhängigkeiten                                     |
+| `npm start`               | **Empfohlen**: Startet PHP + Astro Dev-Server (localhost:4321) |
+| `npm run dev:full`        | Gleich wie `npm start` – startet beide Server                  |
+| `npm run dev`             | Startet nur Astro Dev-Server (localhost:4321) – **ohne PHP**   |
+| `npm run dev:php`         | Startet nur PHP Dev-Server (localhost:8000)                    |
+| `npm run build`           | Erstellt die produktionsreife Website in `./dist/`             |
+| `npm run instagram:fetch` | Holt aktuelle Instagram-Posts und generiert JSON-Feed          |
+| `npm run preview`         | Vorschau der gebauten Website vor dem Deployment               |
+| `npm run check`           | Überprüft das Projekt auf Fehler                               |
+| `npm run fix`             | Führt ESLint aus und formatiert Code mit Prettier              |
+| `npm run astro ...`       | Führt Astro-CLI-Befehle aus                                    |
+| `npm run deploy`          | Führt Deployment-Befehle aus                                   |
 
 ---
 
@@ -326,6 +326,7 @@ npm run build
 Siehe `api/IONOS_SETUP.md` für detaillierte Anweisungen zur Installation und Automatisierung mit Cron-Jobs.
 
 **Komponente:**
+
 - `src/components/widgets/InstagramFeed.astro` - Widget-Komponente
 - `api/instagram_feed.py` - Python-Scraper
 - `public/data/instagram-feed.json` - Generiertes JSON-Feed

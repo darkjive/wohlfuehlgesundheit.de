@@ -24,16 +24,19 @@ python3 -m venv venv
 ### 2. venv aktivieren
 
 **Garuda Linux / macOS:**
+
 ```bash
 source venv/bin/activate
 ```
 
 **Windows:**
+
 ```bash
 venv\Scripts\activate
 ```
 
 Nach Aktivierung siehst du `(venv)` im Prompt:
+
 ```
 (venv) user@garuda:~/wohlfuehlgesundheit.de$
 ```
@@ -119,6 +122,7 @@ echo "📍 File: $OUTPUT_FILE"
 ### Option B: Ohne venv
 
 Falls du kein venv nutzen willst:
+
 ```bash
 # System-weit installieren
 pip install instaloader
@@ -144,6 +148,7 @@ echo "venv/" >> .gitignore
 ### Für lokale Entwicklung (Garuda Linux):
 
 **Mit venv:**
+
 ```bash
 # Einmalig
 python3 -m venv venv
@@ -157,6 +162,7 @@ deactivate               # Bei Session-Ende
 ```
 
 **Ohne venv:**
+
 ```bash
 # Einmalig
 pip install --user instaloader
@@ -168,6 +174,7 @@ npm run instagram:fetch  # Funktioniert direkt
 ### Für Production (IONOS):
 
 **IONOS nutzt System-Python**, daher:
+
 ```bash
 # Auf IONOS (kein venv nötig)
 pip3 install instaloader
@@ -181,11 +188,13 @@ pip3 install --user instaloader
 ## Empfehlung für dein Projekt
 
 ### 🎯 Lokale Entwicklung: **venv verwenden**
+
 - Sauber und isoliert
 - Best Practice
 - Kein Aufräumen nach Projekt-Ende nötig
 
 ### 🎯 IONOS Production: **System-Python**
+
 - Kein venv auf Shared Hosting üblich
 - `pip3 install --user` für User-Installation
 - Cron-Jobs greifen auf User-Packages zu
@@ -194,14 +203,14 @@ pip3 install --user instaloader
 
 ## venv vs. System-Install - Vergleich
 
-| Aspekt | venv | System-Install |
-|--------|------|----------------|
-| **Isolation** | ✅ Ja | ❌ Nein |
-| **Konflikte** | ✅ Keine | ⚠️ Möglich |
-| **Setup** | ⏱️ 30 Sekunden | ⏱️ 10 Sekunden |
-| **Cleanup** | ✅ Einfach (venv löschen) | ❌ Manuell deinstallieren |
-| **Best Practice** | ✅ Ja | ❌ Nicht empfohlen |
-| **Für dieses Projekt** | ✅ Empfohlen | ⚠️ Funktioniert, aber... |
+| Aspekt                 | venv                      | System-Install            |
+| ---------------------- | ------------------------- | ------------------------- |
+| **Isolation**          | ✅ Ja                     | ❌ Nein                   |
+| **Konflikte**          | ✅ Keine                  | ⚠️ Möglich                |
+| **Setup**              | ⏱️ 30 Sekunden            | ⏱️ 10 Sekunden            |
+| **Cleanup**            | ✅ Einfach (venv löschen) | ❌ Manuell deinstallieren |
+| **Best Practice**      | ✅ Ja                     | ❌ Nicht empfohlen        |
+| **Für dieses Projekt** | ✅ Empfohlen              | ⚠️ Funktioniert, aber...  |
 
 ---
 
@@ -210,6 +219,7 @@ pip3 install --user instaloader
 ### Muss ich venv für jede Session aktivieren?
 
 Ja, nach jedem Terminal-Neustart:
+
 ```bash
 source venv/bin/activate
 ```
@@ -217,6 +227,7 @@ source venv/bin/activate
 ### Kann ich npm ohne venv nutzen?
 
 Ja, aber dann muss `instaloader` system-weit installiert sein:
+
 ```bash
 pip install --user instaloader
 ```
@@ -230,6 +241,7 @@ pip install --user instaloader
 ### Soll ich venv committen?
 
 **Nein!** venv gehört in `.gitignore`:
+
 ```bash
 venv/
 __pycache__/

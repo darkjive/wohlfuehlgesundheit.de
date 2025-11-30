@@ -34,6 +34,7 @@ Die vollständige Anleitung zur Instagram-Feed-Integration findest du hier:
 👉 **[IONOS_SETUP.md](./IONOS_SETUP.md)**
 
 Diese Anleitung enthält:
+
 - ✅ Garuda Linux Setup (lokale Entwicklung)
 - ✅ IONOS Server Setup (Production)
 - ✅ Troubleshooting & Fehlersuche
@@ -48,23 +49,26 @@ pip install -r api/requirements.txt
 ```
 
 Benötigt:
+
 - Python 3.7+
 - instaloader >= 1.0.0
 
 ## 📝 Scripts
 
-| Script | Beschreibung |
-|--------|-------------|
+| Script              | Beschreibung                                    |
+| ------------------- | ----------------------------------------------- |
 | `instagram_feed.py` | Scraped Instagram-Posts und generiert JSON-Feed |
 
 ## 🌐 Output
 
 Generiertes JSON-Feed:
+
 ```
 public/data/instagram-feed.json
 ```
 
 Format:
+
 ```json
 {
   "username": "wohl_fuehl_gesundheit",
@@ -92,5 +96,6 @@ Format:
 ## 📞 Support
 
 Bei Fragen oder Problemen:
+
 1. [IONOS_SETUP.md](./IONOS_SETUP.md) → Fehlersuche-Sektion
 2. GitHub Issues: https://github.com/darkjive/wohlfuehlgesundheit.de/issues

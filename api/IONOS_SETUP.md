@@ -71,6 +71,7 @@ sudo pacman -S python python-pip
 ### 2. Python-Dependencies installieren
 
 **Option A: Mit pip (empfohlen)**
+
 ```bash
 # Ins Projektverzeichnis wechseln
 cd /home/user/wohlfuehlgesundheit.de
@@ -83,6 +84,7 @@ pip install -r api/requirements.txt
 ```
 
 **Option B: Mit pipenv (isolierte Umgebung)**
+
 ```bash
 # pipenv installieren (falls nicht vorhanden)
 pip install pipenv
@@ -95,6 +97,7 @@ pipenv shell
 ```
 
 **Option C: Mit venv (Standard Python)**
+
 ```bash
 # Virtuelle Umgebung erstellen
 python3 -m venv venv
@@ -171,6 +174,7 @@ sudo nano /etc/systemd/system/instagram-feed.service
 ```
 
 Inhalt:
+
 ```ini
 [Unit]
 Description=Instagram Feed Scraper
@@ -186,11 +190,13 @@ StandardError=append:/tmp/instagram-feed.log
 ```
 
 Timer-Datei erstellen:
+
 ```bash
 sudo nano /etc/systemd/system/instagram-feed.timer
 ```
 
 Inhalt:
+
 ```ini
 [Unit]
 Description=Instagram Feed Scraper Timer
@@ -206,6 +212,7 @@ WantedBy=timers.target
 ```
 
 Aktivieren:
+
 ```bash
 # Timer aktivieren und starten
 sudo systemctl enable instagram-feed.timer
@@ -255,6 +262,7 @@ crontab -e
 ```
 
 Alternative Cron-Zeitpläne:
+
 - Alle 12 Stunden: `0 */12 * * *`
 - Alle 6 Stunden: `0 */6 * * *`
 - Zweimal täglich (6:00 und 18:00): `0 6,18 * * *`
@@ -288,6 +296,7 @@ Wenn du das JSON-Feed über eine API-Route zugänglich machen möchtest:
 ### CLI-Befehle
 
 **npm-Scripts (empfohlen):**
+
 ```bash
 # Feed abrufen
 npm run instagram:fetch
@@ -300,6 +309,7 @@ npm run preview
 ```
 
 **Python direkt:**
+
 ```bash
 # Standard (12 Posts)
 python3 api/instagram_feed.py wohl_fuehl_gesundheit
@@ -312,6 +322,7 @@ python3 api/instagram_feed.py --help
 ```
 
 **Bash-Script:**
+
 ```bash
 # Direkter Aufruf
 ./scripts/fetch-instagram.sh
@@ -335,6 +346,7 @@ Optionale Argumente:
 ```
 
 **Beispiele:**
+
 ```bash
 # Anderen Account scrapen
 python3 api/instagram_feed.py other_account --max-posts 6
@@ -353,11 +365,13 @@ python3 api/instagram_feed.py wohl_fuehl_gesundheit --max-posts 20
 ### Problem: `ModuleNotFoundError: No module named 'instaloader'`
 
 **Symptom:**
+
 ```
 Error: instaloader not installed. Install with: pip install instaloader
 ```
 
 **Lösung (Garuda Linux):**
+
 ```bash
 pip install instaloader
 
@@ -369,6 +383,7 @@ sudo pip install instaloader
 ```
 
 **Lösung (IONOS):**
+
 ```bash
 pip3 install instaloader
 
@@ -381,11 +396,13 @@ python3 -m pip install instaloader
 ### Problem: `Permission denied` beim Ausführen
 
 **Symptom:**
+
 ```
 bash: ./api/instagram_feed.py: Permission denied
 ```
 
 **Lösung:**
+
 ```bash
 # Script ausführbar machen
 chmod +x api/instagram_feed.py
@@ -400,6 +417,7 @@ python3 api/instagram_feed.py
 ### Problem: `403 Forbidden` Warnung (normal!)
 
 **Symptom:**
+
 ```
 JSON Query to graphql/query: 403 Forbidden when accessing https://www.instagram.com/graphql/query [retrying; skip with ^C]
 ```
@@ -410,16 +428,19 @@ JSON Query to graphql/query: 403 Forbidden when accessing https://www.instagram.
 Instagram hat Anti-Bot-Schutz, der manchmal den ersten Request blockiert. `instaloader` erkennt das automatisch und macht einen Retry mit angepassten Request-Headern.
 
 **Was passiert:**
+
 1. Erster Request → 403 Forbidden (Instagram blockt)
 2. instaloader wartet kurz
 3. Zweiter Request → Erfolgreich! ✅
 
 **Lösung:**
+
 - ✅ Nichts tun - das Script funktioniert automatisch
 - ⚠️ Wenn es mehrmals fehlschlägt: 5-10 Minuten warten
 - ℹ️ Die Warnung verschwindet nicht, aber das Feed wird trotzdem generiert
 
 **Bestätigung dass es funktioniert hat:**
+
 ```
 ✓ Generated Instagram feed: public/data/instagram-feed.json (12 posts)
 ```
@@ -429,6 +450,7 @@ Instagram hat Anti-Bot-Schutz, der manchmal den ersten Request blockiert. `insta
 ### Problem: Keine Posts werden abgerufen
 
 **Symptom:**
+
 ```
 Warning: No posts found for @wohl_fuehl_gesundheit
 ```
@@ -441,6 +463,7 @@ Warning: No posts found for @wohl_fuehl_gesundheit
    - Lösung: Account-Privatsphäre-Einstellungen ändern
 
 2. **Falscher Username**
+
    ```bash
    # Korrekter Username (ohne @):
    python3 api/instagram_feed.py wohl_fuehl_gesundheit
@@ -454,6 +477,7 @@ Warning: No posts found for @wohl_fuehl_gesundheit
    - Lösung: 5-10 Minuten warten und erneut versuchen
 
 4. **Netzwerkprobleme**
+
    ```bash
    # Internetverbindung testen
    ping instagram.com
@@ -467,11 +491,13 @@ Warning: No posts found for @wohl_fuehl_gesundheit
 ### Problem: JSON-Datei wird nicht generiert
 
 **Symptom:**
+
 ```
 FileNotFoundError: [Errno 2] No such file or directory: 'public/data/instagram-feed.json'
 ```
 
 **Lösung:**
+
 ```bash
 # Verzeichnis existiert nicht - erstellen
 mkdir -p public/data
@@ -491,11 +517,13 @@ npm run instagram:fetch
 ### Problem: `npm run instagram:fetch` schlägt fehl
 
 **Symptom:**
+
 ```
 Error: bash: scripts/fetch-instagram.sh: No such file or directory
 ```
 
 **Lösung:**
+
 ```bash
 # Prüfen ob Script existiert
 ls -la scripts/fetch-instagram.sh
@@ -515,6 +543,7 @@ python3 api/instagram_feed.py wohl_fuehl_gesundheit
 Das Feed zeigt veraltete Posts
 
 **Lösung:**
+
 ```bash
 # Feed manuell aktualisieren
 npm run instagram:fetch
@@ -532,6 +561,7 @@ npm run build
 ### Problem: Cron-Job läuft nicht
 
 **Garuda Linux - Cron prüfen:**
+
 ```bash
 # Cron-Dienst-Status
 sudo systemctl status cronie
@@ -544,6 +574,7 @@ grep CRON /var/log/syslog
 ```
 
 **Garuda Linux - Systemd Timer prüfen:**
+
 ```bash
 # Timer-Status
 sudo systemctl status instagram-feed.timer
@@ -559,6 +590,7 @@ sudo journalctl -u instagram-feed.service -f
 ```
 
 **IONOS - Cron prüfen:**
+
 ```bash
 # Aktive Cron-Jobs anzeigen
 crontab -l
@@ -574,6 +606,7 @@ tail -f /var/log/cron
 ### Logs prüfen (Garuda Linux)
 
 **Systemd-Service-Logs:**
+
 ```bash
 # Echtzeit-Logs
 sudo journalctl -u instagram-feed.service -f
@@ -586,6 +619,7 @@ sudo journalctl -u instagram-feed.service --since yesterday
 ```
 
 **Datei-Logs:**
+
 ```bash
 # Log-Datei anschauen
 tail -f /tmp/instagram-feed.log
@@ -646,11 +680,13 @@ time python3 api/instagram_feed.py wohl_fuehl_gesundheit
 ### Aktualisierungsintervalle
 
 **Empfohlene Intervalle:**
+
 - **Produktion (IONOS)**: 1-2x täglich (z.B. 6:00 und 18:00 Uhr)
 - **Development (Garuda)**: Manuell oder 1x täglich
 - **Vermeiden**: Aktualisierung häufiger als alle 2 Stunden (Instagram Rate-Limiting)
 
 **Warum?**
+
 - Instagram-Posts ändern sich nicht minütlich
 - Zu viele Requests können zu temporären Sperren führen
 - Reduziert Server-Last und Bandbreite
@@ -673,17 +709,20 @@ python3 api/instagram_feed.py wohl_fuehl_gesundheit --max-posts 6
 ### Fehlerbehandlung & Logging
 
 **Produktions-Cron mit Fehlerbehandlung:**
+
 ```bash
 0 6 * * * cd /pfad/zu/projekt && { python3 api/instagram_feed.py wohl_fuehl_gesundheit 2>&1 || echo "Instagram feed failed at $(date)" >> /var/log/instagram-feed-errors.log; } >> /var/log/instagram-feed.log
 ```
 
 **Log-Rotation einrichten:**
+
 ```bash
 # /etc/logrotate.d/instagram-feed erstellen
 sudo nano /etc/logrotate.d/instagram-feed
 ```
 
 Inhalt:
+
 ```
 /var/log/instagram-feed.log {
     weekly
@@ -697,12 +736,14 @@ Inhalt:
 ### Backup & Fallback
 
 **Automatisches Backup (vor Update):**
+
 ```bash
 # In scripts/fetch-instagram.sh hinzufügen:
 cp public/data/instagram-feed.json public/data/instagram-feed.backup.json 2>/dev/null || true
 ```
 
 **Fallback bei Fehler:**
+
 ```bash
 # Backup wiederherstellen
 cp public/data/instagram-feed.backup.json public/data/instagram-feed.json
@@ -727,16 +768,19 @@ cp public/data/instagram-feed.backup.json public/data/instagram-feed.json
 ### Datenschutz (DSGVO)
 
 ✅ **Erlaubt:**
+
 - Öffentliche Instagram-Posts anzeigen
 - Öffentliche Profilinformationen abrufen
 - Links zu Instagram-Profil/-Posts setzen
 
 ⚠️ **Beachten:**
+
 - Keine Cookies von Instagram laden (nur wenn unbedingt nötig)
 - Cookie-Consent für Instagram-Embeds einholen (falls verwendet)
 - In Datenschutzerklärung erwähnen
 
 **Datenschutzerklärung - Beispieltext:**
+
 ```markdown
 Wir zeigen auf unserer Website öffentliche Beiträge unseres Instagram-Profils an.
 Die Bilder und Inhalte werden direkt von Instagram geladen. Dabei kann Instagram
@@ -747,6 +791,7 @@ in der Datenschutzerklärung von Instagram/Meta.
 ### Git & Deployment
 
 **In .gitignore aufnehmen (optional):**
+
 ```bash
 # Falls du das Feed nicht committen möchtest:
 public/data/instagram-feed.json
@@ -754,6 +799,7 @@ public/data/instagram-feed.backup.json
 ```
 
 **Pre-Build Hook (automatischer Fetch vor Build):**
+
 ```json
 // package.json
 {
@@ -767,6 +813,7 @@ public/data/instagram-feed.backup.json
 ### Monitoring & Alerts
 
 **E-Mail-Benachrichtigung bei Fehler (Garuda Linux):**
+
 ```bash
 # Installiere mailutils
 sudo pacman -S mailutils
@@ -776,6 +823,7 @@ sudo pacman -S mailutils
 ```
 
 **Healthcheck-Script erstellen:**
+
 ```bash
 #!/bin/bash
 # scripts/check-instagram-feed.sh
@@ -824,12 +872,14 @@ exit 0
 ## System-Anforderungen
 
 ### Garuda Linux
+
 - **Python**: 3.7+ (empfohlen: 3.10+)
 - **pip**: Python Package Manager
 - **Node.js**: 18+ (für npm-Scripts)
 - **Bash**: Shell für Scripts
 
 ### IONOS Server
+
 - **Python**: 3.13.7 ✅ (bereits installiert)
 - **pip3**: Python Package Manager
 - **Cron**: Für automatische Updates
