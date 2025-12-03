@@ -41,20 +41,21 @@ import '@fontsource-variable/quicksand/wght.css';
     --aw-font-style-light: normal;
     --aw-font-style-medium: normal;
 
-    --aw-color-primary: rgb(42, 112, 13);
-    --aw-color-secondary: rgb(245, 245, 245);
-    --aw-color-accent: rgb(42, 112, 13);
+    /* Light Mode Colors */
+    --aw-color-primary: #777460;
+    --aw-color-secondary: #DDD5BD;
+    --aw-color-accent: #8A856F;
 
-    --aw-color-text-default: rgb(22, 22, 22);
-    --aw-color-text-muted: rgb(22, 22, 22);
-    --aw-color-bg-page: rgb(255 255 255);
+    --aw-color-bg-page: #FBFCF4;
+    --aw-color-bg-alt: #C4B99E;
 
-    --aw-color-bg-page-dark: rgb(25, 66, 7);
+    --aw-color-text-default: #000000;
+    --aw-color-text-muted: #8A856F;
+  }
 
-    ::selection {
-      background-color: rgb(42, 112, 13);
-      color: rgb(255, 255, 255);
-    }
+  :root ::selection {
+    background-color: #777460;
+    color: #FBFCF4;
   }
 
   .dark {
@@ -82,18 +83,21 @@ import '@fontsource-variable/quicksand/wght.css';
     --aw-font-style-light: normal;
     --aw-font-style-medium: normal;
 
-    --aw-color-primary: rgb(39, 100, 13);
-    --aw-color-secondary: rgb(230, 230, 230);
-    --aw-color-accent: rgb(255, 255, 255);
+    /* Dark Mode Colors */
+    --aw-color-primary: #AFA58D;
+    --aw-color-secondary: #C4B99E;
+    --aw-color-accent: #DDD5BD;
 
-    --aw-color-text-default: rgb(255, 255, 255);
-    --aw-color-text-muted: rgb(255, 255, 255);
-    --aw-color-bg-page: rgb(42, 112, 13);
+    --aw-color-bg-page: #777460;
+    --aw-color-bg-alt: #8A856F;
 
-    ::selection {
-      background-color: black;
-      color: rgb(255, 255, 255);
-    }
+    --aw-color-text-default: #FFFFFF;
+    --aw-color-text-muted: #DDD5BD;
+  }
+
+  .dark ::selection {
+    background-color: #8A856F;
+    color: #FBFCF4;
   }
 
   /* Auto-hide Navigation für mobile Geräte */
