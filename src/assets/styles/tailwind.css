@@ -42,11 +42,11 @@
   }
 
   .btn-primary {
-    @apply btn border-primary bg-primary font-semibold text-default hover:border-secondary hover:bg-secondary hover:text-default dark:border-primary dark:bg-primary dark:text-default dark:hover:border-secondary dark:hover:bg-secondary dark:hover:text-default;
+    @apply btn border-primary bg-primary font-semibold text-white hover:border-secondary hover:bg-secondary hover:text-white dark:border-primary dark:bg-primary dark:text-white dark:hover:border-secondary dark:hover:bg-secondary dark:hover:text-white;
   }
 
   .btn-secondary {
-    @apply btn border-secondary bg-secondary font-semibold text-default hover:border-accent hover:bg-accent hover:text-default dark:border-secondary dark:bg-secondary dark:text-default dark:hover:border-accent dark:hover:bg-accent dark:hover:text-default;
+    @apply btn border-secondary bg-secondary font-semibold text-white hover:border-accent hover:bg-accent hover:text-white dark:border-secondary dark:bg-secondary dark:text-white dark:hover:border-accent dark:hover:bg-accent dark:hover:text-white;
   }
 
   .btn-tertiary {
