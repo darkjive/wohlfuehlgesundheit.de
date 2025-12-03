@@ -53,7 +53,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
                 id={name}
                 autocomplete={autocomplete}
                 placeholder={placeholder}
-                class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-gray-600"
+                class="dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-base dark:border-gray-600"
                 required={type === 'email' ? true : undefined}
               />
             </div>
@@ -72,7 +72,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
           name={textarea.name ? textarea.name : 'message'}
           rows={textarea.rows ? textarea.rows : 4}
           placeholder={textarea.placeholder}
-          class="text-base dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 dark:border-gray-600"
+          class="dark:bg-dark block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-base dark:border-gray-600"
           required
         />
       </div>
@@ -97,7 +97,7 @@ const { inputs, textarea, disclaimer, button = 'Absenden', description = '' } = 
           />
         </div>
         <div class="ml-3">
-          <label for="disclaimer" class="text-base cursor-pointer select-none text-gray-600 dark:text-white">
+          <label for="disclaimer" class="cursor-pointer select-none text-base text-gray-600 dark:text-white">
             {disclaimer.label}
           </label>
         </div>
