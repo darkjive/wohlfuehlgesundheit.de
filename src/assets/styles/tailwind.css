@@ -61,7 +61,8 @@
 
   .dark #header.scroll > div:first-child,
   #header.scroll.dark > div:first-child {
-    @apply bg-page border-b border-accent/20 md:bg-primary;
+    @apply bg-page border-b md:bg-primary;
+    border-color: rgba(138, 133, 111, 0.2);
     box-shadow: none;
   }
 
