@@ -73,7 +73,7 @@ textarea.field-invalid {
 input:focus,
 textarea:focus,
 select:focus {
-  @apply outline-none;
+  @apply outline-none ring-2 ring-primary dark:ring-primary;
 }
 
 /* Smooth transitions */
