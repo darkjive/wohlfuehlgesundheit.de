@@ -259,6 +259,47 @@ export function setupFormValidation(
 }
 
 /**
+ * Detect if device is mobile
+ */
+function isMobileDevice(): boolean {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+         window.innerWidth < 768;
+}
+
+/**
+ * Scroll to field with mobile optimization
+ */
+function scrollToField(field: Element) {
+  const isMobile = isMobileDevice();
+
+  if (isMobile) {
+    // On mobile: Calculate offset to account for virtual keyboard and browser UI
+    const fieldRect = field.getBoundingClientRect();
+    const absoluteTop = window.pageYOffset + fieldRect.top;
+    const offset = 100; // Extra offset from top to ensure field is visible
+
+    // Scroll to position with offset
+    window.scrollTo({
+      top: absoluteTop - offset,
+      behavior: 'smooth'
+    });
+
+    // Delay focus to prevent keyboard from interfering with scroll
+    setTimeout(() => {
+      // Only focus if field is not a checkbox (checkboxes don't need keyboard)
+      const htmlField = field as HTMLElement;
+      if (htmlField.getAttribute('type') !== 'checkbox') {
+        htmlField.focus({ preventScroll: true });
+      }
+    }, 300);
+  } else {
+    // On desktop: Use standard scrollIntoView
+    field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    (field as HTMLElement).focus();
+  }
+}
+
+/**
  * Validate form on submit
  */
 export function validateFormOnSubmit(form: HTMLFormElement, rules: ValidationRules): ValidationResult {
@@ -287,8 +328,7 @@ export function validateFormOnSubmit(form: HTMLFormElement, rules: ValidationRul
     const firstErrorField = Object.keys(result.errors)[0];
     const field = form.querySelector(`[name="${firstErrorField}"]`);
     if (field) {
-      field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      (field as HTMLElement).focus();
+      scrollToField(field);
     }
   }
 
