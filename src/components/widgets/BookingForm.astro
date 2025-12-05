@@ -62,6 +62,8 @@ import Emoji from 'astro-emoji';
     <!-- Form -->
     <form
       id="booking-form"
+      method="post"
+      action="javascript:void(0);"
       class="space-y-8 rounded-lg bg-white p-6 shadow-xl dark:bg-primary sm:p-10"
       data-animate="fadeIn"
       data-animate-duration="1000"
@@ -150,10 +152,12 @@ import Emoji from 'astro-emoji';
 
   // Set minimum date to tomorrow
   const datumInput = document.getElementById('datum') as HTMLInputElement;
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const minDate = tomorrow.toISOString().split('T')[0];
-  datumInput.setAttribute('min', minDate);
+  if (datumInput) {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const minDate = tomorrow.toISOString().split('T')[0];
+    datumInput.setAttribute('min', minDate);
+  }
 
   // Form submission handler
   const form = document.getElementById('booking-form') as HTMLFormElement;
