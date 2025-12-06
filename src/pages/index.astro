@@ -20,9 +20,8 @@ const metadata = {
   <!-- Hero Widget ******************* -->
 
   <Hero
-      title="<span class='text-accent''>Wohlfühl<span class='lg:hidden'>-<br /></span>gesundheit</span>"
+    title="<span class='text-primary dark:text-white'>Wohlfühl<span class='lg:hidden'>-<br /></span>gesundheit</span>"
     tagline="Holistische Darmtherapie"
-
     actions={[
       {
         variant: 'primary',
@@ -31,6 +30,8 @@ const metadata = {
         target: '',
       },
       {
+        variant: 'secondary',
+
         text: 'Kontakt',
         href: '/kontakt',
       },
@@ -40,13 +41,6 @@ const metadata = {
       alt: 'Darmgesundheit',
     }}
   >
-    <Fragment slot="title">
-      <span class="text-accent">Wohlfühl<span class="lg:hidden">-<br /></span>gesundheit</span>
-      <br />
-      <span class="font-sans text-lg font-thin uppercase tracking-wide dark:text-white sm:text-lg md:text-3xl">
-        Holistische Darmtherapie</span
-      >
-    </Fragment>
 
     <Fragment slot="subtitle">
       <span class="sm:inline">
