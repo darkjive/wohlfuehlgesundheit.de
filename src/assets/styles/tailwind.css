@@ -35,7 +35,7 @@
   }
 
   .btn-secondary {
-    @apply btn border-secondary bg-secondary font-semibold text-primary hover:border-primary hover:bg-primary hover:text-white dark:border-secondary dark:bg-secondary dark:hover:border-primary dark:hover:bg-primary;
+    @apply btn border-secondary bg-secondary font-semibold text-white hover:border-primary hover:bg-primary hover:text-white dark:border-secondary dark:bg-secondary dark:hover:border-primary dark:hover:bg-primary;
   }
 
   .btn-tertiary {

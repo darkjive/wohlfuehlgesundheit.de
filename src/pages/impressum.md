@@ -52,9 +52,6 @@ Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
 
 ## Bildnachweise
 
-Jannes Jacobs  
-[https://unsplash.com/de/fotos/frau-tragt-schwarzes-hoschen-pMQgDg_8z88]
-
 Unseen Studio  
 [https://unsplash.com/de/fotos/person-die-auf-braunem-holztisch-in-der-nahe-von-weissem-keramikbecher-schreibt-s9CC2SKySJM]
 

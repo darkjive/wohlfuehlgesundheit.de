@@ -262,8 +262,10 @@ export function setupFormValidation(
  * Detect if device is mobile
  */
 function isMobileDevice(): boolean {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-         window.innerWidth < 768;
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    window.innerWidth < 768
+  );
 }
 
 /**
@@ -281,7 +283,7 @@ function scrollToField(field: Element) {
     // Scroll to position with offset
     window.scrollTo({
       top: absoluteTop - offset,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
 
     // Delay focus to prevent keyboard from interfering with scroll
